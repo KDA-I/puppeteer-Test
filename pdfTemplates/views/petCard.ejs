@@ -1,0 +1,36 @@
+<div class="petInfoSubContainer">
+  <div class="imagePlaceHolderContainer">
+    <div class="letterAvatar">
+      <% if (name) { %> <%= name[0].toUpperCase() %> <% } %>
+    </div>
+
+    <div class="petInfo">
+      <h3><%= name %></h3>
+      <h6><%= breed %></h6>
+    </div>
+
+    <hr style="border-top: 1px dashed lightgrey; width: 95%" />
+  </div>
+
+  <div class="petRelatedInformationContainer">
+    <h4>About</h4>
+    <div class="labelValueContainer">
+      <p class="label">Owner</p>
+      <p class="value"><%= owner.firstName %> <%= owner.lastName || '' %></p>
+    </div>
+    <div class="labelValueContainer">
+      <p class="label">Age</p>
+      <p class="value">
+        <%= age.years + 'y' %> <%= age.months + 'm' %> <%= age.days + 'd'%>
+      </p>
+    </div>
+    <div class="labelValueContainer">
+      <p class="label">Weight</p>
+      <p class="value"><%= weight %>Kg</p>
+    </div>
+    <div class="labelValueContainer">
+      <p class="label">Phone</p>
+      <p class="value"><%= owner.phoneNumber %></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="headerWrapper">
+  <header>
+    <% if (organization) { %>
+    <div class="headerFirst">
+      <% if (organization.logo.path) { %>
+      <img
+        src="<%= organization.path %>"
+        alt="Logo"
+        style="width: 100%; height: 150px"
+      />
+      <% } else { %>
+      <h1><%= organization.name || '' %></h1>
+      <% } %>
+    </div>
+    <% } %>
+    <div class="headerSecond">
+      <% if (organization && organization.address ) { const {
+      buildingNumber,street, area, cityName, stateName, countryName, pincode } =
+      organization.address; %>
+      <p style="display: flex; gap: 10px; align-items: center">
+        <span class="material-symbols-outlined smallIcon">home</span>
+        <%= (buildingNumber || '') + ', ' + (street || '') + ', ' + (area || '')
+        + ', ' + (cityName || '') + ', ' + (stateName || '') + ', ' +
+        (countryName || '') + ', ' + (pincode || '') %>
+      </p>
+      <% } %>
+      <p style="display: flex; gap: 10px; align-items: center">
+        <span class="material-symbols-outlined smallIcon">call</span>
+        <% if (organization && organization.emergencyContactNumber) { %> <%=
+        organization.emergencyContactNumber %><% } else if (createdBy &&
+        createdBy.phoneNumber) { %> <%= createdBy.phoneNumber %>
+      </p>
+      <% } %> <% if (createdBy && createdBy.email ) { %>
+      <p style="display: flex; gap: 10px; align-items: center">
+        <span class="material-symbols-outlined smallIcon">mail</span>
+        <%= createdBy.email || '' %>
+      </p>
+      <% } %>
+    </div>
+    <% if (createdBy && createdBy.firstName ) { %>
+    <div class="headerThird">
+      <div>
+        <h3>
+          <%= 'Dr. ' + createdBy.firstName + ' ' + createdBy.lastName || '' %>
+        </h3>
+        <% if(createdBy.highestDegree) { %>
+        <h5><%= createdBy.highestDegree ||'' %></h5>
+        <% } %>
+      </div>
+
+      <h4>
+        Date
+        <span style="font-weight: 700">
+          <%= new Date(createdAt).toLocaleDateString() %></span
+        >
+      </h4>
+    </div>
+    <% } %>
+  </header>
+  <div>
+    <h3><%= treatmentSheetTitle || '' %></h3>
+    <h4>Treatment Sheet</h4>
+  </div>
+</div>

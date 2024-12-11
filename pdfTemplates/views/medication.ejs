@@ -1,0 +1,92 @@
+<div class="medicationContainer">
+  <% if (description) { %> <%= description %> <% } %>
+  <!--  -->
+
+  <div style="border-collapse: collapse; width: 100%">
+    <div style="display: flex;  color: grey">
+      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
+        Medication
+      </div>
+      <div style="flex: 0.5; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
+        Dosage
+      </div>
+      <div style="flex: 0.5; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
+        Frequency
+      </div>
+      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
+        Notes
+      </div>
+    </div>
+
+    <% items.forEach((entry,index) => { %>
+    <div style="display: flex; font-size: 14px; font-weight: 700">
+      <div
+        style="
+        flex: 1;
+         min-width: 150px;
+         padding: 6px 6px 6px 6px;
+      background-color: #ffff;
+      margin: 0px 5px 0px 0px;
+      border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+      border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+      border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
+      border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;
+      "
+      >
+        <%= entry.medicationName %> <% if (entry.medicationUnitType) { %>
+        <span style="font-size: 10px; color: grey">
+          [<%= entry.medicationUnitType.name %>]
+        </span>
+        <% } %>
+      </div>
+      <div
+        style="flex: 0.5;
+        padding: 6px 6px 6px 6px;
+      background-color: #ffff;
+      margin: 0px 5px 0px 0px;
+      border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+      border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+      border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
+      border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;
+      text-align: center;
+      "
+      >
+        <% if(entry.dosage) { %> <%= entry.dosage.value %> <%= entry.dosage.unit
+        %> <% } else { %>
+        <p>-</p>
+        <% } %>
+      </div>
+      <div
+        style="flex: 0.5; 
+        padding: 6px 6px 6px 6px;
+      background-color: #ffff;
+      margin: 0px 5px 0px 0px;
+      border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+      border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+      border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
+      border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;
+      text-align: center;
+      "
+      >
+        <% if(entry.frequency.type && entry.frequency.value) { %> <%= entry.frequency.value %> <%=
+        entry.frequency.type %> <% } else { %>
+        <p>-</p>
+        <% } %>
+      </div>
+      <div
+        style="flex: 1; 
+        padding: 6px 6px 6px 6px;
+      background-color: #ffff;
+      margin: 0px 5px 0px 0px;
+      border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+      border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+      border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
+      border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;
+      "
+      >
+        <%= entry.description || "-" %>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>

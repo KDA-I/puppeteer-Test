@@ -1,0 +1,189 @@
+<div id="sectionTwo" class="sectionTwoWrapper">
+    <% if (item.type === "INVESTIGATION" && item.data.length>0) { %>
+    <!--Investigation-->
+    <div id="Investigation" class="onInvestigationWrapper">
+      <%-
+      include('./components/ViewTitle/viewTitle',{title:'Investigation',symbol:'I',color:'#d6d0fe'})
+      %> <%- include('./views/chiefComplaints',{}) %>
+    </div>
+    <% } %>
+
+    <!--  -->
+
+    <% if (item.type === "MEDICATION" &&( item.data.items.length > 0 ||
+    item.data.description)) { %>
+    <!-- Treatment -->
+    <div id="Treatment" class="onTreatmentWrapper">
+      <%-
+      include('./components/ViewTitle/viewTitle',{title:'Treatment',symbol:'Rx',color:'#f5d1ff'})
+      %> <%- include('./views/medication',item.data) %>
+    </div>
+    <% } %>
+
+    <!--  -->
+
+    <% if (item.type === "TENTATIVE_DIAGNOSIS_AND_PROGNOSIS" &&
+    (item.data.tentativeDiagnosis || item.data.prognosis) ) { %>
+    <!-- diagnosis and prognosis -->
+    <div id="diagnosisAndPrognosis" class="diagnosisAndPrognosisWrapper">
+      <%-
+      include('./components/ViewTitle/viewTitle',{title:'Diagnosis_And_Prognosis',symbol:'Tdx',color:'#c1d4fe'})
+      %> <%- include('./views/tentativeDiagnosis',item.data) %>
+    </div>
+    <% } %>
+
+    <!--  -->
+
+    <% if ( item.type==='FOLLOW_UP' && item.data.length >0) { %>
+    <!-- Follow up -->
+    <div id="adviceAndFollowups" class="followupsWrapper">
+      <%-
+      include('./components/ViewTitle/viewTitle',{title:'FollowUps',symbol:'F/U',color:'#abf6b1'})
+      %> <%- include('./views/followUp',item) %>
+    </div>
+    <% } %>
+
+    <!--  -->
+
+    <% if ( item.type==='ADVICE' && item.data) { %>
+    <!-- Follow up -->
+    <div id="advice" class="adviceWrapper">
+      <%-
+      include('./components/ViewTitle/viewTitle',{title:'Advice',symbol:'A',color:'#cf889a'})
+      %> <%- include('./views/advice',item.data) %>
+    </div>
+    <% } %>
+  </div>
+
+
+
+
+  .onInvestigationWrapper {
+    margin-top: 40px;
+    flex-direction: column;
+    background-color: #e1deff;
+    border-radius: 10px;
+    display: flex;
+    min-height: 200px;
+    padding: 10px;
+    justify-content: flex-start;
+  }
+  .onTreatmentWrapper {
+    background-color: #f8dfff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    padding: 10px;
+    margin-top: 40px;
+    justify-content: flex-start;
+    .medicationContainer {
+      display: flex;
+      padding: 10px;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 14px;
+    }
+  }
+  .diagnosisAndPrognosisWrapper {
+    background-color: #dde7fe;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 40px;
+    flex-direction: column;
+    min-height: 200px;
+    padding: 10px;
+    justify-content: flex-start;
+    .tentativeDiagnosisSubWrapper {
+      padding: 10px;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .diagnosis-container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .diagnosis-tag {
+        padding: 5px 10px;
+        border: 1px solid #2d3749;
+        border-radius: 20px;
+        background-color: #2d3749;
+        color: white;
+        box-shadow: 2px 0px 2.3px 0px grey;
+      }
+
+      .prognosis-tag {
+        padding: 5px 10px;
+        border: 1px solid #daa21b;
+        border-radius: 20px;
+        background-color: #daa21b;
+        color: white;
+        box-shadow: 2px 0px 2.3px 0px grey;
+      }
+    }
+  }
+  .followupsWrapper {
+    background-color: #ddf9e0;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 40px;
+    flex-direction: column;
+    min-height: 200px;
+    padding: 10px;
+    justify-content: flex-start;
+
+    .followUpSubWrapper {
+      padding: 10px;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .typeFollowUpConatiner {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .followUpContent {
+          padding-left: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+      .followUp-chip {
+        padding: 5px 10px;
+        max-width: max-content;
+        border-radius: 20px;
+        background-color: #005acd;
+        color: white;
+        box-shadow: 2px 0px 2.3px 0px grey;
+      }
+      .nextVisit-chip {
+        padding: 5px 10px;
+        max-width: max-content;
+        border-radius: 20px;
+        background-color: #536255;
+        color: white;
+        box-shadow: 2px 0px 2.3px 0px grey;
+      }
+    }
+  }
+  .adviceWrapper {
+    background-color: #f0c3ce;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-top: 40px;
+    justify-content: flex-start;
+  }
+  .adviceSubWrapper {
+    font-size: 14px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }

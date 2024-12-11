@@ -1,0 +1,30 @@
+<div class="tentativeDiagnosisSubWrapper">
+  <!--  -->
+  <% if (tentativeDiagnosis.values.length > 0 ||
+  tentativeDiagnosis.customValue) { %>
+  <div class="diagnosis-container">
+    <p><strong>Diagnosis :</strong></p>
+
+    <% const diagnoses = [ ...tentativeDiagnosis.values.map(v => v.name),
+    ...(tentativeDiagnosis.customValue ? [tentativeDiagnosis.customValue] : [])
+    ]; const uniqueDiagnoses = [...new Set(diagnoses)];
+    uniqueDiagnoses.forEach(diagnosis => { %>
+    <span><%= diagnosis %>,</span>
+    <% }); %>
+  </div>
+  <% } %>
+
+  <!--  -->
+
+  <% if (prognosis) { %>
+  <div>
+    <p>
+      <strong>Prognosis : </strong>
+      <span><%= prognosis.toLowerCase().replace(/_/g, ' '); %> </span>
+    </p>
+  </div>
+  <% } %> <% if (tentativeDiagnosis.description) { %>
+  <div><%= tentativeDiagnosis.description %></div>
+
+  <% } %>
+</div>

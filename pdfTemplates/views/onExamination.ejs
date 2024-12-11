@@ -1,0 +1,60 @@
+<div class="examinationSubWrapper">
+  <% if (vitalGroup) { %>
+  <div>
+    <p>
+      <strong> Vital Group - </strong> <%=
+      vitalGroup.toLowerCase().replace(/_/g, ' '); %>
+    </p>
+  </div>
+  <% } %>
+  <!--  -->
+
+  <% if(description) { %>
+  <div><%= description %></div>
+  <% } %>
+
+  <!--  -->
+  <% if (vitals.length >0) { %>
+
+  <div style="border-collapse: collapse; width: 100%">
+    <div style="display: flex; padding: 5px; color: grey; max-width: 400px">
+      <div style="flex: 0.4; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
+        Vital Type
+      </div>
+      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
+        Value
+      </div>
+    </div>
+
+    <% vitals.forEach((entry,index) => { %>
+    <div
+      style="display: flex; font-size: 14px; font-weight: 700; max-width: 400px"
+    >
+      <div
+        style="flex: 0.4; padding: 6px 6px 6px 6px;
+          background-color: #ffff;
+          margin: 0px 5px 0px 0px;
+          border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+          border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+          border-bottom-right-radius: <% if (index === vitals.length-1) { %> 5px <% } %>;
+          border-bottom-left-radius: <% if (index === vitals.length-1) { %> 5px <% } %>;"
+      >
+        <%= entry.vitalTypeName %>
+      </div>
+      <div
+        style="flex: 1; padding: 6px 6px 6px 6px;
+          background-color: #ffff;
+          margin: 0px 5px 0px 0px;
+          border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+          border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+          border-bottom-right-radius: <% if (index === vitals.length-1) { %> 5px <% } %>;
+          border-bottom-left-radius: <% if (index === vitals.length-1) { %> 5px <% } %>;"
+      >
+        <%= entry.vitalName || entry.customVitalValue %>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+
+  <% } %>
+</div>

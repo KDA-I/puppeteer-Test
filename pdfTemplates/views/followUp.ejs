@@ -1,0 +1,73 @@
+<div class="followUpSubWrapper">
+  <% if (data.items.length > 0) { %>
+  <div style="border-collapse: collapse; width: 100%">
+    <div style="display: flex; padding: 5px; color: grey; max-width: 600px">
+      <div style="flex: 0.3; padding: 6px 0px 6px 6px; margin: 0px 0px 0px 0px">
+        Type
+      </div>
+      <div style="flex: 0.3; padding: 6px 0px 6px 6px; margin: 0px 0px 0px 0px">
+        Date
+      </div>
+      <div style="flex: 0.1; padding: 6px 0px 6px 6px; margin: 0px 0px 0px 0px">
+        Times
+      </div>
+      <div style="flex: 1; padding: 6px 0px 6px 6px; margin: 0px 0px 0px 0px">
+        Reason
+      </div>
+    </div>
+
+    <% data.items.forEach((entry, index) => { %>
+    <div
+      style="display: flex; font-size: 14px; font-weight: 700; max-width: 600px"
+    >
+      <div
+        style="flex: 0.3; padding: 6px 6px 6px 6px;
+            background-color: #ffff;
+            margin: 0px 5px 0px 0px;
+            border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+            border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+            border-bottom-right-radius: <% if (index === data.length-1) { %> 5px <% } %>;
+            border-bottom-left-radius: <% if (index === data.length-1) { %> 5px <% } %>;"
+      >
+        <% if (entry.followUpType && entry.followUpType === 'FOLLOW_UP') { %>
+        Follow Up <% } else { %> Next Visit <% }%>
+      </div>
+      <div
+        style="flex: 0.3; padding: 6px 6px 6px 6px;
+            background-color: #ffff;
+            margin: 0px 5px 0px 0px;
+            border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+            border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+            border-bottom-right-radius: <% if (index === data.length-1) { %> 5px <% } %>;
+            border-bottom-left-radius: <% if (index === data.length-1) { %> 5px <% } %>;"
+      >
+        <%= new Date(entry.followUpDate).toLocaleDateString() %>
+      </div>
+      <div
+        style="flex: 0.1; padding: 6px 6px 6px 6px;
+            background-color: #ffff;
+            margin: 0px 5px 0px 0px;
+            border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+            border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+            border-bottom-right-radius: <% if (index === data.length-1) { %> 5px <% } %>;
+            border-bottom-left-radius: <% if (index === data.length-1) { %> 5px <% } %>;
+            text-align:center"
+      >
+        <%= entry.followUpTimes %>
+      </div>
+      <div
+        style="flex: 1; padding: 6px 6px 6px 6px;
+            background-color: #ffff;
+            margin: 0px 5px 0px 0px;
+            border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
+            border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
+            border-bottom-right-radius: <% if (index === data.length-1) { %> 5px <% } %>;
+            border-bottom-left-radius: <% if (index === data.length-1) { %> 5px <% } %>;"
+      >
+        <%= entry.reason || '-' %>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
