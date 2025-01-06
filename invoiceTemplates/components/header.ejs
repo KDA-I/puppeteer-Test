@@ -1,0 +1,45 @@
+<div class="text-center mb-2" style="margin: 10px 0px; line-height: 1.6">
+  <img src="<%= organization?.logo %>" alt="logo" style="height: 50px" />
+  <div class="bold" style="margin: 4px 0px">
+    <%= organization?.organizationName %>
+  </div>
+  <div style="font-size: 11px">
+    <% if(organization?.organizationAddress) { %>
+    <div style="line-height: 1.3"><%= organization?.organizationAddress %></div>
+    <% } %> <% if(organization?.organizationPhone) { %>
+    <div>Phone number: <%= organization?.organizationPhone %></div>
+    <% } %> <% if(organization?.gst) { %>
+    <div>GST: <%= organization?.gst %></div>
+    <% } %>
+  </div>
+</div>
+<div
+  class="text-center bold mb-2"
+  style="
+    border-top: 2px dashed lightgrey;
+    border-bottom: 2px dashed lightgrey;
+    padding: 10px 0px;
+  "
+>
+  TAX INVOICE
+</div>
+<div
+  class="item-row"
+  style="
+    margin: 12px 0px;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  "
+>
+  <div>Invoice #: <%= invoiceNumber %></div>
+  <div>
+    Date: <%= new Date(invoiceDate).toLocaleString('en-US', { year: 'numeric',
+    month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+    hour12: true }) %>
+  </div>
+  <div>Due: <%= new Date(dueDate).toLocaleString('en-US', { year: 'numeric',
+    month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+    hour12: true }) %> </div>
+</div>

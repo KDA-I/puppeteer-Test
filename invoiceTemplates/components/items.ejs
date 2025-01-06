@@ -1,0 +1,54 @@
+<style>
+  table th {
+    border-top: 2px dashed lightgrey;
+    border-bottom: 2px dashed lightgrey;
+    padding: 6px 0px;
+    text-align: left; /* Optional: for alignment */
+  }
+  td {
+    vertical-align: top;
+  }
+ 
+</style>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Qty</th>
+      <th class="text-right">Discounted Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% lineItems.forEach((item,index) => { %>
+    <tr>
+      <td><%= index+1 %></td>
+      <td class="word-wrap" style="display: flex; flex-direction: column">
+        <%= item.itemName %> <% if(item.tax && item.tax.length > 0) { %>
+        <div style="font-size: 8px; color: #999">
+          Tax @ <% const totalTaxPercent = item.tax.reduce((sum, tax) => sum +
+          Number(tax.percent), 0).toFixed(2); %> <%= totalTaxPercent %>%
+        </div>
+
+        <% } %>
+      </td>
+
+      <td><%= item.quantity %></td>
+
+      <td class="text-right">
+        <%= parseFloat(item.lineItemTotalAmount).toFixed(2) %> <%
+        if(item?.discount && item?.discount?.discountValue > 0) { %>
+        <div style="font-size: 8px; color: #999">
+          <% if(item.discount.discountType === 'PERCENTAGE') { %> <%=
+          item.discount.discountValue %>% discount<% } else { %> <% const disPer
+          = (item.discount.discountValue * 100)/ (item?.subTotal || 1) %> <%=
+          disPer.toFixed(2) %> % discount <% } %>
+        </div>
+        <% } %>
+      </td>
+    </tr>
+
+    <% }) %>
+  </tbody>
+</table>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <title>Thermal Invoice</title>
+    <style>
+      @page {
+        margin: 0;
+        size: 80mm auto; /* Width: 80mm, Height: auto */
+      }
+      body {
+        font-family: Mulish, sans-serif;
+        margin: 0;
+        padding: 10px;
+        width: 302px; /* 80mm */
+        font-size: 12px;
+        color: #283845;
+        font-weight: 550;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .text-right {
+        text-align: right;
+      }
+      .mb-2 {
+        margin-bottom: 8px;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .divider {
+        border-top: 1px dashed #000;
+        margin: 5px 0;
+      }
+      .item-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+      }
+      .word-wrap {
+        word-break: break-word;
+      }
+      table {
+        width: 100%;
+        font-size: 11px;
+        border-collapse: separate;
+        border-spacing: 0 1em;
+      }
+      th,
+      td {
+        max-width: 100px;
+        padding: 2px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./components/header') %> <%-
+    include('./components/customer-info') %> <%- include('./components/items')
+    %> <%- include('./components/summary') %> <%- include('./components/footer')
+    %>
+  </body>
+</html>
+<!-- 
+// invoiceTemplates/components/header.ejs
+<div class="text-center mb-2">
+  <div class="bold">SimpliVet Clinic</div>
+  <div>123 Vet Street, Pet City</div>
+  <div>Phone: 080-23494449</div>
+  <div>GST: Z9AAKCR713ZZ107</div>
+</div>
+<div class="text-center bold mb-2">TAX INVOICE</div>
+<div class="item-row">
+  <div>Invoice #: <%= invoiceNumber %></div>
+  <div>Date: <%= new Date(invoiceDate).toLocaleDateString() %></div>
+</div>
+
+// invoiceTemplates/components/customer-info.ejs
+<div class="mb-2">
+  <div class="word-wrap">
+    Customer: <%= customerUser.firstName %> <%= customerUser.lastName %>
+  </div>
+  <div>Phone: <%= customerUser.phoneNumber %></div>
+</div>
+
+// invoiceTemplates/components/items.ejs
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Qty</th>
+      <th class="text-right">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% lineItems.forEach(item => { %>
+    <tr>
+      <td class="word-wrap"><%= item.itemName %></td>
+      <td><%= item.quantity %></td>
+      <td class="text-right">
+        <%= parseFloat(item.lineItemTotalAmount).toFixed(2) %>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+// invoiceTemplates/components/summary.ejs
+<div>
+  <div class="item-row">
+    <div>Subtotal:</div>
+    <div>₹<%= parseFloat(subTotal).toFixed(2) %></div>
+  </div>
+  <% if (parseFloat(totalDiscountAmount) > 0) { %>
+  <div class="item-row">
+    <div>Discount:</div>
+    <div>₹<%= parseFloat(totalDiscountAmount).toFixed(2) %></div>
+  </div>
+  <% } %> <% taxes.forEach(tax => { %>
+  <div class="item-row">
+    <div><%= tax.code %> @ <%= tax.taxRate %>%:</div>
+    <div>₹<%= parseFloat(tax.totalTaxAmount).toFixed(2) %></div>
+  </div>
+  <% }) %>
+  <div class="item-row bold">
+    <div>Total Amount:</div>
+    <div>₹<%= parseFloat(totalAmount).toFixed(2) %></div>
+  </div>
+</div>
+
+// invoiceTemplates/components/footer.ejs
+<div class="divider"></div>
+<div class="text-center mb-2">
+  <div>Thank you for your business!</div>
+  <div>Powered by SimpliVet</div>
+</div> -->

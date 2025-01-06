@@ -1,0 +1,48 @@
+<div
+  style="
+    margin: 10px 0px;
+    border-top: 2px dashed lightgrey;
+    padding: 10px 0px 0px 0px;
+  "
+>
+  <div class="item-row">
+    <div>Subtotal:</div>
+    <div><%= parseFloat(subTotal).toFixed(2) %></div>
+  </div>
+  <% if (parseFloat(totalDiscountAmount) > 0) { %>
+  <div class="item-row">
+    <div>Additional Discount:</div>
+    <div>
+      <span style="font-size: 8px; vertical-align: middle">
+        <% const disPer = (Number(totalDiscountAmount || 0) * 100 ) /
+        (Number(subTotal) || 1 ) %>(<%= disPer.toFixed(2) %>%)
+      </span>
+      <%= parseFloat(totalDiscountAmount).toFixed(2) %>
+    </div>
+  </div>
+  <% } %> <% taxes.forEach(tax => { %>
+  <div class="item-row">
+    <div>
+      <%= tax.code %> on <%=tax?.totalTaxableAmount %> @ <%= tax.taxRate %>%:
+    </div>
+    <div><%= parseFloat(tax.totalTaxAmount).toFixed(2) %></div>
+  </div>
+  <% }) %> <% if( Math.abs(roundOffAmount) > 0) { %>
+  <div class="item-row">
+    <div>Round Off:</div>
+    <div><%= Math.abs(roundOffAmount).toFixed(2) %></div>
+  </div>
+  <% } %>
+  <div
+    class="item-row bold"
+    style="
+      margin: 6px 0px;
+      padding: 10px 0px;
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+    "
+  >
+    <div>Total Amount:</div>
+    <div>₹ <%= amountPayable %></div>
+  </div>
+</div>

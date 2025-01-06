@@ -1,0 +1,28 @@
+<div class="mb-2" style="display: flex; justify-content: space-between; font-size: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 4px">
+    <div class="word-wrap">
+      Bill to:
+      <strong
+        ><%= customerUser.firstName %> <%= customerUser.lastName %></strong
+      >
+    </div>
+    <div>Phone: <strong><%= customerUser.phoneNumber %></strong></div>
+  </div>
+  <% if(pet) { %>
+    <div>
+  <div>
+    <div class="word-wrap">
+      Pet name:
+      <strong><%= pet?.petName %> </strong>
+    </div>
+  </div>
+  <div>
+    <div class="word-wrap">
+      Pet no.:
+      <strong><%= pet?.petNumber %> </strong>
+    </div>
+  </div>
+</div>
+  <% } %>
+
+</div>

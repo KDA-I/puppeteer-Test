@@ -79,8 +79,7 @@
           border-bottom-left-radius: <% if (index === complaintEntries.length-1) { %> 8px <% } %>;
         "
       >
-        <% if(entry.date){ %> <%= new
-        Date(entry.followUpDate).toLocaleDateString() %> <% } else { %> - <% }
+        <% if(entry.date){ %> <%= new Date(entry.followUpDate).toLocaleDateString() %> <% } else { %> - <% }
         %>
       </div>
     </div>
