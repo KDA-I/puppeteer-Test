@@ -1,0 +1,38 @@
+<!-- header.ejs -->
+<div class="header">
+  <div class="company-details">
+    <div style="display: flex; justify-self: flex-start;%">
+      <img
+        src="<%= organization.logo %>"
+        alt="Logo"
+        style="min-width: 80%; width: auto; height: 150px; object-fit: fill"
+      />
+    </div>
+    <h1 style="margin: 0 0 10px 0"><%= organization.organizationName %></h1>
+    <% if(organization.organizationLegalName) { %>
+    <h4><%= organization.organizationLegalName %></h4>
+    <% } %>
+    <p style="color: #666; margin: 0 0 5px 0">
+      <%= organization.organizationAddress %>
+    </p>
+    <p style="margin: 0 0 5px 0">
+      Phone: <%= organization.organizationPhone %>
+    </p>
+    <% if (organization.email) { %>
+    <p style="margin: 0 0 5px 0">email: <%= organization.email %></p>
+    <% } %>
+    <!-- <p style="margin: 0">GSTIN: <%= organization.gst %></p> -->
+  </div>
+  <div class="invoice-details">
+    <div class="invoice-title">TAX INVOICE</div>
+    <p><strong>Invoice No :</strong> <%= invoiceNumber %></p>
+    <p>
+      <strong>Date :</strong> <%= new Date(invoiceDate).toLocaleDateString() %>
+    </p>
+    <p>
+      <strong>Due Date :</strong> <%= new Date(dueDate).toLocaleDateString() %>
+    </p>
+    <p><strong>GSTIN :</strong> <%= organization.gst %></p>
+    <p><strong>State Code :</strong> [State Code]</p>
+  </div>
+</div>

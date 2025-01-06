@@ -1,0 +1,58 @@
+<!-- summary.ejs -->
+
+<div style="display: flex; justify-content: 'space-between'; margin-top: 20px">
+  <div style="max-width: 450px">
+    <p><strong>Customer Notes:</strong></p>
+    <span><%= comments %></span>
+  </div>
+
+  <div class="amount-summary">
+    <div style="display: flex; justify-content: space-between; padding: 8px 0">
+      <span>Subtotal (₹):</span>
+      <span><%= parseFloat(subTotal).toFixed(2) %></span>
+    </div>
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        color: red;
+      "
+    >
+      <span>Discount (₹):</span>
+      <span>-<%= parseFloat(totalDiscountAmount).toFixed(2) %></span>
+    </div>
+    <% taxes.forEach(function(tax) { %>
+    <div style="display: flex; justify-content: space-between; padding: 8px 0">
+      <span>
+        <%= tax.code %> on <%=tax?.totalTaxableAmount %> @ <%= tax.taxRate
+        %>%:</span
+      >
+      <span>₹ <%= parseFloat(tax.totalTaxAmount).toFixed(2) %></span>
+    </div>
+    <% }); %>
+    <div style="display: flex; justify-content: space-between; padding: 8px 0">
+      <span>Total (₹):</span>
+      <span
+        ><%= (Number(subTotal|| 0) - Number(totalDiscountAmount ||
+        0).toFixed(2)) %></span
+      >
+    </div>
+    <div style="display: flex; justify-content: space-between; padding: 8px 0">
+      <span>Round Off (₹):</span>
+      <span><%= parseFloat(roundOffAmount).toFixed(2) %></span>
+    </div>
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-top: 1px solid #e5e7eb;
+        font-weight: bold;
+      "
+    >
+      <span>Payable (₹):</span>
+      <span><%= parseFloat(amountPayable).toFixed(2) %></span>
+    </div>
+  </div>
+</div>

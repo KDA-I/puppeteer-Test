@@ -1,0 +1,94 @@
+<!-- layout.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <title>Tax Invoice - <%= organization.organizationName %></title>
+    <style>
+      /* @page {
+        size: A4;
+        margin: 0;
+      } */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Mulish, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #283845;
+      }
+      .invoice-container {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 30px;
+        margin: 0 auto;
+        background: white;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        h4 {
+          margin: 0;
+        }
+      }
+      .company-details {
+        flex: 1;
+      }
+      .invoice-details {
+        text-align: left;
+        p {
+          margin: 4px;
+        }
+      }
+      .invoice-title {
+        font-size: 30px;
+        font-weight: 800;
+        color: #4a90e2; /* Soft pastel blue, strong enough for readability */
+        margin-bottom: 15px;
+        background-color: #f1f2f7; /* Very light pastel lavender, not too overpowering */
+        border-radius: 10px;
+        padding: 10px 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        padding: 4px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      th {
+        background-color: #f3f4f6;
+        padding: 8px;
+      }
+      .amount-summary {
+        padding: 20px;
+        width: 300px;
+        background-color: #f3f4f6;
+        border-radius: 8px;
+        margin-left: auto;
+      }
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="invoice-container">
+      <%- include('./components/header') %> <%-
+      include('./components/customer-details') %> <%-
+      include('./components/items-table') %> <%- include('./components/summary')
+      %> <%- include('./components/footer') %>
+    </div>
+  </body>
+</html>

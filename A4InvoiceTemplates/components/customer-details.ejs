@@ -1,0 +1,36 @@
+<!-- customer-details.ejs -->
+<div>
+  <div
+    style="
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    "
+  >
+    <div style="display: grid; grid-template-columns: 1fr 0.4fr; gap: 20px">
+      <div>
+        <h3 style="margin: 0 0 10px 0">Bill To:</h3>
+        <p style="margin: 0 0 5px 0">
+          <%= customerUser.firstName %> <%= customerUser.lastName %>
+        </p>
+        <p style="margin: 0 0 5px 0">Phone: <%= customerUser.phoneNumber %></p>
+        <% if (customerUser.address) { %>
+        <p style="margin: 0">Address: <%= customerUser.address %></p>
+        <% } %>
+      </div>
+      <div style="text-align: start; max-width: fit-content">
+        <h3 style="margin: 0 0 10px 0">Pet Details:</h3>
+        <p style="margin: 0 0 5px 0">Name: <%= pet.petName %></p>
+        <p style="margin: 0">Pet ID: <%= pet.petNumber %></p>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 10p">
+    <h4 style="margin: 0">Consulted by :</h4>
+    <span style="color: #666; margin-left: 4px">
+      Dr. <%= consultedBy.firstName %> <%= consultedBy.lastName %>
+    </span>
+  </div>
+</div>
