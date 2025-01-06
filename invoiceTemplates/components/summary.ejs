@@ -27,7 +27,16 @@
     </div>
     <div><%= parseFloat(tax.totalTaxAmount).toFixed(2) %></div>
   </div>
-  <% }) %> <% if( Math.abs(roundOffAmount) > 0) { %>
+  <% }) %>
+  <div class="item-row">
+    <div>Total:</div>
+    <div>
+      <%= (Number(subTotal || 0) - Number(totalDiscountAmount || 0)).toFixed(2)
+      %>
+    </div>
+  </div>
+
+  <% if( Math.abs(roundOffAmount) > 0) { %>
   <div class="item-row">
     <div>Round Off:</div>
     <div><%= Math.abs(roundOffAmount).toFixed(2) %></div>
@@ -42,7 +51,7 @@
       border-bottom: 1px solid;
     "
   >
-    <div>Total Amount:</div>
+    <div>Payable:</div>
     <div>₹ <%= amountPayable %></div>
   </div>
 </div>
