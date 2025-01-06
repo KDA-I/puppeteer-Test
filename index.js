@@ -19,7 +19,7 @@ const invoiceData = {
     organizationName: "RMV Multispeciality Veterinary Clinic",
     organizationAddress:
       "269, 4th Main Rd, Mahalakshmipuram Layout, Mahalakshmi Layout, Bengaluru, Karnataka 560086",
-    organizationEmail: "EMAIL",
+    organizationEmail: "EMAIL_RMV_@gmail.com",
     organizationLegalName: "RMV_LEGAL_NAME",
     organizationPhone: "9844598562",
     gst: "29AAKCR7132ZID7",
@@ -66,6 +66,204 @@ const invoiceData = {
         discountValue: "50.00",
       },
       lineItemTotalAmount: "190.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
+      tax: [
+        {
+          code: "SGST",
+          percent: "9.00",
+        },
+        {
+          code: "CGST",
+          percent: "9.00",
+        },
+      ],
+    },
+    {
+      itemName: "item 21",
+      quantity: 1,
+      unitPrice: "240.00",
+      serviceFee: null,
+      subTotal: "240.00",
+      discount: {
+        discountType: "MRP",
+        discountValue: "48.00",
+      },
+      lineItemTotalAmount: "192.00",
       tax: [
         {
           code: "SGST",
@@ -148,7 +346,7 @@ app.get("/generate-pdf", async (req, res) => {
       footerTemplate,
       margin: {
         top: "10px",
-        bottom: "50px",
+        bottom: "70px",
         left: "0px",
         right: "0px",
       },
@@ -163,7 +361,6 @@ app.get("/generate-pdf", async (req, res) => {
 });
 
 // app.get("/generate-pdf", async (req, res) => {
-
 
 //   try {
 //     const browser = await puppeteer.launch();

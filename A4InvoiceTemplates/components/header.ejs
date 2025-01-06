@@ -1,26 +1,36 @@
 <!-- header.ejs -->
 <div class="header">
   <div class="company-details">
-    <div style="display: flex; justify-self: flex-start;%">
+    <div style="display: flex; justify-self: flex-start">
       <img
         src="<%= organization.logo %>"
         alt="Logo"
-        style="min-width: 80%; width: auto; height: 150px; object-fit: fill"
+        style="width: auto; height: 150px; object-fit: fill; max-width: 225px"
       />
+      <div style="margin: 10px 0px 0px 10px">
+        <h3 style="margin: 0"><%= organization.organizationName %></h3>
+        <% if(organization.organizationLegalName) { %>
+        <h4 style="margin: 0px 0px 0px 0px">
+          <%= organization.organizationLegalName %>
+        </h4>
+        <% } %>
+        <p style="color: #666; margin: 10px 0 5px 0; font-size: 12px;">
+          <%= organization.organizationAddress %>
+        </p>
+      </div>
     </div>
-    <h1 style="margin: 0 0 10px 0"><%= organization.organizationName %></h1>
-    <% if(organization.organizationLegalName) { %>
-    <h4><%= organization.organizationLegalName %></h4>
-    <% } %>
-    <p style="color: #666; margin: 0 0 5px 0">
-      <%= organization.organizationAddress %>
-    </p>
-    <p style="margin: 0 0 5px 0">
-      Phone: <%= organization.organizationPhone %>
-    </p>
-    <% if (organization.email) { %>
-    <p style="margin: 0 0 5px 0">email: <%= organization.email %></p>
-    <% } %>
+
+    <div style="display: flex; margin-top: 10px; gap: 10px">
+      <p style="margin: 0 0 5px 0">
+        <strong>Phone:</strong>
+        <%= organization.organizationPhone %>
+      </p>
+      <% if (organization.organizationEmail) { %>
+      <p style="margin: 0 0 5px 0">
+        <strong>Email:</strong> <%= organization.organizationEmail %>
+      </p>
+      <% } %>
+    </div>
     <!-- <p style="margin: 0">GSTIN: <%= organization.gst %></p> -->
   </div>
   <div class="invoice-details">

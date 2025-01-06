@@ -3,14 +3,15 @@
   <div
     style="
       background: #f9fafb;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+      padding: 6px 0px;
+      margin-bottom: 10px;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
     "
   >
-    <div style="display: grid; grid-template-columns: 1fr 0.4fr; gap: 20px">
+    <div style="display: grid; grid-template-columns: 1fr 0.5fr; gap: 10px">
       <div>
-        <h3 style="margin: 0 0 10px 0">Bill To:</h3>
+        <h4 style="margin: 0 0 6px 0">Bill To:</h4>
         <p style="margin: 0 0 5px 0">
           <%= customerUser.firstName %> <%= customerUser.lastName %>
         </p>
@@ -20,14 +21,14 @@
         <% } %>
       </div>
       <div style="text-align: start; max-width: fit-content">
-        <h3 style="margin: 0 0 10px 0">Pet Details:</h3>
+        <h4 style="margin: 0 0 6px 0">Pet Details:</h4>
         <p style="margin: 0 0 5px 0">Name: <%= pet.petName %></p>
         <p style="margin: 0">Pet ID: <%= pet.petNumber %></p>
       </div>
     </div>
   </div>
 
-  <div style="display: flex; gap: 10p">
+  <div style="display: flex; gap: 10px">
     <h4 style="margin: 0">Consulted by :</h4>
     <span style="color: #666; margin-left: 4px">
       Dr. <%= consultedBy.firstName %> <%= consultedBy.lastName %>

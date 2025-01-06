@@ -13,6 +13,12 @@
         size: A4;
         margin: 0;
       } */
+      @media print {
+        .no-page-break {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+      }
       body {
         margin: 0;
         padding: 0;
@@ -24,14 +30,14 @@
       .invoice-container {
         width: 210mm;
         min-height: 297mm;
-        padding: 30px;
+        padding: 20px;
         margin: 0 auto;
         background: white;
       }
       .header {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 30px;
+        margin-bottom: 0px;
         h4 {
           margin: 0;
         }
@@ -40,24 +46,23 @@
         flex: 1;
       }
       .invoice-details {
+        border-left: 1px solid #e5e7eb;
         text-align: left;
+        padding: 0px 0px 10px 10px;
         p {
           margin: 4px;
         }
       }
       .invoice-title {
-        font-size: 30px;
-        font-weight: 800;
-        color: #4a90e2; /* Soft pastel blue, strong enough for readability */
+        font-size: 40px;
         margin-bottom: 15px;
-        background-color: #f1f2f7; /* Very light pastel lavender, not too overpowering */
         border-radius: 10px;
-        padding: 10px 20px;
+        padding: 0px 20px 0px 0px;
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        margin: 20px 0;
+        margin: 10px 0;
       }
       th,
       td {
