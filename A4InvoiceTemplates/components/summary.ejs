@@ -9,16 +9,20 @@
     gap: 30px;
   "
 >
+  <% if(comments) { %>
   <div style="max-width: 400px">
     <h4 style="margin: 0 0 10px 0"><strong>Customer Notes:</strong></h4>
     <span><%= comments %></span>
   </div>
+  <% } %>
 
   <div class="amount-summary">
+    <% if (subTotal) { %>
     <div style="display: flex; justify-content: space-between; padding: 8px 0">
       <span>Subtotal (₹):</span>
       <span><%= parseFloat(subTotal).toFixed(2) %></span>
     </div>
+    <% } %> <% if (totalDiscountAmount) { %>
     <div
       style="
         display: flex;
@@ -30,7 +34,8 @@
       <span>Discount (₹):</span>
       <span>-<%= parseFloat(totalDiscountAmount).toFixed(2) %></span>
     </div>
-    <% taxes.forEach(function(tax) { %>
+    <% } %> <% if(taxes && taxes.length > 0) { %> <% taxes.forEach(function(tax)
+    { %>
     <div style="display: flex; justify-content: space-between; padding: 8px 0">
       <span>
         <%= tax.code %> on <%=tax?.totalTaxableAmount %> @ <%= tax.taxRate
@@ -38,7 +43,7 @@
       >
       <span>₹ <%= parseFloat(tax.totalTaxAmount).toFixed(2) %></span>
     </div>
-    <% }); %>
+    <% }); %> <% } %> <% if (totalDiscountAmount ||subTotal ) { %>
     <div style="display: flex; justify-content: space-between; padding: 8px 0">
       <span>Total (₹):</span>
       <span
@@ -46,10 +51,12 @@
         0).toFixed(2)) %></span
       >
     </div>
+    <% } %> <% if( roundOffAmount && Math.abs(roundOffAmount) > 0) { %>
     <div style="display: flex; justify-content: space-between; padding: 8px 0">
       <span>Round Off (₹):</span>
       <span><%= parseFloat(roundOffAmount).toFixed(2) %></span>
     </div>
+    <% } %> <% if (amountPayable) { %>
     <div
       style="
         display: flex;
@@ -62,5 +69,7 @@
       <span>Payable (₹):</span>
       <span><%= parseFloat(amountPayable).toFixed(2) %></span>
     </div>
+
+    <% } %>
   </div>
 </div>

@@ -2,47 +2,67 @@
 <div class="header">
   <div class="company-details">
     <div style="display: flex; justify-self: flex-start">
+      <% if(organization?.logo) { %>
       <img
         src="<%= organization.logo %>"
         alt="Logo"
-        style="width: auto; height: 150px; object-fit: fill; max-width: 225px"
+        style="width: auto; height: 150px; object-fit: fill; max-width: 225px; display: <%= organization?.logo ? 'inherit' : 'none' %>"
       />
+      <% } %>
+
       <div style="margin: 10px 0px 0px 10px">
+        <% if(organization?.organizationName) { %>
         <h3 style="margin: 0"><%= organization.organizationName %></h3>
-        <% if(organization.organizationLegalName) { %>
+        <% } %> <% if(organization?.organizationLegalName) { %>
         <h4 style="margin: 0px 0px 0px 0px">
           <%= organization.organizationLegalName %>
         </h4>
-        <% } %>
-        <p style="color: #666; margin: 10px 0 5px 0; font-size: 12px;">
+        <% } %> <% if(organization?.organizationAddress) { %>
+        <p style="color: #666; margin: 10px 0 5px 0; font-size: 12px">
           <%= organization.organizationAddress %>
         </p>
+        <% } %>
       </div>
     </div>
 
     <div style="display: flex; margin-top: 10px; gap: 10px">
+      <% if(organization?.organizationPhone) { %>
       <p style="margin: 0 0 5px 0">
         <strong>Phone:</strong>
         <%= organization.organizationPhone %>
       </p>
-      <% if (organization.organizationEmail) { %>
+      <% } %> <% if (organization?.organizationEmail) { %>
       <p style="margin: 0 0 5px 0">
         <strong>Email:</strong> <%= organization.organizationEmail %>
       </p>
       <% } %>
     </div>
-    <!-- <p style="margin: 0">GSTIN: <%= organization.gst %></p> -->
   </div>
+
   <div class="invoice-details">
     <div class="invoice-title">TAX INVOICE</div>
+    <% if(invoiceNumber) { %>
     <p><strong>Invoice No :</strong> <%= invoiceNumber %></p>
+    <% } else { %>
+    <p><strong>Invoice No :</strong> N/A</p>
+    <% } %> <% if(invoiceDate) { %>
     <p>
       <strong>Date :</strong> <%= new Date(invoiceDate).toLocaleDateString() %>
     </p>
+    <% } else { %>
+    <p><strong>Date :</strong> N/A</p>
+    <% } %> <% if(dueDate) { %>
     <p>
       <strong>Due Date :</strong> <%= new Date(dueDate).toLocaleDateString() %>
     </p>
+    <% } else { %>
+    <p><strong>Due Date :</strong> N/A</p>
+    <% } %> <% if(organization?.gst) { %>
     <p><strong>GSTIN :</strong> <%= organization.gst %></p>
-    <p><strong>State Code :</strong> [State Code]</p>
+    <% } else { %>
+    <p><strong>GSTIN :</strong> N/A</p>
+    <% } %>
+
+    <p><strong>State Code :</strong> <%= organization?.stateCode || 'N/A' %></p>
   </div>
 </div>

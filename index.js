@@ -24,7 +24,8 @@ const invoiceData = {
     organizationPhone: "9844598562",
     gst: "29AAKCR7132ZID7",
     thankYouMessage: "Thank you for choosing us!",
-    logo: "https://placehold.co/600x400",
+    logo: null, 
+    // "https://placehold.co/600x400",
     stateCode: "STATE_CODE_PLACEHOLDER",
   },
 
@@ -51,10 +52,11 @@ const invoiceData = {
     firstName: "Karthik ",
     lastName: "DA",
   },
-  pet: {
-    petNumber: "PET-073",
-    petName: "notRetarded",
-  },
+  pet: null,
+  // {
+  //   petNumber: "PET-073",
+  //   petName: "notRetarded",
+  // },
   lineItems: [
     {
       itemName: "item 20",

@@ -1,7 +1,8 @@
 <div class="text-center mb-2">
-  <% if(organization?.thankYouMessage) { %>
-  <div><%= organization?.thankYouMessage %></div>
-  <% } else {%>
+  <% if(organization?.thankYouMessage && organization?.thankYouMessage.trim()) {
+  %>
+  <div><%= organization.thankYouMessage %></div>
+  <% } else { %>
   <div>Thank you for your business!</div>
   <% } %>
 

@@ -10,28 +10,46 @@
     "
   >
     <div style="display: grid; grid-template-columns: 1fr 0.5fr; gap: 10px">
+      <% if(customerUser) { %>
       <div>
         <h4 style="margin: 0 0 6px 0">Bill To:</h4>
+        <% if(customerUser?.firstName && customerUser?.lastName) { %>
         <p style="margin: 0 0 5px 0">
           <%= customerUser.firstName %> <%= customerUser.lastName %>
         </p>
+        <% } else { %>
+        <p style="margin: 0 0 5px 0">Name: N/A</p>
+        <% } %> <% if(customerUser?.phoneNumber) { %>
         <p style="margin: 0 0 5px 0">Phone: <%= customerUser.phoneNumber %></p>
-        <% if (customerUser.address) { %>
+        <% } else { %>
+        <p style="margin: 0 0 5px 0">Phone: N/A</p>
+        <% } %> <% if(customerUser?.address) { %>
         <p style="margin: 0">Address: <%= customerUser.address %></p>
+        <% } else { %>
+        <p style="margin: 0">Address: N/A</p>
         <% } %>
       </div>
+      <% } %> <% if(pet) { %>
       <div style="text-align: start; max-width: fit-content">
         <h4 style="margin: 0 0 6px 0">Pet Details:</h4>
+        <% if(pet?.petName) { %>
         <p style="margin: 0 0 5px 0">Name: <%= pet.petName %></p>
+        <% } %> <% if(pet?.petNumber) { %>
         <p style="margin: 0">Pet ID: <%= pet.petNumber %></p>
+        <% }%>
       </div>
+      <% } %>
     </div>
   </div>
 
+  <% if (consultedBy) { %>
   <div style="display: flex; gap: 10px">
     <h4 style="margin: 0">Consulted by :</h4>
     <span style="color: #666; margin-left: 4px">
-      Dr. <%= consultedBy.firstName %> <%= consultedBy.lastName %>
+      <% if (consultedBy?.firstName && consultedBy?.lastName) { %> Dr. <%=
+      consultedBy.firstName %> <%= consultedBy.lastName %> <% } else { %> Dr.
+      N/A <% } %>
     </span>
   </div>
+  <% } %>
 </div>

@@ -19,7 +19,43 @@
       <th class="text-right">Discounted Amount</th>
     </tr>
   </thead>
+
   <tbody>
+    <% lineItems.forEach((item, index) => { %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td class="word-wrap" style="display: flex; flex-direction: column">
+        <% if(item?.itemName) { %> <%= item.itemName %> <% } %> <% if(item?.tax
+        && item.tax.length > 0) { %>
+        <div style="font-size: 8px; color: #999">
+          Tax @ <% const totalTaxPercent = item.tax.reduce((sum, tax) => sum +
+          Number(tax.percent), 0).toFixed(2); %> <%= totalTaxPercent %>%
+        </div>
+        <% } %>
+      </td>
+
+      <td>
+        <% if(item?.quantity) { %> <%= item.quantity %> <% } else { %> N/A <% }
+        %>
+      </td>
+
+      <td class="text-right">
+        <% if(item?.lineItemTotalAmount) { %> <%=
+        parseFloat(item.lineItemTotalAmount).toFixed(2) %> <% } else { %> N/A <%
+        } %> <% if(item?.discount && item.discount.discountValue > 0) { %>
+        <div style="font-size: 8px; color: #999">
+          <% if(item.discount.discountType === 'PERCENTAGE') { %> <%=
+          item.discount.discountValue %>% discount <% } else { %> <% const
+          disPer = (item.discount.discountValue * 100) / (item?.subTotal || 1)
+          %> <%= disPer.toFixed(2) %> % discount <% } %>
+        </div>
+        <% } %>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+
+  <!-- <tbody>
     <% lineItems.forEach((item,index) => { %>
     <tr>
       <td><%= index+1 %></td>
@@ -49,5 +85,5 @@
     </tr>
 
     <% }) %>
-  </tbody>
+  </tbody> -->
 </table>

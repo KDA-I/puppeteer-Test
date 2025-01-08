@@ -5,7 +5,7 @@
     padding: 10px 0px 0px 0px;
   "
 >
-  <div class="item-row">
+  <!-- <div class="item-row">
     <div>Subtotal:</div>
     <div><%= parseFloat(subTotal).toFixed(2) %></div>
   </div>
@@ -53,5 +53,66 @@
   >
     <div>Payable:</div>
     <div>₹ <%= amountPayable %></div>
+  </div> -->
+
+  <div class="item-row">
+    <div>Subtotal:</div>
+    <div><%= subTotal ? parseFloat(subTotal).toFixed(2) : 'N/A' %></div>
+  </div>
+
+  <% if (parseFloat(totalDiscountAmount) > 0) { %>
+  <div class="item-row">
+    <div>Additional Discount:</div>
+    <div>
+      <span style="font-size: 8px; vertical-align: middle">
+        <% const disPer = (Number(totalDiscountAmount || 0) * 100 ) /
+        (Number(subTotal) || 1) %> (<%= disPer.toFixed(2) %>%)
+      </span>
+      <%= totalDiscountAmount ? parseFloat(totalDiscountAmount).toFixed(2) :
+      'N/A' %>
+    </div>
+  </div>
+  <% } %> <% if(taxes && taxes.length > 0) { %> <% taxes.forEach(tax => { %>
+  <div class="item-row">
+    <div>
+      <% if(tax?.code && tax?.totalTaxableAmount && tax?.taxRate) { %> <%=
+      tax.code %> on <%= tax.totalTaxableAmount %> @ <%= tax.taxRate %>%: <% }
+      else { %> Invalid Tax Data <% } %>
+    </div>
+    <div>
+      <%= tax?.totalTaxAmount ? parseFloat(tax.totalTaxAmount).toFixed(2) :
+      'N/A' %>
+    </div>
+  </div>
+  <% }) %> <% } %>
+
+  <div class="item-row">
+    <div>Total:</div>
+    <div>
+      <%= subTotal && totalDiscountAmount ? (Number(subTotal) -
+      Number(totalDiscountAmount)).toFixed(2) : 'N/A' %>
+    </div>
+  </div>
+
+  <% if( Math.abs(roundOffAmount) > 0) { %>
+  <div class="item-row">
+    <div>Round Off:</div>
+    <div>
+      <%= roundOffAmount ? Math.abs(roundOffAmount).toFixed(2) : 'N/A' %>
+    </div>
+  </div>
+  <% } %>
+
+  <div
+    class="item-row bold"
+    style="
+      margin: 6px 0px;
+      padding: 10px 0px;
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+    "
+  >
+    <div>Payable:</div>
+    <div>₹ <%= amountPayable ? amountPayable : 'N/A' %></div>
   </div>
 </div>
