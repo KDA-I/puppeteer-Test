@@ -9,9 +9,7 @@
     </div>
 
     <% items.forEach((entry, index) => { %>
-    <div
-      style="display: flex; font-size: 14px; font-weight: 700; max-width: 800px"
-    >
+    <div style="display: flex; font-size: 14px; font-weight: 700; max-width: 800px">
       <div
         style="flex: 0.3; padding: 6px;
                 background-color: #ffff;
@@ -43,7 +41,7 @@
                 border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
                 border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;"
       >
-        <% if (entry.result.resultItems.length > 0) { %>
+        <% if (entry.result && entry.result.resultItems && entry.result.resultItems.length > 0) { %>
         <ul style="margin: 0px; padding: 0px 0px 0px 20px">
           <% entry.result.resultItems.forEach((item) => { %>
           <li><%= item.displayName %></li>
@@ -67,7 +65,7 @@
                 border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
                 border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;"
       >
-        <% if(entry.result.resultAttachments.length > 0) { %> <%
+        <% if(entry.result && entry.result.resultAttachments && entry.result.resultAttachments.length > 0) { %> <%
         entry.result.resultAttachments.map((item)=> { %>
         <button
           style="
@@ -119,10 +117,7 @@
             ><%= item.originalFileName %>
           </a>
 
-          <span
-            class="material-symbols-outlined"
-            style="color: #a79bff; align-self: flex-end; font-size: 14px"
-          >
+          <span class="material-symbols-outlined" style="color: #a79bff; align-self: flex-end; font-size: 14px">
             trending_flat
           </span>
         </button>

@@ -1,13 +1,11 @@
 <div class="tentativeDiagnosisSubWrapper no-page-break">
   <!--  -->
-  <% if (tentativeDiagnosis.values.length > 0 || tentativeDiagnosis.customValue)
-  { %>
+  <% if (tentativeDiagnosis.values.length > 0 || tentativeDiagnosis.customValue) { %>
   <div class="diagnosis-container">
     <p><strong>Diagnosis :</strong></p>
 
-    <% const diagnoses = [ ...tentativeDiagnosis.values.map(v => v.name),
-    ...(tentativeDiagnosis.customValue ? [tentativeDiagnosis.customValue] : [])
-    ]; const uniqueDiagnoses = [...new Set(diagnoses)];
+    <% const diagnoses = [ ...tentativeDiagnosis.values.map(v => v.name), ...(tentativeDiagnosis.customValue ?
+    [tentativeDiagnosis.customValue] : []) ]; const uniqueDiagnoses = [...new Set(diagnoses)];
     uniqueDiagnoses.forEach(diagnosis => { %>
     <span><%= diagnosis %>,</span>
     <% }); %>

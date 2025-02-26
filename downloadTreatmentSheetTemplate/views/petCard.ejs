@@ -1,0 +1,92 @@
+<!-- class="petInfoSubContainer" -->
+<!-- class="letterAvatar" -->
+<!-- class="petInfo" -->
+<!-- class="petRelatedInformationContainer" -->
+
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: fit-content;
+  "
+>
+  <div
+    style="
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      align-items: center;
+    "
+  >
+    <div
+      style="
+        background-color: #484848;
+        color: #dcdcdc;
+        font-size: 40px;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0px;
+        border: 1px solid grey;
+        box-shadow: 0px 0px 2.1px 0px grey;
+      "
+    >
+      <% if (name) { %> <%= name[0].toUpperCase() %> <% } %>
+    </div>
+
+    <div>
+      <h3 style="margin: 0px; text-align: center"><%= name %></h3>
+      <h6 style="margin: 4px; text-align: center; color: grey"><%= breed %></h6>
+    </div>
+
+    <hr style="border-top: 1px dashed lightgrey; width: 95%" />
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px; padding: 10px">
+    <h4 style="margin: 0px">About</h4>
+    <div class="labelValueContainer" style="display: flex; gap: 10px">
+      <p
+        style="min-width: 45px; font-size: 12px; color: grey; text-align: left"
+      >
+        Owner
+      </p>
+      <p style="font-size: 12px; font-weight: bolder; text-align: left">
+        <%= owner.firstName %> <%= owner.lastName || '' %>
+      </p>
+    </div>
+    <div class="labelValueContainer" style="display: flex; gap: 10px">
+      <p
+        style="min-width: 45px; font-size: 12px; color: grey; text-align: left"
+      >
+        Age
+      </p>
+      <p style="font-size: 12px; font-weight: bolder; text-align: left">
+        <%= age.years + 'y' %> <%= age.months + 'm' %> <%= age.days + 'd'%>
+      </p>
+    </div>
+    <div class="labelValueContainer" style="display: flex; gap: 10px">
+      <p
+        style="min-width: 45px; font-size: 12px; color: grey; text-align: left"
+      >
+        Weight
+      </p>
+      <p style="font-size: 12px; font-weight: bolder; text-align: left">
+        <%= weight %>Kg
+      </p>
+    </div>
+    <div class="labelValueContainer" style="display: flex; gap: 10px">
+      <p
+        style="min-width: 45px; font-size: 12px; color: grey; text-align: left"
+      >
+        Phone
+      </p>
+      <p style="font-size: 12px; font-weight: bolder; text-align: left">
+        <%= owner.phoneNumber %>
+      </p>
+    </div>
+  </div>
+</div>

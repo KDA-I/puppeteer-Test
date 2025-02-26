@@ -1,0 +1,140 @@
+
+<% function formatDate(date) { if (!date) return ''; const d = new Date(date);
+if (isNaN(d.getTime())) return ''; const day = String(d.getDate()).padStart(2,
+'0'); const month = String(d.getMonth() + 1).padStart(2, '0'); const year =
+d.getFullYear(); return `${day}-${month}-${year}`; } %> 
+<div style="margin-bottom: 20px">
+  <header>
+    <% if (organization) { %>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex: 1.1;
+      "
+    >
+      <% if (organization.logo) { %>
+      <img
+        src="<%= organization.logo.path %>"
+        alt="Logo"
+        style="min-width: 80%; width: auto; height: 150px; object-fit: cover"
+      />
+      <% } else { %>
+      <h1><%= organization.name || '' %></h1>
+      <% } %>
+    </div>
+    <% } %>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex: 0.9;
+        max-width: 300px;
+        font-size: 12px;
+        gap: 20px;
+        margin-top: 10px;
+      "
+    >
+      <% if (organization && organization.address ) { const {
+      buildingNumber,street, area, cityName, stateName, countryName, pincode } =
+      organization.address; %>
+      <p style="display: flex; gap: 10px; align-items: flex-start">
+        <span
+          class="material-symbols-outlined"
+          style="
+            font-size: 12px;
+            border: 1px solid grey;
+            border-radius: 50%;
+            min-width: 20px;
+            margin-top: 4px;
+            min-height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+          >home</span
+        >
+        <%= (buildingNumber || '') + ', ' + (street || '') + ', ' + (area || '')
+        + ', ' + (cityName || '') + ', ' + (stateName || '') + ', ' +
+        (countryName || '') + ', ' + (pincode || '') %>
+      </p>
+      <% } %>
+      <p style="display: flex; gap: 10px; align-items: center">
+        <span
+          class="material-symbols-outlined"
+          style="
+            font-size: 12px;
+            border: 1px solid grey;
+            border-radius: 50%;
+            min-width: 20px;
+            margin-top: 4px;
+            min-height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+          >call</span
+        >
+        <% if (organization && organization.emergencyContactNumber) { %> <%=
+        organization.emergencyContactNumber %><% } else if (createdBy &&
+        createdBy.phoneNumber) { %> <%= createdBy.phoneNumber %>
+      </p>
+      <% } %> <% if (createdBy && createdBy.email ) { %>
+      <p style="display: flex; gap: 10px; align-items: center">
+        <span
+          class="material-symbols-outlined"
+          style="
+            font-size: 12px;
+            border: 1px solid grey;
+            border-radius: 50%;
+            min-width: 20px;
+            margin-top: 4px;
+            min-height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+          >mail</span
+        >
+        <%= createdBy.email || '' %>
+      </p>
+      <% } %>
+    </div>
+    <% if (createdBy && createdBy.firstName ) { %>
+    <div
+      style="
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex: 0.8;
+      "
+    >
+      <div>
+        <h3 style="color: #2761c3; margin: 0">
+          <%= 'Dr. ' + createdBy.firstName + ' ' + createdBy.lastName || '' %>
+        </h3>
+        <% if(createdBy.highestDegree) { %>
+        <h5 style="margin-top: 6px"><%= createdBy.highestDegree ||'' %></h5>
+        <% } %>
+      </div>
+
+      <h4>
+        Date
+        <span style="font-weight: 700">
+          <%= formatDate(createdAt) %></span
+        >
+      </h4>
+    </div>
+    <% } %>
+  </header>
+  <div>
+    <h3><%= treatmentSheetTitle || '' %></h3>
+    <h4>Treatment Sheet</h4>
+  </div>
+</div>

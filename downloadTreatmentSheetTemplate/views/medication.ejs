@@ -3,21 +3,13 @@
   <!--  -->
 
   <div style="border-collapse: collapse; width: 100%">
-    <div style="display: flex;  color: grey">
-      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
-        Medication
-      </div>
-      <div style="flex: 0.5; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
-        Dosage
-      </div>
-      <div style="flex: 0.5; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
-        Frequency
-      </div>
-      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">
-        Notes
-      </div>
+    <div style="display: flex; color: grey">
+      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Medication</div>
+      <div style="flex: 0.5; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Dosage</div>
+      <div style="flex: 0.5; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Frequency</div>
+      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Notes</div>
     </div>
-
+    
     <% items.forEach((entry,index) => { %>
     <div style="display: flex; font-size: 14px; font-weight: 700">
       <div
@@ -34,9 +26,7 @@
       "
       >
         <%= entry.medicationName %> <% if (entry.medicationUnitType) { %>
-        <span style="font-size: 10px; color: grey">
-          [<%= entry.medicationUnitType.name %>]
-        </span>
+        <span style="font-size: 10px; color: grey"> [<%= entry.medicationUnitType.name %>] </span>
         <% } %>
       </div>
       <div
@@ -51,8 +41,7 @@
       text-align: center;
       "
       >
-        <% if(entry.dosage) { %> <%= entry.dosage.value %> <%= entry.dosage.unit
-        %> <% } else { %>
+        <% if(entry.dosage) { %> <%= entry.dosage.value %> <%= entry.dosage.unit %> <% } else { %>
         <p>-</p>
         <% } %>
       </div>
@@ -68,8 +57,8 @@
       text-align: center;
       "
       >
-        <% if(entry.frequency.type && entry.frequency.value) { %> <%= entry.frequency.value %> <%=
-        entry.frequency.type %> <% } else { %>
+        <% if(entry.frequency.type && entry.frequency.value) { %> <%= entry.frequency.value %> <%= entry.frequency.type
+        %> <% } else { %>
         <p>-</p>
         <% } %>
       </div>

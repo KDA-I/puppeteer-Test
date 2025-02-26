@@ -1,4 +1,4 @@
-<!-- <div class="mb-2" style="display: flex; justify-content: space-between; font-size: 12px;">
+<div class="mb-2" style="display: flex; justify-content: space-between; font-size: 12px;">
   <div style="display: flex; flex-direction: column; gap: 4px">
     <div class="word-wrap">
       Bill to:
@@ -25,45 +25,4 @@
 </div>
   <% } %>
 
-</div> -->
-
-<div
-  class="mb-2"
-  style="display: flex; justify-content: space-between; font-size: 12px"
->
-  <div style="display: flex; flex-direction: column; gap: 4px">
-    <div class="word-wrap">
-      Bill to:
-      <strong>
-        <% if(customerUser?.firstName && customerUser?.lastName) { %> <%=
-        customerUser.firstName %> <%= customerUser.lastName %> <% } else { %>
-        N/A <% } %>
-      </strong>
-    </div>
-    <div>
-      Phone:
-      <strong>
-        <% if(customerUser?.phoneNumber) { %> <%= customerUser.phoneNumber %> <%
-        } else { %> N/A <% } %>
-      </strong>
-    </div>
-  </div>
-
-  <% if(pet) { %>
-  <div>
-    <div class="word-wrap">
-      Pet name:
-      <strong>
-        <% if(pet?.petName) { %> <%= pet.petName %> <% } else { %> N/A <% } %>
-      </strong>
-    </div>
-    <div class="word-wrap">
-      Pet no.:
-      <strong>
-        <% if(pet?.petNumber) { %> <%= pet.petNumber %> <% } else { %> N/A <% }
-        %>
-      </strong>
-    </div>
-  </div>
-  <% } %>
 </div>

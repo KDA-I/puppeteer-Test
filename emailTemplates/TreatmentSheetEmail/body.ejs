@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Treatment Sheet - <%= new Date(treatmentSheetDate).toLocaleDateString() %>
+    </title>
+  </head>
+  <body
+    style="
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #2c3e50;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: #f5f6fa;
+    "
+  >
+    <!-- Header with Logo Placeholder -->
+
+    <!-- Main Content Container -->
+    <div
+      style="
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <div
+        style="
+          margin-bottom: 25px;
+          border-bottom: 2px solid #e7e7e7;
+        "
+      >
+        <h2
+          style="
+            color: #3498db;
+
+            font-size: 24px;
+          "
+        >
+          Your Treatment Details
+        </h2>
+        <% if(treatmentSheetTitle) { %>
+        <h3 style="font-size: 18px; margin-bottom: 15px">
+          Title - <%= treatmentSheetTitle %>
+        </h3>
+        <% } %>
+      </div>
+
+      <% if(customerUser && customerUser.fullName) { %>
+      <p style="font-size: 16px; margin-bottom: 15px">
+        Dear <strong><%= customerUser.fullName %></strong> ,
+      </p>
+      <% } else { %>
+      <p style="font-size: 16px; margin-bottom: 15px">Dear Pet Owner,</p>
+      <% } %>
+
+      <p style="font-size: 16px; margin-bottom: 20px">
+        We hope this email finds you well. As requested, we have attached your
+        Treatment Sheet <% if (treatmentSheetDate) { %> dated
+        <strong>
+          <%= new Date(treatmentSheetDate).toLocaleString('en-US', { year:
+          'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:
+          '2-digit' }) %> </strong
+        >. <% } %>
+      </p>
+
+      <!-- <p style="font-size: 15px; color: #666; margin-top: 20px">
+        If you have any questions about your treatment plan, please don't
+        hesitate to contact us at
+        <span style="color: #3498db">support@simplivet.com</span>
+      </p> -->
+
+      <!-- Signature Section -->
+      <div
+        style="
+          margin-top: 30px;
+          border-top: 1px solid #e7e7e7;
+          padding-top: 20px;
+        "
+      >
+        <p style="margin: 0; color: #2c3e50">Best regards,</p>
+        <p style="margin: 5px 0; font-weight: bold; color: #2c3e50">
+          <% if(organization && organization.orgName){ %> <%=
+          organization.orgName %> <% } %>
+        </p>
+
+        <div style="margin: 40px 0px 0px 0px">
+        Powered By
+        <span style="color: #2aa61f; font-weight: bold">Simpli</span
+        ><span style="color: #2761c4; font-weight: bold">vet </span>
+      </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div
+      style="text-align: center; margin-top: 20px; font-size: 12px; color: #666"
+    >
+      <!-- <p style="margin: 5px 0">© 2025 Simplivet. All rights reserved.</p> -->
+      <p style="margin: 5px 0">
+        This is an automated message, please do not reply directly to this
+        email.
+      </p>
+    </div>
+  </body>
+</html>

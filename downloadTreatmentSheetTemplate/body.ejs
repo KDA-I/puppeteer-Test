@@ -16,7 +16,7 @@
     />
     <title>PDF Template</title>
     <style>
-     @media print {
+      @media print {
         .no-page-break {
           page-break-inside: avoid;
           break-inside: avoid;
@@ -59,7 +59,10 @@
           font-weight: 400;
         }
 
-        .headerFirst {
+   
+      }
+
+      .headerFirst {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
@@ -73,6 +76,7 @@
           justify-content: flex-start;
           align-items: flex-start;
           flex: 0.8;
+          max-width: 250px;
           font-size: 12px;
           gap: 20px;
           margin-top: 10px;
@@ -82,6 +86,7 @@
             border: 1px solid grey;
             border-radius: 50%;
             min-width: 20px;
+            margin-top: 4px;
             min-height: 20px;
             display: flex;
             justify-content: center;
@@ -113,36 +118,31 @@
             color: #424242;
           }
         }
-      }
 
       .sectionOneWrapper {
         display: flex;
         justify-content: space-between;
         gap: 20px;
+        margin-top:20px;
 
-        .petDetailsWrapper {
-          display: flex;
-          justify-content: space-between;
-          gap: 20px;
-          margin-top: 20px;
-          padding: 10px;
-          border: 1px solid grey;
-          background-color: grey;
-        }
+       
+      
+      }
 
-        .viewsWrapper {
+      .viewsWrapper {
           display: flex;
           flex-direction: column;
           gap: 20px;
           flex: 0.7;
+      
+        }
 
-          .chiefComplaintsWrapper {
+      .chiefComplaintsWrapper {
             display: flex;
             flex-direction: column;
             background-color: #dde7fe;
-            min-height: 200px;
+           
             padding: 10px;
-            height: 100%;
             justify-content: flex-start;
             min-width: 670px;
             max-width: 670px;
@@ -152,94 +152,15 @@
               gap: 10px;
             }
           }
-          .onExaminationWrapper {
-            display: flex;
-            height: 100%;
-            width: 670px;
-            flex-direction: column;
-            background-color: #ddf9e0;
-            min-height: 200px;
-            padding: 10px;
-            justify-content: flex-start;
-          }
-        }
-
-        .petInformationWrapper {
-          flex: 0.3;
-          background-color: #f6f6f8;
-          padding: 10px;
-          max-width: 250px;
-          min-width: 250px;
-          h3 {
-            margin: 0px;
-            text-align: center;
-          }
-          h6 {
-            margin: 4px;
-            text-align: center;
-            color: grey;
-          }
-          .petInfoSubContainer {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            .imagePlaceHolderContainer {
-              display: flex;
-              gap: 10px;
-              flex-direction: column;
-              align-items: center;
-            }
-            .letterAvatar {
-              background-color: #484848;
-              color: #dcdcdc;
-              font-size: 40px;
-              border-radius: 50%;
-              width: 60px;
-              height: 60px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              margin: 10px 0px;
-              border: 1px solid grey;
-              box-shadow: 0px 0px 2.1px 0px grey;
-            }
-            .petRelatedInformationContainer {
-              display: flex;
-              flex-direction: column;
-              gap: 10px;
-              padding: 10px;
-              h4 {
-                margin: 0px;
-              }
-              .labelValueContainer {
-                display: flex;
-                gap: 10px;
-                .label {
-                  min-width: 45px;
-                  font-size: 12px;
-                  color: grey;
-                  text-align: left;
-                }
-                .value {
-                  font-size: 12px;
-                  font-weight: bolder;
-                  text-align: left;
-                }
-              }
-            }
-          }
-        }
-      }
 
       .onInvestigationWrapper {
-        margin-top: 40px;
         flex-direction: column;
         width: 65%;
         min-width: 670px;
         max-width: 670px;
         background-color: #e1deff;
-        display: flex;
-        min-height: 200px;
+        display: flex;         
+
         padding: 10px;
         justify-content: flex-start;
         .investigationSubWrapper{
@@ -250,6 +171,7 @@
           padding: 10px;
         }
       }
+
       .onTreatmentWrapper {
         background-color: #f8dfff;
         display: flex;
@@ -257,9 +179,8 @@
         width: 65%;
         min-width: 670px;
         max-width: 670px;
-        min-height: 200px;
+       
         padding: 10px;
-        margin-top: 40px;
         justify-content: flex-start;
         .medicationContainer {
           display: flex;
@@ -269,15 +190,15 @@
           font-size: 14px;
         }
       }
+
       .diagnosisAndPrognosisWrapper {
         background-color: #dde7fe;
         display: flex;
         min-width: 670px;
         max-width: 670px;
-        margin-top: 40px;
         width: 65%;
-        flex-direction: column;
-        min-height: 200px;
+        flex-direction: column;         
+
         padding: 10px;
         justify-content: flex-start;
         .tentativeDiagnosisSubWrapper {
@@ -294,16 +215,16 @@
           }
         }
       }
+
       .followupsWrapper {
         background-color: #e1deff;
         display: flex;
-        margin-top: 40px;
         width: 65%;
         min-width: 670px;
         max-width: 670px;
 
-        flex-direction: column;
-        min-height: 200px;
+        flex-direction: column;         
+
         padding: 10px;
         justify-content: flex-start;
 
@@ -340,6 +261,7 @@
           }
         }
       }
+
       .thankYouContainer {
         display: flex;
         flex-direction: column;
@@ -363,14 +285,14 @@
       .onExaminationWrapper {
         display: flex;
         width: 65%;
+         
         flex-direction: column;
         background-color: #ddf9e0;
-        min-height: 200px;
+
         padding: 10px;
         min-width: 670px;
         max-width: 670px;
         justify-content: flex-start;
-        margin-top: 40px;
         .examinationSubWrapper {
           padding: 10px;
           font-size: 14px;
@@ -382,12 +304,12 @@
       .adviceWrapper {
         background-color: #ddf9e0;
         display: flex;
+         
         min-width: 670px;
         max-width: 670px;
         flex-direction: column;
         padding: 10px;
         width: 65%;
-        margin-top: 40px;
         justify-content: flex-start;
         .adviceSubWrapper {
           font-size: 14px;
@@ -397,37 +319,111 @@
           gap: 20px;
         }
       }
+
+      .petInformationWrapper {
+          flex: 0.3;
+          background-color: #f6f6f8;
+          padding: 10px;
+          max-width: 250px;
+          min-width: 250px;
+          h3 {
+            margin: 0px;
+            text-align: center;
+          }
+          h6 {
+            margin: 4px;
+            text-align: center;
+            color: grey;
+          }
+       
+        }  
+        
+      .petInfoSubContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .imagePlaceHolderContainer {
+              display: flex;
+              gap: 10px;
+              flex-direction: column;
+              align-items: center;
+            }
+           
+          }
+
+      .letterAvatar {
+              background-color: #484848;
+              color: #dcdcdc;
+              font-size: 40px;
+              border-radius: 50%;
+              width: 60px;
+              height: 60px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 10px 0px;
+              border: 1px solid grey;
+              box-shadow: 0px 0px 2.1px 0px grey;
+            }
+
+      .petRelatedInformationContainer {
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              padding: 10px;
+              h4 {
+                margin: 0px;
+              }
+              .labelValueContainer {
+                display: flex;
+                gap: 10px;
+                .label {
+                  min-width: 45px;
+                  font-size: 12px;
+                  color: grey;
+                  text-align: left;
+                }
+                .value {
+                  font-size: 12px;
+                  font-weight: bolder;
+                  text-align: left;
+                }
+              }
+            }
     </style>
   </head>
   <body>
     <div class="mainA4">
+      <% function formatDate(date) { if (!date) return ''; const d = new Date(date);
+      if (isNaN(d.getTime())) return ''; const day = String(d.getDate()).padStart(2,
+      '0'); const month = String(d.getMonth() + 1).padStart(2, '0'); const year =
+      d.getFullYear(); return `${day}-${month}-${year}`; } %> 
+
+
       <%-
       include('./header/header',{treatmentSheetTitle:title, createdBy, createdAt, organization})
       %>
-      <!-- container wrapping chief complaints, OnExamination and petDetails section -->
-      <% let petDetailsRendered = false; %> <% items.forEach((item) => { %> <%
-      if (item.type === "CHIEF_COMPLAINT" || item.type === "EXAMINATION" || item.type === "INVESTIGATION" || item.type === "MEDICATION" || item.type === "TENTATIVE_DIAGNOSIS_AND_PROGNOSIS" || item.type === "FOLLOW_UP" || item.type === "ADVICE" || petDetails) { %>
 
-      <div id="sectionOne" class="sectionOneWrapper">
-        <!--  -->
- 
-        <% if (item.type === "CHIEF_COMPLAINT" && (item.data.description
-        ||item.data.complaintEntries)) { %>
-        <!-- chief complaints  -->
-        <div class="viewsWrapper">
-          <div id="chiefComplaints" class="chiefComplaintsWrapper">
+  <div class="sectionOneWrapper">
+
+
+          <div class="viewsWrapper">
+            <% let petDetailsRendered = false; %> <% items.forEach((item) => { %> <%
+            if (item.type === "CHIEF_COMPLAINT" || item.type === "EXAMINATION" || item.type === "INVESTIGATION" || item.type === "MEDICATION" || item.type === "TENTATIVE_DIAGNOSIS_AND_PROGNOSIS" || item.type === "FOLLOW_UP" || item.type === "ADVICE" || petDetails) { %>
+
+           <% if (item.type === "CHIEF_COMPLAINT" && (item.data.description
+             || (item.data.complaintEntries && item.data.complaintEntries.length > 0) )) { %>
+       
+          <div id="chiefComplaints" class="chiefComplaintsWrapper no-page-break">
             <%-
             include('./components/ViewTitle/viewTitle',{title:'Chief_Complaints',symbol:'C/C',color:'#c1d4fc'})
             %> <%- include('./views/chiefComplaints',item.data) %>
           </div>
           <% } %>
 
-          <!--  -->
-
           <% if (item.type === "EXAMINATION" && (item.data.description ||
           item.data.vitalGroup || item.data.vitals.length >0 )) { %>
-          <!-- OnExamination -->
-          <div id="onExamination" class="onExaminationWrapper">
+          <div id="onExamination" class="onExaminationWrapper no-page-break">
             <%-
             include('./components/ViewTitle/viewTitle',{title:'On_Examination',symbol:'O/E',color:'#abf6b1'})
             %> <%- include('./views/onExamination',item.data) %>
@@ -438,81 +434,79 @@
           <% } %> <% if (item.type === "INVESTIGATION" && item.data.items.length >0) {
           %>
       
-          <!--Investigation-->
-          <div id="Investigation" class="onInvestigationWrapper">
+          <div id="Investigation" class="onInvestigationWrapper no-page-break">
             <%-
             include('./components/ViewTitle/viewTitle',{title:'Investigation',symbol:'I',color:'#d6d0fe'})
             %> <%- include('./views/investigation',item.data) %>
           </div>
           <% } %>
 
-          <!--  -->
 
           <% if (item.type === "MEDICATION" &&( item.data.items.length > 0 ||
           item.data.description)) { %>
-          <!-- Treatment -->
-          <div id="Treatment" class="onTreatmentWrapper">
+          <div id="Treatment" class="onTreatmentWrapper no-page-break">
             <%-
             include('./components/ViewTitle/viewTitle',{title:'Treatment',symbol:'Rx',color:'#f5d1ff'})
             %> <%- include('./views/medication',item.data) %>
           </div>
           <% } %>
 
-          <!--  -->
 
           <% if (item.type === "TENTATIVE_DIAGNOSIS_AND_PROGNOSIS" &&
           (item.data.tentativeDiagnosis || item.data.prognosis) ) { %>
-          <!-- diagnosis and prognosis -->
-          <div id="diagnosisAndPrognosis" class="diagnosisAndPrognosisWrapper">
+          <div id="diagnosisAndPrognosis" class="diagnosisAndPrognosisWrapper no-page-break">
             <%-
             include('./components/ViewTitle/viewTitle',{title:'Diagnosis_And_Prognosis',symbol:'TDx',color:'#c1d4fe'})
             %> <%- include('./views/tentativeDiagnosis',item.data) %>
           </div>
           <% } %>
 
-          <!--  -->
 
           <% if ( item.type==='FOLLOW_UP' && item.data.items.length >0) { %>
-          <!-- Follow up -->
-          <div id="adviceAndFollowups" class="followupsWrapper">
+          <div id="adviceAndFollowups" class="followupsWrapper no-page-break">
             <%-
             include('./components/ViewTitle/viewTitle',{title:'FollowUps',symbol:'F/U',color:'#d6d0ff'})
             %> <%- include('./views/followUp',item) %>
           </div>
           <% } %>
 
-          <!--  -->
 
           <% if ( item.type==='ADVICE' && item.data) { %>
-          <!-- Follow up -->
-          <div id="advice" class="adviceWrapper">
+          <div id="advice" class="adviceWrapper no-page-break">
             <%-
             include('./components/ViewTitle/viewTitle',{title:'Advice',symbol:'A',color:'#abf6b1'})
             %> <%- include('./views/advice',item.data) %>
           </div>
           <% } %>
+ 
+
+          <% } %>
+
+
+          <% }) %>
         </div>
 
-        <!--  -->
 
-        <% if(pet && !petDetailsRendered) { %>
-        <!-- Pet Details  -->
-        <div class="petInformationWrapper">
-          <%- include('./views/petCard',pet) %>
-        </div>
-        <% petDetailsRendered = true; %> <% } %>
 
-        <!--  -->
+
+
+         <% if(pet) { %>
+
+           <div class="petInformationWrapper" style="
+          max-height: fit-content;
+          ">
+            <%- include('./views/petCard',pet) %>
+            </div>
+          <% } %>
+
 
       </div>
-      <% } %>
 
-      <!-- Other Views -->
 
-      <% }) %>
+
 
       <!-- Thank you section -->
-      <div class="thankYouContainer">
+      <div class="thankYouContainer no-page-break">
         <p><strong>Thank you</strong></p>
         <% if(organization && organization.thankYouMessage) { %>
         <p>
@@ -523,7 +517,7 @@
 
       <!-- Doctor signature -->
 
-      <div class="doctorSignature">
+      <div class="doctorSignature no-page-break">
        <div style="width:fit-content;display: flex; flex-direction: column;max-width: 300px;">
         <% if (createdBy && createdBy.signature) { %>
         <img
