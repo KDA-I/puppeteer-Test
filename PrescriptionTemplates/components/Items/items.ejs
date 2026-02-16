@@ -1,0 +1,273 @@
+<%
+    // Logic to split items into two columns (Column-Major Order)
+    const totalItems = items.length;
+    const splitIndex = Math.ceil(totalItems / 2);
+    const leftColumnItems = items.slice(0, splitIndex);
+    const rightColumnItems = items.slice(splitIndex);
+%>
+
+<style>
+    .items-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: 20px; /* Space between columns */
+        align-items: flex-start;
+        font-family: 'Mulish', sans-serif;
+    }
+
+    .column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px; /* Space between items in a column */
+    }
+
+    .item-card {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        /* border: 1px solid #eee; */ /* Optional border for debugging */
+        padding-bottom: 5px;
+        page-break-inside: avoid;
+    }
+
+    .item-header {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .item-number-badge {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        background-color: <%= primaryColor %>20; /* Light grey/blue background */
+        color: <%= primaryColor %>; /* Primary color text */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 8px;
+        margin-top: 2px;
+    }
+
+    .item-details {
+        flex: 1;
+    }
+
+    .medication-title-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+
+    .medication-name {
+        font-weight: 600;
+        font-size: 12px;
+        color: #404040;
+    }
+
+    .chip {
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+    .chip-type {
+        background-color: #F1F5F9;
+        color: #475569;
+    }
+
+
+  
+    .chip-rosu {
+         background-color: #F1F5F9;
+         color: #64748B;
+         text-transform: uppercase;
+    }
+
+    .item-instruction-row {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 6px;
+    }
+
+    .item-notes-box {
+        background-color: #F8f8f8f8;
+        border-radius: 8px;
+        padding: 4px 8px;
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 11px;
+        color: #626262;
+    }
+
+    .notes-icon {
+        width: 10px;
+        height: 10px;
+        flex-shrink: 0;
+        margin-top: 3px;
+    }
+
+    .rx-icon-container {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    
+    .main-wrapper {
+        position: relative;
+        padding-top: 30px; 
+        margin: 20px 0px;
+    }
+    
+    .rx-symbol {
+        font-family: serif;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: -10px;
+        left: 0;
+    }
+
+  .seperator {
+ width: 100%; height: 10px; border-bottom: 1px solid #F0f0f0; text-align: center; vertical-align: middle;
+ margin:    40px 0px;
+  }
+
+
+</style>
+
+<div class="main-wrapper">
+    <!-- Rx Symbol -->
+    <div class="rx-symbol">
+         <svg width="24" height="24" viewBox="0 0 54 64" fill="none">
+            <path d="M20.524 0C19.8995 3.90708e-05 18.8933 0.0172513 17.5077 0.0563522C13.7607 0.193362 10.7858 0.263019 8.58055 0.262977C6.58997 0.263019 3.80551 0.184751 0.234185 0.0281761L0 0.234801V1.69996L0.234185 1.90658C2.30282 1.98489 3.60411 2.09837 4.13103 2.2353C4.65794 2.37231 5.01351 2.54606 5.19892 2.76126C5.38431 2.97653 5.52326 3.4023 5.61108 4.04796C5.69889 4.6937 5.75081 6.13772 5.77033 8.36829L5.82653 14.088V27.6783L5.79845 33.8676C5.77894 35.9613 5.70048 37.3184 5.57363 37.925C5.44677 38.5316 5.28206 38.9225 5.07716 39.1084C4.87224 39.2943 4.47373 39.4512 3.86876 39.5686C3.26378 39.686 2.04913 39.7815 0.234199 39.8598L1.37218e-05 40.0382V41.5034L0.234199 41.7382C5.21063 41.5816 8.00369 41.5034 8.60868 41.5034C9.38929 41.5034 10.4736 41.5206 11.8592 41.5597C15.1963 41.6771 16.9137 41.7382 17.0112 41.7382L17.2454 41.5034V40.0382L17.0112 39.8598C14.9426 39.7815 13.6413 39.6684 13.1144 39.5216C12.5875 39.3749 12.2319 39.1921 12.0465 38.9769C11.8611 38.7617 11.7225 38.3359 11.625 37.6902C11.5274 37.0445 11.4665 35.6091 11.447 33.398L11.4189 27.6783V14.088C11.4189 7.18102 11.5664 3.51109 11.8592 3.08058C13.6741 2.51319 15.5991 2.23534 17.6482 2.2353C20.5755 2.23534 22.9002 2.89631 24.6176 4.21702C26.3349 5.53781 27.1936 7.48548 27.1936 10.0683C27.1936 12.9446 26.2397 15.1971 24.3272 16.8211C22.4147 18.4452 19.7692 19.2537 16.393 19.2537C15.827 19.2537 15.0378 19.2278 14.0231 19.1691L13.7327 20.0802C17.2454 24.0913 20.6801 28.4391 24.0368 33.1351C26.7905 36.9967 28.8201 39.7355 30.1725 41.4094L31.0905 42.9497L23.1001 54.2108C21.0509 57.0675 19.6716 58.9463 18.969 59.8366C18.2665 60.7269 17.6943 61.2834 17.2454 61.5084C16.7966 61.7334 15.9114 61.8551 14.6038 61.8747L14.3696 62.1095V63.5183L14.6319 63.7812C15.8614 63.703 16.8504 63.6685 17.592 63.6685C18.3141 63.6685 19.3117 63.703 20.5802 63.7812C24.3857 57.3829 27.6901 52.2432 30.5003 48.3689L32.6361 45.4104L41.5351 58.5875C42.5304 60.3093 43.6147 62.0398 44.7856 63.7812C46.7957 63.703 48.296 63.6685 49.2914 63.6685C50.0524 63.6685 51.3623 63.703 53.2163 63.7812L53.4505 63.5464V62.1095L53.2163 61.8747C51.9673 61.8551 51.1695 61.7678 50.8182 61.6211C50.4669 61.4743 49.9982 61.0313 49.4225 60.278C48.8468 59.5247 48.0923 58.3855 47.1556 56.8593L36.2051 41.015C36.1827 40.9079 36.1419 40.8014 36.0927 40.6863L38.2284 37.8405L43.6709 30.4396C45.6224 27.7981 46.9147 26.1459 47.549 25.4806C48.1832 24.8153 48.7039 24.3978 49.104 24.2314C49.504 24.0652 50.3194 23.9521 51.5489 23.8933L51.7831 23.6585V22.3436L51.5489 22.0713C49.89 22.13 48.9791 22.1652 48.823 22.1652C48.4717 22.1652 47.4748 22.13 45.816 22.0713L34.6313 38.5261C34.1932 37.9637 33.5715 37.0587 32.608 35.793C31.0662 33.7679 29.6268 31.846 28.2802 30.0263L24.1211 24.5132C22.6964 22.6348 21.7074 21.3129 21.161 20.5498C24.1078 19.9823 26.4239 19.1296 28.1023 18.0045C29.7806 16.8795 31.0467 15.5321 31.9054 13.9472C32.7641 12.3623 33.1981 10.7445 33.1981 9.10087C33.1981 6.6355 32.3222 4.50508 30.5659 2.7049C28.8095 0.904805 25.4614 3.90708e-05 20.524 0Z" fill="black"/>
+        </svg>
+    </div>
+
+    <div class="items-container">
+        <!-- Left Column -->
+        <div class="column">
+            <% leftColumnItems.forEach((item, index) => { %>
+                  <div class="item-card"  style="<% if (index != 0) { %>border-top: 2px solid #ccc;padding-top:10px; <%  }  %>">
+                    <div class="item-header">
+                        <div class="item-number-badge">
+                            <%= index + 1 %>
+                        </div>
+                        <div class="item-details">
+                            <div class="medication-title-row">
+                                <div class="medication-name">
+                                    <%= item.medicationName %>
+                                </div>
+                                <div class="chip chip-type"><%= item.itemTypeName %></div>
+                                <% if (item.doNotSubstitution) { %>
+                                    <%- include('../common/dnsChip') %>
+                                <% } %>
+                                <% if (item.isGeneric) { %>
+                                    <%- include('../common/genericChip') %>
+                                <% } %>
+                            </div>
+                            <div class="item-instruction-row">
+                                <% 
+                                    const frequency = item.frequency && item.frequency.timing ? item.frequency.timing : '';
+                                    const route = item.routeOfAdministration ? item.routeOfAdministration : '';
+                                    const duration = item.duration ? `For ${item.duration.value} ${item.duration.unit}` : '';
+                                    
+                                    // Combine non-empty strings with " | "
+                                    const details = [frequency, "Orally", duration].filter(part => part).join(" | ");
+                                %>
+                                <%= details %>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                                                <% if (item.notes || item.instructions) { %>
+                                <div class="item-notes-box">
+                                      <svg class="notes-icon"  viewBox="0 0 28 28" fill="none" >
+<path d="M16.9037 2.33203H11.0703C10.1038 2.33203 9.32031 3.11553 9.32031 4.08203C9.32031 5.04852 10.1038 5.83203 11.0703 5.83203H16.9037C17.8701 5.83203 18.6537 5.04852 18.6537 4.08203C18.6537 3.11553 17.8701 2.33203 16.9037 2.33203Z" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.6641 4.08203C20.4765 4.13664 21.5574 4.33878 22.3056 5.08695C23.3307 6.11208 23.3307 7.76197 23.3307 11.0618V18.6647C23.3307 21.9646 23.3307 23.6145 22.3056 24.6397C21.2804 25.6647 19.6305 25.6647 16.3307 25.6647H11.6641C8.36424 25.6647 6.71433 25.6647 5.6892 24.6397C4.66407 23.6145 4.66407 21.9646 4.66406 18.6648L4.66409 11.0618C4.66407 7.76199 4.66407 6.11207 5.6892 5.08694C6.43736 4.33877 7.51834 4.13664 9.33061 4.08203" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.75 12.8321L9.91667 13.9987L12.25 11.082" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.1641 19.832H18.6641M15.1641 12.832H18.6641" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.89062 19.6777H9.90762" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+                                    <div>
+                                        <%= item.instructions || item.notes %>
+                                    </div>
+                                </div>
+                            <% } %>
+                </div>
+            <% }); %>
+        </div>
+
+        <!-- Right Column -->
+        <div class="column">
+            <% rightColumnItems.forEach((item, index) => { %>
+                <div class="item-card"  style="<% if (index != 0) { %>border-top: 2px solid #ccc;padding-top:10px; <%  }  %>">
+                    <div class="item-header">
+                        <!-- Number continues from left column -->
+                        <div class="item-number-badge">
+                            <%= splitIndex + index + 1 %>
+                        </div>
+                        <div class="item-details">
+                            <div class="medication-title-row">
+                                <div class="medication-name">
+                                    <%= item.medicationName %>
+                                </div>
+                                <div class="chip chip-type"><%= item.itemTypeName %></div>
+                                <% if (item.doNotSubstitution) { %>
+                                    <%- include('../common/dnsChip') %>
+                                <% } %>
+                                <% if (item.isGeneric) { %>
+                                    <%- include('../common/genericChip') %>
+                                <% } %>
+                            </div>
+                            <div class="item-instruction-row">
+                                <% 
+                                    const frequency = item.frequency && item.frequency.timing ? item.frequency.timing : '';
+                                    const route = item.routeOfAdministration ? item.routeOfAdministration : '';
+                                    const duration = item.duration ? `For ${item.duration.value} ${item.duration.unit}` : '';
+                                    
+                                    const details = [frequency, "Orally", duration].filter(part => part).join(" | ");
+                                %>
+                                <%= details %>
+                            </div>
+                         
+                        </div>
+                          
+                    </div>
+                     <% if (item.notes || item.instructions) { %>
+                                <div class="item-notes-box">
+                                   <svg class="notes-icon"  viewBox="0 0 28 28" fill="none" >
+<path d="M16.9037 2.33203H11.0703C10.1038 2.33203 9.32031 3.11553 9.32031 4.08203C9.32031 5.04852 10.1038 5.83203 11.0703 5.83203H16.9037C17.8701 5.83203 18.6537 5.04852 18.6537 4.08203C18.6537 3.11553 17.8701 2.33203 16.9037 2.33203Z" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.6641 4.08203C20.4765 4.13664 21.5574 4.33878 22.3056 5.08695C23.3307 6.11208 23.3307 7.76197 23.3307 11.0618V18.6647C23.3307 21.9646 23.3307 23.6145 22.3056 24.6397C21.2804 25.6647 19.6305 25.6647 16.3307 25.6647H11.6641C8.36424 25.6647 6.71433 25.6647 5.6892 24.6397C4.66407 23.6145 4.66407 21.9646 4.66406 18.6648L4.66409 11.0618C4.66407 7.76199 4.66407 6.11207 5.6892 5.08694C6.43736 4.33877 7.51834 4.13664 9.33061 4.08203" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.75 12.8321L9.91667 13.9987L12.25 11.082" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.1641 19.832H18.6641M15.1641 12.832H18.6641" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.89062 19.6777H9.90762" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+                                    <div>
+                                        <%= item.instructions || item.notes %>
+                                    </div>
+                                </div>
+                            <% } %>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+
+
+    <div class="seperator">
+      <span style="margin: 0px 0px 0px 0px ;padding: 0 10px; background-color: white;">End of Prescription</span>  
+    </div>
+</div>
