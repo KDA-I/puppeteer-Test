@@ -1,11 +1,11 @@
 
 <style>
     .customer-details {
-        padding: 30px 20px;
+        padding: 10px 0px;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        border-bottom: 1px solid #eee;
+        border-bottom: 2px solid #eee;
         font-family: 'Mulish', sans-serif;
     }
 
@@ -13,24 +13,25 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        min-width: 260px;
     }
 
     .details-title {
-        font-size: 16px;
-        font-weight: 800;
+        font-size: 14px;
+        font-weight: 700;
         color: #283845;
-        margin: 0px 0px 10px 0px;
+        margin: 0px 0px 4px 0px;
     }
 
     .pet-info-main {
-        font-size: 14px;
-        color: #283845;
+        font-size: 12px;
+        color: #4E4E4E;
         line-height: 1.4;
     }
 
     .highlight-text {
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 700;
     }
 
     .muted-text {
@@ -40,22 +41,28 @@
 
      .muted-text-bold {
         color: #8c97a0;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 600;
     }
 
-    .weight-change {
+    .weight-change-positive {
         color: #27ae60;
         font-weight: 700;
         font-size: 12px;
     }
 
+    .weight-change-negative {
+        color: #e74c3c;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
     .pet-info-sub {
-        font-size: 13px;
-        color: #283845;
+        font-size: 12px;
+        color: #4E4E4E;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 2px;
     }
 
     .separator {
@@ -63,21 +70,23 @@
     }
 
     .owner-info {
-        font-size: 14px;
-        color: #283845;
+        font-size: 12px;
+        color: #4E4E4E;
+            gap: 8px;
     }
 
     .owner-name {
         font-weight: 700;
-        margin-bottom: 4px;
+        font-size: 12px;
+          color: #4E4E4E;
     }
 
     .owner-contact {
         display: flex;
         align-items: center;
         gap: 12px;
-        font-size: 13px;
-        color: #283845;
+        font-size: 12px;
+        color: #4E4E4E;
     }
 
     .contact-item {
@@ -87,33 +96,25 @@
     }
 
     .icon-small {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
         fill: #8c97a0;
     }
 
     .rx-number {
-        font-size: 14px;
-        color: #8c97a0;
+        font-size: 12px;
+        color: #b3b3b3;
         font-weight: 500;
         text-align: right;
-        padding-right;
     }
 
-    .rx-label {
-        color: #ccc;
-    }
 </style>
 
 
-<div>
-
-      <div class="rx-number">
-        <span class="rx-label">Rx No:</span> <%= prescriptionNumber %>
-    </div>
+    
     <div class="customer-details">
     
-    <div style="display: flex; gap: 60px; justify-content: space-between; width:100%;">
+    <div style="display: flex; gap: 20px; justify-content: space-between; width:100%;">
         <!-- Pet Details -->
         <div class="details-group">
             <h2 class="details-title">Pet Details</h2>
@@ -121,10 +122,28 @@
                 <span class="highlight-text"><%= pet.name %></span>
                 <span class="muted-text-bold"><%= pet.species %></span> - 
                 <span class="muted-text-bold"><%= pet.weight %>kg</span>
-                <% if(typeof pet.weightChange !== 'undefined') { %>
-                    <span class="weight-change">(<%= pet.weightChange >= 0 ? '+' : '' %><%= pet.weightChange %> kg)</span>
+                <% if(typeof pet.weightChange !== 'undefined') {
+                    
+                    const isPetWeightPositive = parseFloat(pet.weightChange) >= 0; 
+
+                    if(isPetWeightPositive) {
+                    %>
+                    <span class="weight-change-positive">(<%= '+' + parseFloat(pet.weightChange).toFixed(2) %> kg)</span>
+
+                    <% } else { %>
+                        <span class="weight-change-negative">(<%= parseFloat(pet.weightChange).toFixed(2) %> kg)</span>
+                        <% } %> 
+
+
+
+                    
                 <% } %>
-                <span class="muted-text">(Last updated: <%= pet.updatedAt %>)</span>
+                <span class="muted-text">            <% 
+               const date = new Date(pet.updatedAt);
+               const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+               const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            %>
+            (Last updated: <%= formattedDate %> <%= formattedTime %>)</span>
             </div>
             <div class="pet-info-sub">
                 <span><%= pet.breed %></span>
@@ -139,23 +158,29 @@
 
         <!-- Owner Details -->
         <div class="details-group">
+            <div style="display: flex; gap: 10px; justify-content: space-between; width:100%;">
             <h2 class="details-title">Owner Details</h2>
-            <div class="owner-info">
+              <div class="rx-number">
+       Rx No: <%= prescriptionNumber %>
+    </div>
+    </div>
+            <!-- <div class="owner-info"> -->
                 <div class="owner-name"><%= pet.owner.firstName %> <%= pet.owner.lastName || '' %></div>
                 <div class="owner-contact">
                     <div class="contact-item">
-                        <svg class="icon-small" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                          <svg class="icon-small" viewBox="0 0 42 42" fill="none">
+<path  d="M27.076 14.5817V22.3934C27.076 24.9821 29.1745 27.0805 31.7631 27.0805C34.3517 27.0805 36.4502 24.9821 36.4502 22.3934V20.8305C36.4502 12.2019 29.4553 5.20703 20.8266 5.20703C12.198 5.20703 5.20312 12.2019 5.20312 20.8305C5.20312 29.4592 12.198 36.4541 20.8266 36.4541C24.3445 36.4541 27.5908 35.2913 30.2023 33.3294M27.076 20.8311C27.076 24.2827 24.278 27.0805 20.8266 27.0805C17.3752 27.0805 14.5772 24.2827 14.5772 20.8311C14.5772 17.3797 17.3752 14.5817 20.8266 14.5817C24.278 14.5817 27.076 17.3797 27.076 20.8311Z" stroke="white" stroke-opacity="0.85" stroke-width="4.16627" stroke-linecap="round"/>
+</svg>
                         <span><%= pet.owner.email || 'N/A' %></span>
                     </div>
                     <div class="contact-item">
                         <svg class="icon-small" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                         <span><%= pet.owner.phoneNumber %></span>
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>
 
   
-</div>
 </div>

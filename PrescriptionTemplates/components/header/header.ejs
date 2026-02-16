@@ -1,3 +1,5 @@
+
+
 <style>
     .prescription-header {
         background-color: <%= primaryColor %>;
@@ -54,7 +56,7 @@
         opacity: 0.9;
         display: flex;
         align-items: flex-start;
-        gap: 6px;
+        gap: 2px;
         margin-top: 4px;
         max-width: 350px;
         line-height: 1.3;
@@ -106,28 +108,38 @@
     }
 
     .icon {
-        width: 12px;
-        height: 12px;
+        width: 12px !important;
+        height: 12px !important;
         fill: currentColor;
+    }
+
+    span.logo {
+    content: url("<%= organization.logo.path %>");
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     }
 </style>
 
+
 <header class="prescription-header" style="background-color: <%= primaryColor %>">
     <div class="header-left">
-        <% if(organization.logo.path) { %>
+        <% if( organization.logo && organization.logo.path) { %>
         <div class="clinic-logo-container">
-            <% if (organization.logo && organization.logo.path) { %>
-                <img src="<%= organization.logo.path %>" alt="Clinic Logo" class="clinic-logo"
-                style="display: <%= organization?.logo ? 'block' : 'none' %>">
-            <% } else { %>
-                <div style="color: <%= primaryColor %>; font-weight: bold;">LOGO</div>
-            <% } %>
+                <span class="logo"></span>
+         
         </div>
         <% } %>
         <div class="clinic-info">
             <h1 class="clinic-name"><%= organization.name %></h1>
             <div class="clinic-address">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <svg class="icon" viewBox="0 0 42 42" fill="none">
+<path d="M26.8938 19.0953C26.8938 22.4509 24.1736 25.1712 20.818 25.1712C17.4624 25.1712 14.7422 22.4509 14.7422 19.0953C14.7422 15.7398 17.4624 13.0195 20.818 13.0195C24.1736 13.0195 26.8938 15.7398 26.8938 19.0953Z" stroke="white" stroke-opacity="0.85" stroke-width="4.16627"/>
+<path d="M20.8266 3.4707C29.2817 3.4707 36.4502 10.4717 36.4502 18.9654C36.4502 27.5943 29.1649 33.6496 22.4359 37.7673C21.9455 38.0442 21.3908 38.1896 20.8266 38.1896C20.2625 38.1896 19.7078 38.0442 19.2174 37.7673C12.5009 33.6095 5.20312 27.6241 5.20312 18.9654C5.20312 10.4717 12.3716 3.4707 20.8266 3.4707Z" stroke="white" stroke-opacity="0.85" stroke-width="4.16627"/>
+</svg>
+
                 <span>
                     <%= organization.address.buildingNumber %>, <%= organization.address.street %>, <%= organization.address.area %>, 
                     <%= organization.address.cityName %>, <%= organization.address.stateName %>, <%= organization.address.countryName %> - <%= organization.address.pincode %>
@@ -135,11 +147,10 @@
             </div>
             <div class="clinic-contacts">
                 <div class="contact-item">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    <span>www.pawcareclinic.com</span>
-                </div>
-                <div class="contact-item">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                   <svg class="icon" viewBox="0 0 42 42" fill="none">
+<path  d="M27.076 14.5817V22.3934C27.076 24.9821 29.1745 27.0805 31.7631 27.0805C34.3517 27.0805 36.4502 24.9821 36.4502 22.3934V20.8305C36.4502 12.2019 29.4553 5.20703 20.8266 5.20703C12.198 5.20703 5.20312 12.2019 5.20312 20.8305C5.20312 29.4592 12.198 36.4541 20.8266 36.4541C24.3445 36.4541 27.5908 35.2913 30.2023 33.3294M27.076 20.8311C27.076 24.2827 24.278 27.0805 20.8266 27.0805C17.3752 27.0805 14.5772 24.2827 14.5772 20.8311C14.5772 17.3797 17.3752 14.5817 20.8266 14.5817C24.278 14.5817 27.076 17.3797 27.076 20.8311Z" stroke="white" stroke-opacity="0.85" stroke-width="4.16627" stroke-linecap="round"/>
+</svg>
+
                     <span><%= createdBy.email %></span>
                 </div>
                 <div class="contact-item">

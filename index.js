@@ -3,6 +3,23 @@ const ejs = require("ejs");
 const path = require("path");
 const express = require("express");
 const app = express();
+const https = require('https');
+
+function fetchImageAsBase64(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, (response) => {
+      const chunks = [];
+      response.on('data', (chunk) => chunks.push(chunk));
+      response.on('end', () => {
+        const buffer = Buffer.concat(chunks);
+        const base64 = buffer.toString('base64');
+        const mimeType = response.headers['content-type'];
+        resolve(`data:${mimeType};base64,${base64}`);
+      });
+      response.on('error', reject);
+    }).on('error', reject);
+  });
+}
 
 // Path to the EJS template
 // const templatePath = path.join(__dirname, "invoiceTemplates", "body.ejs");
@@ -37,6 +54,11 @@ const prescriptionHeaderPath = path.join(
   __dirname,
   "PrescriptionTemplates/components/header",
   "header.ejs"
+);
+const prescriptionFooterPath = path.join(
+  __dirname,
+  "PrescriptionTemplates/components/footer",
+  "footer.ejs"
 );
 
 const invoiceData = require(dataPath).invoiceData;
@@ -102,12 +124,26 @@ app.get("/preview/prescription", (req, res) => {
 
 app.get("/generate-pdf/prescription", async (req, res) => {
   try {
+    // Create a deep copy of the data to avoid modifying the original
+    const prescriptionDataCopy = JSON.parse(JSON.stringify(prescriptionData));
+
+    if (prescriptionDataCopy.organization?.logo?.path) {
+        try {
+            const base64Logo = await fetchImageAsBase64(prescriptionDataCopy.organization.logo.path);
+            prescriptionDataCopy.organization.logo.path = base64Logo;
+             console.log("Image converted to base64 successfully", base64Logo);
+        } catch (error) {
+            console.error("Failed to fetch image:", error);
+            // Fallback or handle error as needed, maybe leave original URL or set to null
+        }
+    }
+
     const htmlContent = await ejs.renderFile(
       prescriptionTemplatePath,
-      prescriptionData
+      prescriptionDataCopy
     );
-    const footerTemplate = await ejs.renderFile(footerPath);
-    const headerTemplate = await ejs.renderFile(prescriptionHeaderPath, prescriptionData);
+    const footerTemplate = await ejs.renderFile(prescriptionFooterPath, prescriptionDataCopy);
+    const headerTemplate = await ejs.renderFile(prescriptionHeaderPath, prescriptionDataCopy);
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setContent(htmlContent);
@@ -123,12 +159,12 @@ app.get("/generate-pdf/prescription", async (req, res) => {
       footerTemplate,
       headerTemplate,
       margin: {
-        top: "0px",
-        bottom: "0px",
-        left: "0px",
-        right: "0px",
+        top: "130px",
+        bottom: "130px",
+        left: "20px",
+        right: "20px",
       },
-      scale: 1,
+      scale: 1.5,
     });
     await browser.close();
 

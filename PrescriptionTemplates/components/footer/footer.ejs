@@ -1,0 +1,97 @@
+
+
+<style>
+    .prescription-footer {
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: Mulish, sans-serif;
+        font-size: 10px;
+        color: #666;
+    }
+
+    .footer-row {
+        font-family: Mulish, sans-serif;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .footer-chips {
+        font-family: Mulish, sans-serif;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .legend-item {
+        font-family: Mulish, sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-right: 8px;
+    }
+
+
+    .legend-text {
+        font-size: 10px;
+        color: #333;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 2px 8px;
+        font-family: Mulish, sans-serif;
+    }
+
+    .powered-by {
+        font-family: Mulish, sans-serif;
+        font-weight: 600;
+        margin-top: 5px;
+    }
+
+    .disclaimer-row {
+        font-family: Mulish, sans-serif;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        color: #999;
+        font-size: 9px;
+    }
+</style>
+
+
+<div class="prescription-footer">
+    <!-- Top Row: DNS and Generic Legend -->
+    <div class="footer-chips">
+        <div class="legend-item">
+            <%- include('../common/dnsChip') %>
+            <span class="legend-text">Do Not Substitute with Alternative Medication.</span>
+        </div>
+        <div class="legend-item">
+            <%- include('../common/genericChip') %>
+            <span class="legend-text">Buy Any Suitable Alternative</span>
+        </div>
+    </div>
+
+    <!-- Middle Row: Powered By -->
+    <div class="powered-by">
+        Powered by <span style="color: #2AA71F">Simpli</span><span style="color: <%= primaryColor %>">vet<span >.<span style="color: #2AA71F">.</span><span style="color: #FF8800">.</span></span>
+    </div>
+
+    <!-- Bottom Row: Disclaimer and Page Number -->
+    <div class="disclaimer-row">
+        <div style="max-width: 80%;">
+            This prescription is valid for 7 days from the date of issue. For emergencies, contact: <strong><%= organization.emergencyContactNumber %></strong>
+            <br>
+            Keep this prescription for your records. Follow all instructions carefully.
+        </div>
+        <div style="text-align: right; font-size: 10px; font-weight: 500;">
+            PAGE <span class="pageNumber"></span> OF <span class="totalPages"></span>
+        </div>
+    </div>
+</div>
