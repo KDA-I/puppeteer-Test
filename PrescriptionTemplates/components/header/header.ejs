@@ -1,0 +1,166 @@
+<style>
+    .prescription-header {
+        background-color: <%= primaryColor %>;
+        color: white;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        width: 100%;
+        box-sizing: border-box;
+        margin: -20px 0px 0px 0px;
+    }
+
+    .header-left {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .clinic-logo-container {
+        background-color: white;
+        border-radius: 8px;
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .clinic-logo {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+    }
+
+    .clinic-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .clinic-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .clinic-address {
+        font-size: 11px;
+        opacity: 0.9;
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        margin-top: 4px;
+        max-width: 350px;
+        line-height: 1.3;
+    }
+
+    .clinic-contacts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 11px;
+        opacity: 0.9;
+        margin-top: 4px;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .header-right {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .doctor-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .doctor-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .doctor-qualifications {
+        font-size: 12px;
+        opacity: 0.9;
+    }
+
+    .prescription-meta {
+        font-size: 10px;
+        margin-top: 10px;
+        font-weight: 500;
+        opacity: 0.8;
+    }
+
+    .icon {
+        width: 12px;
+        height: 12px;
+        fill: currentColor;
+    }
+</style>
+
+<header class="prescription-header" style="background-color: <%= primaryColor %>">
+    <div class="header-left">
+        <% if(organization.logo.path) { %>
+        <div class="clinic-logo-container">
+            <% if (organization.logo && organization.logo.path) { %>
+                <img src="<%= organization.logo.path %>" alt="Clinic Logo" class="clinic-logo"
+                style="display: <%= organization?.logo ? 'block' : 'none' %>">
+            <% } else { %>
+                <div style="color: <%= primaryColor %>; font-weight: bold;">LOGO</div>
+            <% } %>
+        </div>
+        <% } %>
+        <div class="clinic-info">
+            <h1 class="clinic-name"><%= organization.name %></h1>
+            <div class="clinic-address">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <span>
+                    <%= organization.address.buildingNumber %>, <%= organization.address.street %>, <%= organization.address.area %>, 
+                    <%= organization.address.cityName %>, <%= organization.address.stateName %>, <%= organization.address.countryName %> - <%= organization.address.pincode %>
+                </span>
+            </div>
+            <div class="clinic-contacts">
+                <div class="contact-item">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <span>www.pawcareclinic.com</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <span><%= createdBy.email %></span>
+                </div>
+                <div class="contact-item">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <span>+1 <%= organization.emergencyContactNumber %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="doctor-info">
+            <h2 class="doctor-name">Dr. <%= createdBy.firstName %> <%= createdBy.lastName || '' %></h2>
+            <div class="doctor-qualifications"><%= createdBy.highestDegree %></div>
+        </div>
+        <div class="prescription-meta">
+            <% 
+               const date = new Date(createdAt);
+               const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+               const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            %>
+            <%= formattedDate %> | <%= formattedTime %>
+        </div>
+    </div>
+</header>

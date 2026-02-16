@@ -1,0 +1,161 @@
+
+<style>
+    .customer-details {
+        padding: 30px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 1px solid #eee;
+        font-family: 'Mulish', sans-serif;
+    }
+
+    .details-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .details-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: #283845;
+        margin: 0px 0px 10px 0px;
+    }
+
+    .pet-info-main {
+        font-size: 14px;
+        color: #283845;
+        line-height: 1.4;
+    }
+
+    .highlight-text {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .muted-text {
+        color: #8c97a0;
+        font-size: 12px;
+    }
+
+     .muted-text-bold {
+        color: #8c97a0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .weight-change {
+        color: #27ae60;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    .pet-info-sub {
+        font-size: 13px;
+        color: #283845;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .separator {
+        color: #ccc;
+    }
+
+    .owner-info {
+        font-size: 14px;
+        color: #283845;
+    }
+
+    .owner-name {
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .owner-contact {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+        color: #283845;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .icon-small {
+        width: 14px;
+        height: 14px;
+        fill: #8c97a0;
+    }
+
+    .rx-number {
+        font-size: 14px;
+        color: #8c97a0;
+        font-weight: 500;
+        text-align: right;
+        padding-right;
+    }
+
+    .rx-label {
+        color: #ccc;
+    }
+</style>
+
+
+<div>
+
+      <div class="rx-number">
+        <span class="rx-label">Rx No:</span> <%= prescriptionNumber %>
+    </div>
+    <div class="customer-details">
+    
+    <div style="display: flex; gap: 60px; justify-content: space-between; width:100%;">
+        <!-- Pet Details -->
+        <div class="details-group">
+            <h2 class="details-title">Pet Details</h2>
+            <div class="pet-info-main">
+                <span class="highlight-text"><%= pet.name %></span>
+                <span class="muted-text-bold"><%= pet.species %></span> - 
+                <span class="muted-text-bold"><%= pet.weight %>kg</span>
+                <% if(typeof pet.weightChange !== 'undefined') { %>
+                    <span class="weight-change">(<%= pet.weightChange >= 0 ? '+' : '' %><%= pet.weightChange %> kg)</span>
+                <% } %>
+                <span class="muted-text">(Last updated: <%= pet.updatedAt %>)</span>
+            </div>
+            <div class="pet-info-sub">
+                <span><%= pet.breed %></span>
+                <span class="separator">·</span>
+                <span><%= typeof pet.gender !== 'undefined' ? pet.gender : 'Male' %></span>
+                <span class="separator">·</span>
+                <span><%= typeof pet.dob !== 'undefined' ? pet.dob : 'Nov 14, 2024' %></span>
+                <span class="separator">·</span>
+                <span><%= pet.age.years %> Years <%= pet.age.months %> Months</span>
+            </div>
+        </div>
+
+        <!-- Owner Details -->
+        <div class="details-group">
+            <h2 class="details-title">Owner Details</h2>
+            <div class="owner-info">
+                <div class="owner-name"><%= pet.owner.firstName %> <%= pet.owner.lastName || '' %></div>
+                <div class="owner-contact">
+                    <div class="contact-item">
+                        <svg class="icon-small" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <span><%= pet.owner.email || 'N/A' %></span>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="icon-small" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span><%= pet.owner.phoneNumber %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</div>
+</div>

@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Prescription</title>
+    <style>
+         @media print {
+        .no-page-break {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Mulish, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #283845;
+         width: 210mm;
+        /* min-height: 297mm; */
+      }
+    </style>
+</head>
+<body>
+<div>
+    <%- include('components/header/header') %>
+    
+        <%- include('components/customerDetails/customerDetails') %>
+    </div>
+</body>
+</html>
