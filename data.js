@@ -546,7 +546,7 @@ const treatmentSheetData ={
 };
 
 const prescriptionData = {
-   primaryColor: '#2761c4',
+  primaryColor: '#2761c4',
   id: "b96d74c1-e95f-411e-a100-3edeee8bdd79",
   title: "Veterinary Prescription Titile",
   notes: "Patient presents with localized skin irritation on the lower back. Mild redness and scaling observed. No fever. Appetite and activity levels are normal. Recommended topical and oral treatment.",
@@ -593,221 +593,167 @@ const prescriptionData = {
   },
   items: [
     {
-    isGeneric: false,
-    medicationName: "Augmentin 375 mg",
-    itemTypeName: "Tablet",
-    instructions: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis partur",
-    dosage: { unit: "mg", value: "375" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 1, timing: "Morning (1-0-0)" },
-    duration: { value: 15, unit: "days" },
-    compositions: [
-      { name: "Amoxicillin" },
-      { name: "Clavulanic Acid" }
-    ],
-    doNotSubstitution: false, // Generic tag present
-    notes: "Once daily | For 15 days"
-  },
-  {
-    isGeneric: false,
-    medicationName: "Chlorhexidine 2%",
-    itemTypeName: "Topical Shampoo",
-    instructions: "Twice weekly (During bath). External application only.",
-    dosage: { unit: "%", value: "2" },
-    routeOfAdministration: "Topical",
-    frequency: { type: "weekly", value: 2 },
-    duration: { value: 4, unit: "weeks" },
-    compositions: [
-      { name: "Chlorhexidine Gluconate 2%" }
-    ],
-    doNotSubstitution: false,
-    notes: "For 4 weeks"
-  },
-  {
-    isGeneric: true,
-    medicationName: "Omega-3 Fatty Acids 1000 mg",
-    itemTypeName: "Soft Gel Capsule",
-    instructions: "Take in the evening (0-0-1). Leave on coat for 5–10 minutes before rinsing.",
-    dosage: { unit: "mg", value: "1000" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 1, timing: "Evening (0-0-1)" },
-    duration: { value: 30, unit: "days" },
-    compositions: [
-      { name: "Omega-3 Fatty Acids" }
-    ],
-    doNotSubstitution: true, // DNS tag present
-    notes: "Once daily | For 30 days"
-  },
-  {
-    isGeneric: false,
-    medicationName: "Rosuvastatin 5 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take in the morning (1-0-0). Give with food to avoid stomach upset.",
-    dosage: { unit: "mg", value: "5" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 1, timing: "Morning (1-0-0)" },
-    duration: { value: 15, unit: "days" },
-    compositions: [
-      { name: "Rosuvastatin" }
-    ],
-    doNotSubstitution: false,
-    notes: "Once daily | For 15 days"
-  },
-  {
-    isGeneric: false,
-    medicationName: "Metformin 500 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take twice daily after meals (1-0-1).",
-    dosage: { unit: "mg", value: "500" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 2, timing: "Morning & Evening (1-0-1)" },
-    duration: { value: 30, unit: "days" },
-    compositions: [{ name: "Metformin Hydrochloride" }],
-    doNotSubstitution: false,
-    notes: "Take with food to reduce gastric irritation"
-  },
-  {
-    isGeneric: false,
-    medicationName: "Azithromycin 500 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take once daily before food (1-0-0).",
-    dosage: { unit: "mg", value: "500" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 1, timing: "Morning (1-0-0)" },
-    duration: { value: 5, unit: "days" },
-    compositions: [{ name: "Azithromycin" }],
-    doNotSubstitution: true,
-    notes: "Complete full course"
-  },
-  {
-    isGeneric: false,
-    medicationName: "Pantoprazole 40 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take once daily before breakfast (1-0-0).",
-    dosage: { unit: "mg", value: "40" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 1, timing: "Before Breakfast (1-0-0)" },
-    duration: { value: 14, unit: "days" },
-    compositions: [{ name: "Pantoprazole" }],
-    doNotSubstitution: false,
-    notes: "Do not crush or chew"
-  },
-  {
-    isGeneric: false,
-    medicationName: "Paracetamol 650 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take every 6 hours as needed for fever.",
-    dosage: { unit: "mg", value: "650" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "hrs", value: 6 },
-    duration: { value: 5, unit: "days" },
-    compositions: [{ name: "Paracetamol (Acetaminophen)" }],
-    doNotSubstitution: false,
-    notes: "Maximum 4 tablets per day"
-  },
-  {
-     isGeneric: true,
-    medicationName: "Salbutamol Inhaler 100 mcg",
-    itemTypeName: "Inhaler",
-    instructions: "2 puffs every 4–6 hours as needed for wheezing.",
-    dosage: { unit: "mcg", value: "100" },
-    routeOfAdministration: "Inhalation",
-    frequency: { type: "hrs", value: 6 },
-    duration: { value: 30, unit: "days" },
-    compositions: [{ name: "Salbutamol" }],
-    doNotSubstitution: false,
-    notes: "Shake well before use"
-  },
-  {
-     isGeneric: false,
-    medicationName: "Clotrimazole 1%",
-    itemTypeName: "Topical Cream",
-    instructions: "Apply thin layer twice daily to affected area.",
-    dosage: { unit: "%", value: "1" },
-    routeOfAdministration: "Topical",
-    frequency: { type: "daily", value: 2 },
-    duration: { value: 2, unit: "weeks" },
-    compositions: [{ name: "Clotrimazole" }],
-    doNotSubstitution: false,
-    notes: "For external use only"
-  },
-  {
-    isGeneric: false,
-    medicationName: "Vitamin D3 60,000 IU",
-    itemTypeName: "Sachet",
-    instructions: "Take once weekly after meals.",
-    dosage: { unit: "IU", value: "60000" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "weekly", value: 1 },
-    duration: { value: 8, unit: "weeks" },
-    compositions: [{ name: "Cholecalciferol (Vitamin D3)" }],
-    doNotSubstitution: false,
-    notes: "Dissolve in water before consumption"
-  },  
-   {
-     isGeneric: true,
-    medicationName: "Cefixime 200 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take twice daily after food (1-0-1).",
-    dosage: { unit: "mg", value: "200" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 2, timing: "Morning & Evening (1-0-1)" },
-    duration: { value: 7, unit: "days" },
-    compositions: [{ name: "Cefixime" }],
-    doNotSubstitution: true,
-    notes: "Complete full antibiotic course"
-  },
-  {
-     isGeneric: true,
-    medicationName: "Cefixime 200 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take twice daily after food (1-0-1).",
-    dosage: { unit: "mg", value: "200" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 2, timing: "Morning & Evening (1-0-1)" },
-    duration: { value: 7, unit: "days" },
-    compositions: [{ name: "Cefixime" }],
-    doNotSubstitution: true,
-    notes: "Complete full antibiotic course"
-  },
-  {
-     isGeneric: true,
-    medicationName: "Cefixime 200 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take twice daily after food (1-0-1).",
-    dosage: { unit: "mg", value: "200" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 2, timing: "Morning & Evening (1-0-1)" },
-    duration: { value: 7, unit: "days" },
-    compositions: [{ name: "Cefixime" }],
-    doNotSubstitution: true,
-    notes: "Complete full antibiotic course"
-  },{
-     isGeneric: true,
-    medicationName: "Cefixime 200 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take twice daily after food (1-0-1).",
-    dosage: { unit: "mg", value: "200" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 2, timing: "Morning & Evening (1-0-1)" },
-    duration: { value: 7, unit: "days" },
-    compositions: [{ name: "Cefixime" }],
-    doNotSubstitution: true,
-    notes: "Complete full antibiotic course"
-  }
-  ,{
-     isGeneric: true,
-    medicationName: "Cefixime 200 mg",
-    itemTypeName: "Tablet",
-    instructions: "Take twice daily after food (1-0-1).",
-    dosage: { unit: "mg", value: "200" },
-    routeOfAdministration: "Oral",
-    frequency: { type: "daily", value: 2, timing: "Morning & Evening (1-0-1)" },
-    duration: { value: 7, unit: "days" },
-    compositions: [{ name: "Cefixime" }],
-    doNotSubstitution: true,
-    notes: "Complete full antibiotic course"
-  }
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    },
+    {
+      isGeneric: false,
+      medicationName: 'Amoxicillin capsule',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'second item to test',
+      lineItemDisplayOrder: 1
+    },
+    {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake.',
+      lineItemDisplayOrder: 1
+    },
+     {
+      isGeneric: true,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: '',
+      lineItemDisplayOrder: 1
+    },
+     {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    }, {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    }, {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    }, {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    }, {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    }, {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    }, {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    }, {
+      isGeneric: false,
+      medicationName: 'Amoxicillin Syrup 60 ml',
+      unitType: 'Syrup',
+      dose: '50.00',
+      doseUnit: 'Capsule',
+      route: 'Intravenously (I/V)',
+      frequency: 'Twice Daily (BID)',
+      intake: "After Food",
+      forDays: 7,
+      doNotSubstitute: true,
+      instructions: 'Give after food. Ensure adequate water intake. and test update',
+      lineItemDisplayOrder: 1
+    }
   ]
+  
 }
 module.exports = { treatmentSheetData, invoiceData, prescriptionData };

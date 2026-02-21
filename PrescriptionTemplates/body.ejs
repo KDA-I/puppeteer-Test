@@ -16,6 +16,9 @@
           break-inside: avoid;
         }
       }
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
       body {
         margin: 0px 0px 0px 0px;
         padding: 0;
@@ -23,13 +26,17 @@
         font-size: 14px;
         line-height: 1.4;
         color: #283845;
-         width: 210mm;
+         width: 195.79mm;
         /* min-height: 297mm; */
+      }
+      .body-wrapper {
+        padding: 0px;
+        width: 100%;
       }
     </style>
 </head>
 <body>
-<div>
+<div class="body-wrapper">
 
         <%- include('components/customerDetails/customerDetails') %>
 
