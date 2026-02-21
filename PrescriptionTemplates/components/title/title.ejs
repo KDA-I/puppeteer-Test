@@ -30,6 +30,6 @@
     <% } %>
 
     <% if(notes)    { %>
-    <div class="notes"> <span>Medical Note: </span><%= notes %></div>
+    <div class="notes"> <span>Medical Note: </span><%- notes.replace(/\n/g, '<br />') %></div>
     <% } %>
 </div>
