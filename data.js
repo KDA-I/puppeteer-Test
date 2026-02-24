@@ -556,19 +556,19 @@ const prescriptionData = {
     email: "karthik@simplivet.care",
     phoneNumber: "9844598562",
     signature: null,
-    highestDegree:  "MVSc",
+    highestDegree:  "MVSc\n DABVP (Canine & Feline Practice)\nDiplomate, American Board of Veterinary Practitioners (Canine & Feline Practice)",
   },
   createdAt: "2024-11-22T21:16:17.894Z",
   prescriptionNumber: "RX-2026-001542",
   pet: {
-    name: "Ninja",
+    name: "Ninja Ninja Ninja",
     age: { years: 5, months: 8, days: 4 },
     weight: "25.000",
-    breed: "Belgian Malinois",
+    breed: "Belgian Malinois Malinois Malinois",
     species: "Dog",
-    owner: { firstName: "Karthik", lastName: "D A", phoneNumber: "1111111111", email: "karthik@simplivet.care" },
+    owner: { firstName: "Karthik KarthikKarthik", lastName: "D A", phoneNumber: "1111111111", email: null },
     updatedAt: "2024-11-22T21:16:17.894Z",
-    weightChange: "-2.000",
+    weightChange: "+300.000",
   },
   organization: {
     name: "Wow HealthCare organization ",
@@ -594,7 +594,7 @@ const prescriptionData = {
   items: [
     {
       isGeneric: false,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: '1 Amoxicillin Syrup 60 ml',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -608,7 +608,7 @@ const prescriptionData = {
     },
     {
       isGeneric: false,
-      medicationName: 'Amoxicillin capsule',
+      medicationName: ' 2 Amoxicillin capsule',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -622,7 +622,7 @@ const prescriptionData = {
     },
     {
       isGeneric: false,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: ' 3 Amoxicillin Syrup 60 ml',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -636,7 +636,7 @@ const prescriptionData = {
     },
      {
       isGeneric: true,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: ' 4 Amoxicillin Syrup 60 ml',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -650,7 +650,7 @@ const prescriptionData = {
     },
      {
       isGeneric: false,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: ' 5 Amoxicillin Syrup 60 ml',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -663,7 +663,7 @@ const prescriptionData = {
       lineItemDisplayOrder: 1
     }, {
       isGeneric: false,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: ' 6 Amoxicillin Syrup 60 ml',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -676,7 +676,7 @@ const prescriptionData = {
       lineItemDisplayOrder: 1
     }, {
       isGeneric: false,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: ' 7 Amoxicillin Syrup 60 ml',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -689,7 +689,7 @@ const prescriptionData = {
       lineItemDisplayOrder: 1
     }, {
       isGeneric: false,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: ' 8 Amoxicillin Syrup 60 ml',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -702,7 +702,7 @@ const prescriptionData = {
       lineItemDisplayOrder: 1
     }, {
       isGeneric: false,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: ' 9 Amoxicillin Syrup 60 ml',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',
@@ -715,7 +715,7 @@ const prescriptionData = {
       lineItemDisplayOrder: 1
     }, {
       isGeneric: false,
-      medicationName: 'Amoxicillin Syrup 60 ml',
+      medicationName: '10  Amoxicillin Syrup 60 ml ',
       unitType: 'Syrup',
       dose: '50.00',
       doseUnit: 'Capsule',

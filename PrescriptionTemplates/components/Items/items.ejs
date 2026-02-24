@@ -9,31 +9,15 @@
         pages.push(items.slice(i, i + itemsPerPage));
     }
     
-    // Helper function to split page items into two columns
-    function splitIntoColumns(pageItems) {
-        const splitIndex = Math.ceil(pageItems.length / 2);
-        return {
-            left: pageItems.slice(0, splitIndex),
-            right: pageItems.slice(splitIndex)
-        };
-    }
 %>
 
 <style>
     .items-container {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         width: 100%;
-        gap: 20px; /* Space between columns */
-        align-items: flex-start;
+        gap: 20px; /* Space between items */
         font-family: 'Mulish', sans-serif;
-    }
-
-    .column {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 6px; /* Space between items in a column */
     }
 
     .item-card {
@@ -41,7 +25,7 @@
         flex-direction: column;
         gap: 2px;
         /* border: 1px solid #eee; */ /* Optional border for debugging */
-        padding-bottom: 5px;
+        padding-bottom: 10px;
         page-break-inside: avoid;
     }
 
@@ -106,6 +90,7 @@
         font-size: 12px;
         font-weight: 600;
         color: #000;
+        margin-top: 2px;
         margin-bottom: 6px;
     }
 
@@ -172,11 +157,7 @@
 <% pages.forEach((pageItems, pageIndex) => { 
     const isLastPage = pageIndex === pages.length - 1;
     const isFirstPage = pageIndex === 0;
-    const columns = splitIntoColumns(pageItems);
-    const leftColumnItems = columns.left;
-    const rightColumnItems = columns.right;
     const pageStartIndex = pageIndex * itemsPerPage;
-    const leftColumnSplitIndex = leftColumnItems.length;
 %>
 <div class="<%= isLastPage ? '' : 'page-section-break' %>">
 <div class="main-wrapper">
@@ -190,122 +171,57 @@
     <% } %>
 
     <div class="items-container">
-        <!-- Left Column -->
-        <div class="column">
-            <% leftColumnItems.forEach((item, index) => { 
-                const globalIndex = pageStartIndex + index;
-            %>
-                  <div class="item-card"  style="<% if (index != 0) { %>border-top: 1.2px solid #F0F0F0;padding-top:10px; <%  }  %>">
-                    <div class="item-header">
-                        <div class="item-number-badge">
-                            <%= globalIndex + 1 %>
-                        </div>
-                        <div class="item-details">
-                            <div class="medication-title-row">
-                                <div class="medication-name">
-                                    <%= item.medicationName %>
-                                </div>
-                                <div class="chip chip-type" style="border-radius: 10px;"><%= item.unitType %></div>
-                                <% if (item.doNotSubstitute) { %>
-                                    <%- include('../common/dnsChip') %>
-                                <% } %>
-                                <% if (item.isGeneric) { %>
-                                    <%- include('../common/genericChip') %>
-                                <% } %>
-                            </div>
-                            <div class="item-instruction-row">
-                                <% 
-                                    const frequency = item.frequency || '';
-                                    const route = item.route || '';
-                                    const intake = item.intake || '';
-                                    const duration = item.forDays ? `For ${item.forDays} Days` : '';
-                                    const dosage = (item.dose && item.doseUnit) ? `${item.dose} ${item.doseUnit}` : '';
-                                    
-                                    // Combine non-empty strings with " | "
-                                    const details = [dosage, frequency, route, intake, duration].filter(part => part).join(" | ");
-                                %>
-                                <%= details %>
-                            </div>
-
-                        </div>
-                        
+        <% pageItems.forEach((item, index) => { 
+            const globalIndex = pageStartIndex + index;
+        %>
+            <div class="item-card" style="<% if ( index < pageItems.length - 2) { %> border-bottom: 1px solid #F0F0F0  <% } %>">
+                <div class="item-header">
+                    <div class="item-number-badge">
+                        <%= globalIndex + 1 %>
                     </div>
-                                                <% if (item.notes || item.instructions) { %>
-                                <div class="item-notes-box">
-                                      <svg class="notes-icon"  viewBox="0 0 28 28" fill="none" >
-<path d="M16.9037 2.33203H11.0703C10.1038 2.33203 9.32031 3.11553 9.32031 4.08203C9.32031 5.04852 10.1038 5.83203 11.0703 5.83203H16.9037C17.8701 5.83203 18.6537 5.04852 18.6537 4.08203C18.6537 3.11553 17.8701 2.33203 16.9037 2.33203Z" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M18.6641 4.08203C20.4765 4.13664 21.5574 4.33878 22.3056 5.08695C23.3307 6.11208 23.3307 7.76197 23.3307 11.0618V18.6647C23.3307 21.9646 23.3307 23.6145 22.3056 24.6397C21.2804 25.6647 19.6305 25.6647 16.3307 25.6647H11.6641C8.36424 25.6647 6.71433 25.6647 5.6892 24.6397C4.66407 23.6145 4.66407 21.9646 4.66406 18.6648L4.66409 11.0618C4.66407 7.76199 4.66407 6.11207 5.6892 5.08694C6.43736 4.33877 7.51834 4.13664 9.33061 4.08203" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8.75 12.8321L9.91667 13.9987L12.25 11.082" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M15.1641 19.832H18.6641M15.1641 12.832H18.6641" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9.89062 19.6777H9.90762" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-                                    <div>
-                                        <%= item.instructions || item.notes %>
-                                    </div>
-                                </div>
+                    <div class="item-details">
+                        <div class="medication-title-row">
+                            <div class="medication-name">
+                                <%= item.medicationName %>
+                            </div>
+                            <div class="chip chip-type" style="border-radius: 10px;"><%= item.unitType %></div>
+                            <% if (item.doNotSubstitute) { %>
+                                <%- include('../common/dnsChip') %>
                             <% } %>
-                </div>
-            <% }); %>
-        </div>
-
-        <!-- Right Column -->
-        <div class="column">
-            <% rightColumnItems.forEach((item, index) => { 
-                const globalIndex = pageStartIndex + leftColumnSplitIndex + index;
-            %>
-                <div class="item-card"  style="<% if (index != 0) { %>border-top: 1.2px solid #F0F0F0;padding-top: 10px;<%  }  %>">
-                    <div class="item-header">
-                        <!-- Number continues from left column -->
-                        <div class="item-number-badge">
-                            <%= globalIndex + 1 %>
+                            <% if (item.isGeneric) { %>
+                                <%- include('../common/genericChip') %>
+                            <% } %>
                         </div>
-                        <div class="item-details">
-                            <div class="medication-title-row">
-                                <div class="medication-name">
-                                    <%= item.medicationName %>
-                                </div>
-                                <div class="chip chip-type" style="border-radius: 10px;"><%= item.unitType %></div>
-                                <% if (item.doNotSubstitute) { %>
-                                    <%- include('../common/dnsChip') %>
-                                <% } %>
-                                <% if (item.isGeneric) { %>
-                                    <%- include('../common/genericChip') %>
-                                <% } %>
-                            </div>
-                            <div class="item-instruction-row">
-                                <% 
-                                    const frequency2 = item.frequency || '';
-                                    const route2 = item.route || '';
-                                    const intake2 = item.intake || '';
-                                    const duration2 = item.forDays ? `For ${item.forDays} Days` : '';
-                                    const dosage2 = (item.dose && item.doseUnit) ? `${item.dose} ${item.doseUnit}` : '';
-                                    
-                                    const details2 = [dosage2, frequency2, route2, intake2, duration2].filter(part => part).join(" | ");
-                                %>
-                                <%= details2 %>
-                            </div>
-                         
+                        <div class="item-instruction-row">
+                            <% 
+                                const frequency = item.frequency || '';
+                                const route = item.route || '';
+                                const intake = item.intake || '';
+                                const duration = item.forDays ? `For ${item.forDays} Days` : '';
+                                const dosage = (item.dose && item.doseUnit) ? `${item.dose} ${item.doseUnit}` : '';
+                                
+                                const details = [dosage, frequency, route, intake, duration].filter(part => part).join(" | ");
+                            %>
+                            <%= details %>
                         </div>
-                          
                     </div>
-                     <% if (item.notes || item.instructions) { %>
-                                <div class="item-notes-box">
-                                   <svg class="notes-icon"  viewBox="0 0 28 28" fill="none" >
-<path d="M16.9037 2.33203H11.0703C10.1038 2.33203 9.32031 3.11553 9.32031 4.08203C9.32031 5.04852 10.1038 5.83203 11.0703 5.83203H16.9037C17.8701 5.83203 18.6537 5.04852 18.6537 4.08203C18.6537 3.11553 17.8701 2.33203 16.9037 2.33203Z" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M18.6641 4.08203C20.4765 4.13664 21.5574 4.33878 22.3056 5.08695C23.3307 6.11208 23.3307 7.76197 23.3307 11.0618V18.6647C23.3307 21.9646 23.3307 23.6145 22.3056 24.6397C21.2804 25.6647 19.6305 25.6647 16.3307 25.6647H11.6641C8.36424 25.6647 6.71433 25.6647 5.6892 24.6397C4.66407 23.6145 4.66407 21.9646 4.66406 18.6648L4.66409 11.0618C4.66407 7.76199 4.66407 6.11207 5.6892 5.08694C6.43736 4.33877 7.51834 4.13664 9.33061 4.08203" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8.75 12.8321L9.91667 13.9987L12.25 11.082" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M15.1641 19.832H18.6641M15.1641 12.832H18.6641" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9.89062 19.6777H9.90762" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
-                                    <div>
-                                        <%= item.instructions || item.notes %>
-                                    </div>
-                                </div>
-                            <% } %>
                 </div>
-            <% }); %>
-        </div>
+                <% if (item.notes || item.instructions) { %>
+                    <div class="item-notes-box">
+                        <svg class="notes-icon" viewBox="0 0 28 28" fill="none">
+                            <path d="M16.9037 2.33203H11.0703C10.1038 2.33203 9.32031 3.11553 9.32031 4.08203C9.32031 5.04852 10.1038 5.83203 11.0703 5.83203H16.9037C17.8701 5.83203 18.6537 5.04852 18.6537 4.08203C18.6537 3.11553 17.8701 2.33203 16.9037 2.33203Z" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18.6641 4.08203C20.4765 4.13664 21.5574 4.33878 22.3056 5.08695C23.3307 6.11208 23.3307 7.76197 23.3307 11.0618V18.6647C23.3307 21.9646 23.3307 23.6145 22.3056 24.6397C21.2804 25.6647 19.6305 25.6647 16.3307 25.6647H11.6641C8.36424 25.6647 6.71433 25.6647 5.6892 24.6397C4.66407 23.6145 4.66407 21.9646 4.66406 18.6648L4.66409 11.0618C4.66407 7.76199 4.66407 6.11207 5.6892 5.08694C6.43736 4.33877 7.51834 4.13664 9.33061 4.08203" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.75 12.8321L9.91667 13.9987L12.25 11.082" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.1641 19.832H18.6641M15.1641 12.832H18.6641" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9.89062 19.6777H9.90762" stroke="black" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div>
+                            <%= item.instructions || item.notes %>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        <% }); %>
     </div>
 
     <% if (!isLastPage) { %>
