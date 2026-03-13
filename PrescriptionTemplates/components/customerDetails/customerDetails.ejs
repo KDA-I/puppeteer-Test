@@ -122,24 +122,24 @@
             <div class="pet-info-main">
                 <span class="highlight-text"><%= pet.name %></span>
                 <span class="muted-text-bold"><%= pet.species %></span> - 
-                <span class="muted-text-bold"><%= pet.weight %>kg</span>
+                <span class="muted-text-bold"><%= Number(pet.weight) %>kg</span>
                 <% if( pet.weightChange ) {
                     
                     const isPetWeightPositive = parseFloat(pet.weightChange) >= 0; 
 
                     if(isPetWeightPositive) {
                     %>
-                    <span class="weight-change-positive">(<%= '+' + parseFloat(pet.weightChange).toFixed(2) %> kg)</span>
+                    <span class="weight-change-positive"  style="font-size: 10px;">(<%= '+' + parseFloat(pet.weightChange).toFixed(2) %> kg)</span>
 
                     <% } else { %>
-                        <span class="weight-change-negative">(<%= parseFloat(pet.weightChange).toFixed(2) %> kg)</span>
+                        <span class="weight-change-negative"  style="font-size: 10px;">(<%= parseFloat(pet.weightChange).toFixed(2) %> kg)</span>
                         <% } %> 
 
 
 
                     
                 <% } %>
-                <span class="muted-text">            <% 
+                <span class="muted-text" style="font-size: 10px;">            <% 
                const date = new Date(pet.updatedAt);
                const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
                const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
