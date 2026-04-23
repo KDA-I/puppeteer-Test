@@ -67,6 +67,7 @@
 
 <div class="prescription-footer">
     <!-- Top Row: DNS and Generic Legend -->
+     <% if(showChipLegend) { %>
     <div class="footer-chips">
         <div class="legend-item">
             <%- include('../common/dnsChip') %>
@@ -77,6 +78,7 @@
             <span class="legend-text">Buy Any Suitable Alternative</span>
         </div>
     </div>
+    <% } %>
 
     <!-- Middle Row: Powered By -->
     <div class="powered-by">

@@ -75,18 +75,23 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "downloadTreatmentSheetTemplate"));
 
 // Endpoint to preview the template
-app.get("/preview", (req, res) => {
+app.get("/preview/treatment-sheet", (req, res) => {
+  app.set("views", path.join(__dirname, "downloadTreatmentSheetTemplate"));
   res.render("body", treatmentSheetData);
 });
 
 // Endpoint to generate the PDF
-app.get("/generate-pdf", async (req, res) => {
+app.get("/generate-pdf/treatment-sheet", async (req, res) => {
+
+
+
   try {
     const htmlContent = await ejs.renderFile(
       treatmentSheetTemplatePath,
       treatmentSheetData
     );
-    const footerTemplate = await ejs.renderFile(footerPath);
+    const headerTemplate = await ejs.renderFile(prescriptionHeaderPath, treatmentSheetData);
+    const footerTemplate = await ejs.renderFile(prescriptionFooterPath, treatmentSheetData);
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setContent(htmlContent);
@@ -98,10 +103,10 @@ app.get("/generate-pdf", async (req, res) => {
       // height:'',
       printBackground: true,
       displayHeaderFooter: true,
-      // headerTemplate: `<div style="font-size: 10px; text-align: center; color: grey;">Header Content</div>`,
+      headerTemplate: headerTemplate,
       footerTemplate,
       margin: {
-        top: "20px",
+        top: "120px",
         bottom: "70px",
         left: "20px",
         right: "20px",
@@ -117,8 +122,8 @@ app.get("/generate-pdf", async (req, res) => {
   }
 });
 
-app.set("views", path.join(__dirname, "PrescriptionTemplates"));
 app.get("/preview/prescription", (req, res) => {
+app.set("views", path.join(__dirname, "PrescriptionTemplates"));
   res.render("body", prescriptionData);
 });
 
@@ -164,7 +169,7 @@ app.get("/generate-pdf/prescription", async (req, res) => {
         left: "20px",
         right: "20px",
       },
-      scale: 1.5,
+      scale: 1,
     });
     await browser.close();
 
@@ -264,6 +269,8 @@ app.get("/generate-pdf/prescription", async (req, res) => {
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
+  console.log(`Preview Treatment sheet template at: http://localhost:${PORT}/preview/treatment-sheet`);
+  console.log(`Generate Treatment sheet PDF at: http://localhost:${PORT}/generate-pdf/treatment-sheet`);
   console.log(`Server is running at http://localhost:${PORT}`);
   console.log("Preview the template at: http://localhost:3000/preview");
   console.log("Generate PDF at: http://localhost:3000/generate-pdf");

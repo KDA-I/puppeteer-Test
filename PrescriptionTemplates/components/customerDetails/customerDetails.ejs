@@ -6,7 +6,6 @@
         justify-content: space-between;
         align-items: flex-start;
         border-bottom: 2px solid #eee;
-        font-family: 'Mulish', sans-serif;
     }
 
     .details-group {
@@ -18,9 +17,10 @@
 
     .details-title {
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 600;
         color: #283845;
         margin: 0px 0px 4px 0px;
+        letter-spacing: 6%
     }
 
     .pet-info-main {
@@ -66,7 +66,7 @@
     }
 
     .separator {
-        color: #ccc;
+        color:#4f4f4f
     }
 
     .owner-info {
@@ -118,7 +118,7 @@
     <div style="display: flex; gap: 20px; justify-content: space-between; width:100%;">
         <!-- Pet Details -->
         <div class="details-group">
-            <h2 class="details-title">Pet Details</h2>
+            <h2 class="details-title">PET DETAILS</h2>
             <div class="pet-info-main">
                 <span class="highlight-text"><%= pet.name %></span>
                 <span class="muted-text-bold"><%= pet.species %></span> - 
@@ -148,11 +148,11 @@
             </div>
             <div class="pet-info-sub">
                 <span><%= pet.breed %></span>
-                <span class="separator">·</span>
+                <span class="separator">･</span>
                 <span><%= typeof pet.gender !== 'undefined' ? pet.gender : 'Male' %></span>
-                <span class="separator">·</span>
+                <span class="separator">･</span>
                 <span><%= typeof pet.dob !== 'undefined' ? pet.dob : 'Nov 14, 2024' %></span>
-                <span class="separator">·</span>
+                <span class="separator">･</span>
                 <span><%= pet.age.years %> Years <%= pet.age.months %> Months</span>
             </div>
         </div>
@@ -160,10 +160,12 @@
         <!-- Owner Details -->
         <div class="details-group">
             <div style="display: flex; gap: 10px; justify-content: space-between; width:100%;">
-            <h2 class="details-title">Owner Details</h2>
+            <h2 class="details-title">OWNER DETAILS</h2>
+            <% if(!!prescriptionNumber)  { %>
               <div class="rx-number">
        Rx No: <%= prescriptionNumber %>
     </div>
+    <% } %>
     </div>
             <!-- <div class="owner-info"> -->
                 <div class="owner-name"><%= pet.owner.firstName %> <%= pet.owner.lastName || '' %></div>

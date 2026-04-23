@@ -302,248 +302,319 @@ const invoiceData = {
 
 
 
-const treatmentSheetData ={
+const treatmentSheetData = {
   primaryColor: '#2761c4',
-  id: "b96d74c1-e95f-411e-a100-3edeee8bdd79",
-  title: "Title",
+  id: '95dfd1aa-ba23-4157-94c9-43044a9a3858',
+  title: 'Fever and Fracture',
+  prescriptionNumber: null,
+  showChipLegend: false,
   createdBy: {
-    firstName: "Karthik ",
-    lastName: null, //"DA",
-    email: "karthik@simplivet.care",
-    phoneNumber: "9844598562",
-    signature: null,
-    highestDegree:  "MVSc",
+    name: "Karthik DA",
+    email: null,
+    phoneNumber: '6666666666',
+    signature: {
+      originalFileName: 'signature-noun-paperwork-f16750cd_1.webp',
+      path: 'https://assets.dev.simplivet.in/fbd0825b-b522-4ab9-b4c0-b91ae8f82303/ddb5dd53-a683-4be6-a8f9-00117d1bf11d-signature-noun-paperwork-f16750cd_1.webp?Expires=1773397841&Key-Pair-Id=K26714G0M1NN2R&Signature=gwh8srOVPU6rlfyVlmadqDDBWRVFNkhcw~KhcxPBPe0dcGtExPQKXrF21z6dcEyKF3Dm9~UQFEOKxLNPUsGBc46XRasSFrU9w7FCuFwQnyjF0mY4NkIJtYdwNJlP-zQKLrL8NZMC-91i7JWFPSeub~Allpfh8joTVxPKl0PnrvmjEHbkRDHp64oj6cFKTRqdS-ZIkB2VNyRRT1d1PVXWJv-ytPBpIcRi-qwdZtwD6AybVJQ4KTLPuei5RCIVmmTHHhr6BWtnAN9xmzgG1lZ7EOuqcA~GPCPRAXPE547SLx3zOLp0FRu5A5ncnbsLyxKcie81K4Asg57OsuDXnksgfQ__'
+    },
+    highestDegree: 'PHD\nSecond line\nThird line'
   },
-  createdAt: "2024-11-22T21:16:17.894Z",
-  pet: {
-    name: "Ninja",
+  createdAt: '2026-03-12T04:04:19.389Z',
+ pet: {
+    name: "Ninja smint",
     age: { years: 5, months: 8, days: 4 },
     weight: "25.000",
-    breed: "Belgian Malinois",
+    breed: "Belgian Malinois Malinois Malinois",
     species: "Dog",
-    owner: { firstName: "Karthik", lastName: "D A", phoneNumber: "1111111111" },
+    owner: { firstName: "Karthik ", lastName: "D A", phoneNumber: "1111111111", email: null },
+    updatedAt: "2024-11-22T21:16:17.894Z",
+    weightChange:'+0.1999999999999993'
   },
   organization: {
-    name: "Wow HealthCare organization ",
-    legalName: "",
+    name: 'MB Clinic ',
+    legalName: 'MB Clinic',
     logo: {
-      originalFileName: "images.png",
-      path: "https://assets.dev.simplivet.in/d999ea0d-abf5-4c25-b489-1d6350921ac2/6fdc8d1d-657f-4200-88d4-bf80132973aa/6a9a7d2b-59e7-4d90-ac8c-ec88993b9cbd-images.png?Expires=1738750853&Key-Pair-Id=K26714G0M1NN2R&Signature=pH5zsWuiYntpdS4P3dNAtrbc53br1aOvgVWyrmumYyaRKxJbxJgtU8Mm89JsX0Bh7MwCX9Rzq93o4sYiTjRawGcdgkE1zGtk2AN7apn-dXcu6mk2xg3huUvc1gXAsp870stO98WG3Sf-iGAFc2WEUBV~UChIxKd2NrGJhFGNGbJz0tMv07YrtFkSC0RX9tdZgfD1b7YRESX6rfmD9pM9UiYUmEFnnPt3twh2ZEuq4X-aLkSVvaBWKUW5Da2DDoqkIOB7D3k6xaEvMBIcxwOtbIbmomvz4CATpRVxSkQwKcLOOZMn55AAp21tXQVWH8UUVSYND94LToJw~Td0Oq0yOg__",
+      originalFileName: 'splendor-yellowstone-images-34-mb-260nw-2346869823.webp',
+      path: 'https://assets.dev.simplivet.in/734c9f4c-74d3-456b-b678-4e5931b30baf/3209543b-1f81-45f7-9740-bd949e701058/de14333d-01c1-41cb-add6-84f41ca8c480-splendor-yellowstone-images-34-mb-260nw-2346869823.webp?Expires=1773397841&Key-Pair-Id=K26714G0M1NN2R&Signature=IEGJpOY~eqF2nkNSjQUWoGA~yHqA7gmAc1toI6GKmEQuLb3ujFfiCq0T60P4HZadQpanyqxsVDomKFYc75eWq7Ztxdei5hWxsvG~WlXfOtGoQTU4Q74HW3X5juwT9uDl63cGhuAa0etqwhZMTeMQYyqWeKtHxrn3j4A9s2ypCrPDYNtkkLr729vbQVknBhxXoT~VaabJx~rsU9tyxk~eDxoZDt5NAcHPTEHRR9VeGOUY7ZJbb8GHXpRswBg2ZYpyzhIOxc-OkQ~WzvRhejmVvwkJloQ4cr~l7vqDOug9VVc1-P1sHV6FgB4ROgSZ77x~U~vxRKx7ZgeTCrge7boymQ__'
     },
-    emergencyContactNumber: "1231321231",
-    thankYouMessage: "",
+    emergencyContactNumber: '0442222225',
+    thankYouMessage: 'Thank you for choosing Muresh Balaji pet care',
     address: {
-      buildingNumber: "12312",
-      street: "Rajiv Gandhi Road",
-      area: "Atlanta Point",
-      landmark: "12312312312 1 2312",
-      cityName: "Sri Vijaya Puram",
-      stateName: "Andaman and Nicobar Islands",
-      countryName: "India",
-      pincode: 744104,
-    },
+      buildingNumber: '11B',
+      street: 'MG Road',
+      area: 'indiranagar',
+      landmark: 'bus stop',
+      cityName: 'Bengaluru',
+      stateName: 'Karnatakaa',
+      countryName: 'India',
+      pincode: 560038
+    }
   },
   items: [
     {
-      type: "CHIEF_COMPLAINT",
+      type: 'CHIEF_COMPLAINT',
       data: {
-        description:
-          "chief complaints lorem ipsum sda asdnadjn jandjand jkandsjaksndkjansd ajdsnand akdjnakjdnad\nkmadajdn jsdjnas jansdjn najsn a naj najsn djna a",
+        description: 'The pet was hit by a car 2 days ago and he is vomiting from past 2 days.',
         complaintEntries: [
-          { date: "2024-12-10T00:00:00.000Z", count: 1, comment: "Vomiting" },
-          { date: "2024-12-10T00:00:00.000Z", count: 1, comment: "Shitting" },
-          { date: "2024-12-03T00:00:00.000Z", count: 1, comment: "TimePass" },
-        ],
-      },
+          {
+            date: '2026-03-12T00:00:00.000Z',
+            count: 2,
+            comment: 'Vomiting'
+          },
+          {
+            date: null,
+            count: null,
+            comment: 'Pain'
+          },
+          {
+            date: '2026-03-01T00:00:00.000Z',
+            count: null,
+            comment: ' Not Eating Anything'
+          }
+        ]
+      }
     },
     {
-      type: "EXAMINATION",
+      type: 'EXAMINATION',
       data: {
-        description:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        vitalGroup: "PARTIALLY_COMPROMISED",
+        description: 'The pet was hit by a car 2 days ago and he is vomiting from past 2 days.',
+        vitalGroup: 'PARTIALLY_COMPROMISED',
         vitals: [
           {
-            vitalTypeName: "Temp",
-            vitalName: "Sub Normal",
-            customVitalValue: "Sub Normal",
-          },
-          { vitalTypeName: "CMM", vitalName: "Pale", customVitalValue: "Pale" },
-          {
-            vitalTypeName: "CRT",
-            vitalName: "Abnormal (> 2 sec)",
-            customVitalValue: "Abnormal (> 2 sec)",
+            vitalTypeName: 'Temp',
+            vitalName: 'Normal',
+            customVitalValue: 'Normal'
           },
           {
-            vitalTypeName: "PLN",
-            vitalName: "Slightly enlarged",
-            customVitalValue: "Slightly enlarged",
+            vitalTypeName: 'CMM',
+            vitalName: 'Normal/ Pink',
+            customVitalValue: 'Normal/ Pink'
           },
-          { vitalTypeName: "HR", vitalName: "NAD", customVitalValue: "NAD" },
-          { vitalTypeName: "RR", vitalName: "NAD", customVitalValue: "NAD" },
-          { vitalTypeName: "Abd", vitalName: "High", customVitalValue: "High" },
           {
-            vitalTypeName: "Activity",
-            vitalName: "Dull & depressed",
-            customVitalValue: "Dull & depressed",
+            vitalTypeName: 'CRT',
+            vitalName: 'Normal (1-1 3/4 sec)',
+            customVitalValue: 'Normal (1-1 3/4 sec)'
           },
-        ],
-      },
+          {
+            vitalTypeName: 'PLN',
+            vitalName: 'NAD',
+            customVitalValue: 'NAD'
+          },
+          {
+            vitalTypeName: 'HR',
+            vitalName: 'Normal',
+            customVitalValue: 'Normal'
+          },
+          {
+            vitalTypeName: 'RR',
+            vitalName: 'Normal',
+            customVitalValue: 'Normal'
+          },
+          {
+            vitalTypeName: 'Abd',
+            vitalName: 'Pain On Palpation',
+            customVitalValue: 'Pain On Palpation'
+          },
+          {
+            vitalTypeName: 'Activity',
+            vitalName: 'Active',
+            customVitalValue: 'Active'
+          }
+        ]
+      }
     },
     {
-      type: "INVESTIGATION",
+      type: 'INVESTIGATION',
       data: {
         items: [
           {
-            name: "Blood Test",
-            createdAt: "2024-11-26T14:25:40.610Z",
-            result: {
-              description: "",
-              resultRecordedAt: "2024-11-26T14:44:00.000Z",
-              resultItems: [
-                {
-                  displayName: "Blood Test",
-                  resultRecordedAt: "2024-11-26T14:44:00.000Z",
-                  result: "0",
-                  referenceRange: "",
-                  comments: "",
-                },
-                {
-                  displayName: "Blood Test",
-                  resultRecordedAt: "2024-11-26T14:44:00.000Z",
-                  result: "0",
-                  referenceRange: "",
-                  comments: "",
-                },
-              ],
-              resultAttachments: [
-                {
-                  originalFileName: "download.pdf",
-                  path: "https://assets.dev.simplivet.in/d999ea0d-abf5-4c25-b489-1d6350921ac2/8dd81a60-ee07-4880-9218-910477c0763b-download.pdf?Expires=1738750854&Key-Pair-Id=K26714G0M1NN2R&Signature=QGv4iUSoVX72Rzp00olFKiUmVkyrH2qEUQ9TgdUMHOFRjDROUyg6PtFKI92by90dHbXK2Q1GZdJfYL8hhjE01EasPdGkI5uXwaDWLjDyiVhwb1~2mV2q5OtNVAkVw9Oceh~gc3t40Jq4qcAo79ppDp04zNd0Ra3GCcSYnLC8rjTJfUecUvsQViDdYbvvaNTthRl0CGXeVMrAWVYFHNUTn9Fc17h78~u187Nd8K2RnZYqZOp35I~zkZRBzuZUXapBk9MlxQGBnKPgYz~MklEnl64FueZnXwgKsDR3MoiW4IhiR94bCZ~PHF6DjS~IofPN4ApOHr0EEp3PFmGNFhKNbQ__",
-                },
-              ],
-            },
-            description: "",
+            name: 'blood test ',
+            createdAt: '2026-03-13T09:09:45.050Z',
+            result: null,
+            ownerStatus: 'CONFIRMED',
+            description: 'The following medications have been prescribed .'
           },
           {
-            name: "Urine Test",
-            createdAt: "2024-11-26T14:25:54.496Z",
+            name: 'Check Lab Test 1 and blood test 1',
+            createdAt: '2026-03-13T09:09:46.294Z',
             result: {
-              description: "",
-              resultRecordedAt: "2024-11-26T14:26:00.000Z",
+              description: '',
+              resultRecordedAt: '2026-03-13T09:11:00.000Z',
               resultItems: [
                 {
-                  displayName: "Urine Test",
-                  resultRecordedAt: "2024-11-26T14:26:00.000Z",
-                  result: "0",
-                  referenceRange: "",
-                  comments: "",
-                },
-              ],
-              resultAttachments: [
-                {
-                  originalFileName: "madonna-signature-with-background.png",
-                  path: "https://assets.dev.simplivet.in/d999ea0d-abf5-4c25-b489-1d6350921ac2/da36d006-783b-4e25-bf2c-db29bb20b2ec-madonna-signature-with-background.png?Expires=1738750854&Key-Pair-Id=K26714G0M1NN2R&Signature=bXjwaHMnvugoVs-oHt2-q34XyppJC2v0tjHY7tv7KG7x3faPOBZR5OircCvljGw4nv9QRaVIxwgIYUMwY2v~M0D-OZwNBg-t8SdB8wPYuHiYGa9lqwS2so-alsR5fqWQYL8D1E8W7Q82ElFhE7g5RvKhv58oUbzH089FOk8xsajGgeguCebUIWJng7~GXmR2sqqoPlu~0sdnUA0al20YVPYFpHKUH0x5ywB89ggUB1xUnioYC3vUl-xE8vNmAuDBdYOq3nYY0coZ8tfNHzpt4t0UEYQEQyTQqkKH~PQHg10dGmuufULiePAvX87o9ebZIPtBAAMWPz-HtoGABtW63A__",
+                  displayName: 'Check Lab Test 1',
+                  resultRecordedAt: '2026-03-13T09:11:00.000Z',
+                  result: '0',
+                  referenceRange: '',
+                  comments:
+                    'The following medications have been prescribed based on the clinical findings. Please administer '
                 },
                 {
-                  originalFileName: "monk.jpeg",
-                  path: "https://assets.dev.simplivet.in/d999ea0d-abf5-4c25-b489-1d6350921ac2/de70060b-4027-4188-b307-74d75dec7fbf-monk.jpeg?Expires=1738750854&Key-Pair-Id=K26714G0M1NN2R&Signature=wnAF8yhGaJmCoaJV8XT0rusTgMy6MkSBvSpnIyUj0Up2fqb~ERYEm303V7zpu4qwKHo5sIrDxOgqdYbKejWYsIE~OoKNgmgPYzWsMd3LuUdrz6EgDKw1hpSWT6u237uDinsFIw4-ex1hWXenfjfZsY0qxfoJbgVyUFUaJYVzrudkwNfFtZNPKBRS0ImJGIRcWM4gQdi-hh8Wrph-WMBoP3MRXstNjCxViXRSk2~H2jdM1-ousuZr7HzunvMmInSSkJyHCLiQa5By5xOrgzKhS0D2-cNXGKXCshGwiDfWNEPzPK1yJ9HTedwHQsK9OHqtyh96hwZ~g3H5MOahzcYLpw__",
+                  displayName: 'blood test 1',
+                  resultRecordedAt: '2026-03-13T09:11:00.000Z',
+                  result: '0',
+                  referenceRange: '',
+                  comments:
+                    'The following medications have been prescribed based on the clinical findings. Please administer '
                 },
+                {
+                  displayName: 'MB- Blood Test',
+                  resultRecordedAt: '2026-03-13T09:11:00.000Z',
+                  result: '0',
+                  referenceRange: '',
+                  comments:
+                    'The following medications have been prescribed based on the clinical findings. Please administer '
+                },
+                {
+                  displayName: 'blood test ',
+                  resultRecordedAt: '2026-03-13T09:11:00.000Z',
+                  result: '0',
+                  referenceRange: '',
+                  comments:
+                    'The following medications have been prescribed based on the clinical findings. Please administer '
+                }
               ],
+              resultAttachments: []
             },
-            description: "",
-          },
-        ],
-      },
+            ownerStatus: 'RECOMMENDED',
+            description:
+              'The following medications have been prescribed based on the clinical findings. Please administer'
+          }
+        ]
+      }
     },
     {
-      type: "MEDICATION",
+      type: 'MEDICATION',
       data: {
         description:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          'The following medications have been prescribed based on the clinical findings. Please administer as directed and complete the full course of treatment.',
         items: [
           {
-            medicationName: "Dolo medicine",
-            medicationUnitTypeName: "Tablets (Tab)",
+            medicationName: 'item Dolo 650',
+            medicationUnitTypeName: 'Tablets',
             description:
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-            dosage: { unit: "mg", value: "100.00" },
-            routeOfAdministration: null,
-            frequency: { type: "hrs", value: 2 },
-            compositions: [{ name: "Acetaminophen (Paracetamol)" }],
+              'The following medications have been prescribed based on the clinical findings. Please administer ',
+            dosage: {
+              unit: 'mg',
+              value: '2.00'
+            },
+            routeOfAdministration: 'I/V',
+            frequency: {
+              type: 'hrs',
+              value: 2
+            },
+            compositions: [
+              {
+                name: 'Acetaminophen (Paracetamol)'
+              }
+            ]
           },
-        ],
-      },
+          {
+            medicationName: 'prod item 19',
+            medicationUnitTypeName: 'Tablets',
+            description:
+              'The following medications have been prescribed based on the clinical findings. Please administer ',
+            dosage: {
+              unit: 'mg',
+              value: '3.00'
+            },
+            routeOfAdministration: 'S/C',
+            frequency: {
+              type: 'hrs',
+              value: 2
+            },
+            compositions: [
+              {
+                name: 'Acetaminophen (Paracetamol)'
+              }
+            ]
+          },
+          {
+            medicationName: 'para item 41',
+            medicationUnitTypeName: 'Tablets',
+            description:
+              'The following medications have been prescribed based on the clinical findings. Please administer ',
+            dosage: {
+              unit: 'mg',
+              value: '1.00'
+            },
+            routeOfAdministration: 'Topical',
+            frequency: {
+              type: 'days',
+              value: 2
+            }
+          }
+        ]
+      }
     },
     {
-      type: "TENTATIVE_DIAGNOSIS_AND_PROGNOSIS",
+      type: 'TENTATIVE_DIAGNOSIS_AND_PROGNOSIS',
       data: {
         tentativeDiagnosis: {
           values: [
-            { name: "Acetaminophen Toxicity" },
-            { name: "Anaphylaxis" },
-            { name: "Arterial Thromboembolism (ATE)" },
-            { name: "Spider Bite-Black Widow" },
+            {
+              name: 'Anticoagulant Rodenticide Toxicity'
+            },
+            {
+              name: 'Acute respiratory distress syndrome (ARDS)'
+            },
+            {
+              name: 'Arterial Thromboembolism (ATE)'
+            }
           ],
-          customValue: null ,//"hello world"
+          customValue: null,
           description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+            'The following medications have been prescribed based on the clinical findings. Please administer as directed and complete the full course of treatment.'
         },
-        prognosis: "VERY_GOOD",
-      },
+        prognosis: 'POOR'
+      }
     },
     {
-      type: "ADVICE",
+      type: 'ADVICE',
       data: {
         title:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-      },
+          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pre'
+      }
     },
     {
-      type: "FOLLOW_UP",
+      type: 'FOLLOW_UP',
       data: {
+        isFollowUpRequired: true,
         items: [
           {
-            followUpType: "FOLLOW_UP",
-            followUpDate: "2024-12-12T14:51:00.000Z",
-            followUpTimes: 3,
-            reason:
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-            createdAt: "2024-12-11T14:51:53.656Z",
-            updatedAt: "2024-12-11T14:51:53.656Z",
+            followUpType: 'FOLLOW_UP',
+            followUpDate: '2026-04-01T04:30:00.000Z',
+            followUpTimes: 1,
+            instructions: 'instructions',
+            followUpReason: 'reason 1',
+            followUpInstruction: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. ',
+            createdAt: '2026-03-12T04:04:19.362Z',
+            updatedAt: '2026-03-12T04:04:19.362Z'
           },
-          {
-            followUpType: "FOLLOW_UP",
-            followUpDate: "2024-12-13T14:51:00.000Z",
-            followUpTimes: 3,
-            reason:
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-            createdAt: "2024-12-11T14:51:53.656Z",
-            updatedAt: "2024-12-11T14:51:53.656Z",
-          },
-          {
-            followUpType: "FOLLOW_UP",
-            followUpDate: "2024-12-14T14:51:00.000Z",
-            followUpTimes: 3,
-            reason:
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-            createdAt: "2024-12-11T14:51:53.656Z",
-            updatedAt: "2024-12-11T14:51:53.656Z",
-          },
-          {
-            followUpType: "NEXT_VISIT",
-            followUpDate: "2024-12-16T14:51:00.000Z",
-            followUpTimes: 0,
-            reason:
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-            createdAt: "2024-12-11T14:51:53.656Z",
-            updatedAt: "2024-12-11T14:51:53.656Z",
-          },
-        ],
-      },
-    },
-  ],
+            {
+            followUpType: 'FOLLOW_UP',
+            followUpDate: '2026-04-02T04:30:00.000Z',
+            followUpTimes: 1,
+            instructions: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+            followUpReason: 'reason 1',
+            followUpInstruction: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. ',
+            createdAt: '2026-03-12T04:04:19.362Z',
+            updatedAt: '2026-03-12T04:04:19.362Z'
+          },  {
+            followUpType: 'FOLLOW_UP',
+            followUpDate: '2026-04-03T04:30:00.000Z',
+            followUpTimes: 1,
+            instructions: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+            followUpReason: 'reason 1',
+            followUpInstruction: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. ',
+            createdAt: '2026-03-12T04:04:19.362Z',
+            updatedAt: '2026-03-12T04:04:19.362Z'
+          }
+        ]
+      }
+    }
+  ]
 };
+
 
 const prescriptionData = {
   primaryColor: '#2761c4',
@@ -551,8 +622,7 @@ const prescriptionData = {
   title: "Veterinary Prescription Titile",
   notes: "Patient presents with localized skin irritation on the lower back. Mild redness and scaling observed. No fever. Appetite and activity levels are normal. Recommended topical and oral treatment.",
   createdBy: {
-    firstName: "Karthik ",
-    lastName: null, //"DA",
+    name: "Karthik DA",
     email: "karthik@simplivet.care",
     phoneNumber: "9844598562",
     signature: null,

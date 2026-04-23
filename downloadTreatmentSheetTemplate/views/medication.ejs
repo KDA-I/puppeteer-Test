@@ -1,78 +1,167 @@
-<div class="medicationContainer no-page-break">
-  <% if (description) { %> <%= description %> <% } %>
-  <!--  -->
+<style>
+  .medication-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0px 0px 10px 0px;
+    color: #000000;
+  }
 
-  <div style="border-collapse: collapse; width: 100%">
-    <div style="display: flex; color: grey">
-      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Medication</div>
-      <div style="flex: 0.5; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Dosage</div>
-      <div style="flex: 0.5; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Frequency</div>
-      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Notes</div>
-    </div>
+  .medication-description {
+    font-size: 12px;
+    color: #000000;
+  }
+
+  .medication-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .medication-header {
+    display: flex;
+    color: #666666;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #d6d6d6;
+  }
+
+  .medication-header .col-index {
+    flex: 0.05;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+    text-align: left;
+
     
-    <% items.forEach((entry,index) => { %>
-    <div style="display: flex; font-size: 14px; font-weight: 700">
-      <div
-        style="
-        flex: 1;
-         min-width: 150px;
-         padding: 6px 6px 6px 6px;
-      background-color: #ffff;
-      margin: 0px 5px 0px 0px;
-      border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-      border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-      border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
-      border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;
-      "
-      >
-        <%= entry.medicationName %> <% if (entry.medicationUnitType) { %>
-        <span style="font-size: 10px; color: grey"> [<%= entry.medicationUnitType.name %>] </span>
+  }
+
+  .medication-header .col-medication,
+  .medication-row .col-medication {
+    flex: 1;
+    min-width: 150px;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+    text-align: left;
+
+  }
+
+  .medication-header .col-dosage,
+  .medication-row .col-dosage {
+    flex: 0.5;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+    text-align: left;
+
+  }
+    .medication-header .col-route,
+  .medication-row .col-route {
+    flex: 0.5;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+    text-align: left;
+    
+  }
+
+  .medication-header .col-frequency,
+  .medication-row .col-frequency {
+    flex: 0.5;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+    text-align: left;
+    
+  }
+
+  .medication-header .col-notes,
+  .medication-row .col-notes {
+    flex: 1;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+    text-align: left;
+  }
+
+  .medication-row {
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #d6d6d6;
+    
+  }
+
+  .medication-row:last-child {
+    border-bottom: none;
+  }
+
+ .medication-row .col-index {
+    flex: 0.05;
+    padding: 8px;
+    background-color: #ffff;
+    margin: 0px 5px 0px 0px;
+ }
+
+  .medication-row .col-medication,
+  .medication-row .col-dosage,
+  .medication-row .col-route,
+  .medication-row .col-frequency,
+  .medication-row .col-notes {
+    text-align: left;
+    background-color: #ffff;
+  }
+
+  .medication-unit {
+    font-size: 10px;
+    color: #666666;
+  }
+
+  .medication-empty {
+    margin: 0px;
+  }
+</style>
+
+<div class="medicationContainer medication-container">
+  <% if (description) { %>
+  <div class="medication-description"><%= description %></div>
+  <% } %>
+
+  <div class="medication-table">
+    <div class="medication-header">
+      <div class="col-index">#</div>
+      <div class="col-medication">Medication</div>
+      <div class="col-dosage">Dosage</div>
+      <div class="col-route">Route</div>
+      <div class="col-frequency">Frequency</div>
+      <div class="col-notes">Notes</div>
+    </div>
+
+    <% items.forEach((entry, index) => { %>
+    <div class="medication-row no-page-break">
+      <div class="col-index"><%= index + 1 %></div>
+      <div class="col-medication">
+        <%= entry.medicationName %>
+        <% if (entry.medicationUnitType) { %>
+        <span class="medication-unit">[<%= entry.medicationUnitType.name %>]</span>
         <% } %>
       </div>
-      <div
-        style="flex: 0.5;
-        padding: 6px 6px 6px 6px;
-      background-color: #ffff;
-      margin: 0px 5px 0px 0px;
-      border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-      border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-      border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
-      border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;
-      text-align: center;
-      "
-      >
-        <% if(entry.dosage) { %> <%= entry.dosage.value %> <%= entry.dosage.unit %> <% } else { %>
-        <p>-</p>
+      <div class="col-dosage">
+        <% if(entry.dosage) { %>
+        <%= parseFloat(entry.dosage.value) || '-' %> <%= entry.dosage.unit %>
+        <% } else { %>
+        <p class="medication-empty">-</p>
         <% } %>
       </div>
-      <div
-        style="flex: 0.5; 
-        padding: 6px 6px 6px 6px;
-      background-color: #ffff;
-      margin: 0px 5px 0px 0px;
-      border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-      border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-      border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
-      border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;
-      text-align: center;
-      "
-      >
-        <% if(entry.frequency.type && entry.frequency.value) { %> <%= entry.frequency.value %> <%= entry.frequency.type
-        %> <% } else { %>
-        <p>-</p>
+       <div class="col-route">
+        <% if(entry.routeOfAdministration) { %>
+        <%= entry.routeOfAdministration || 'N/A' %> 
+        <% } else { %>
+        <p class="medication-empty">N/A</p>
         <% } %>
       </div>
-      <div
-        style="flex: 1; 
-        padding: 6px 6px 6px 6px;
-      background-color: #ffff;
-      margin: 0px 5px 0px 0px;
-      border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-      border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-      border-bottom-right-radius: <% if (index === items.length-1) { %> 5px <% } %>;
-      border-bottom-left-radius: <% if (index === items.length-1) { %> 5px <% } %>;
-      "
-      >
+      <div class="col-frequency">
+        <% if(entry.frequency.type && entry.frequency.value) { %>
+        <%= entry.frequency.value %> <%= entry.frequency.type %>
+        <% } else { %>
+        <p class="medication-empty">-</p>
+        <% } %>
+      </div>
+      <div class="col-notes">
         <%= entry.description || "-" %>
       </div>
     </div>

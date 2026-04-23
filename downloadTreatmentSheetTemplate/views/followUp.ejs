@@ -1,60 +1,117 @@
-<div class="followUpSubWrapper no-page-break">
+<style>
+.followUpSubWrapper{
+    margin: 0px 0px 10px 0px;
+    color: #000000;
+}
+
+  .follow-up-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .follow-up-header {
+    display: flex;
+    color: #666666;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #d6d6d6;
+  }
+
+  .follow-up-header .col-index {
+     flex: 0.08;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .follow-up-row .col-index {
+    flex: 0.08;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .follow-up-header .col-type,
+  .follow-up-row .col-type {
+    flex: 0.3;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .follow-up-header .col-date,
+  .follow-up-row .col-date {
+    flex: 0.8;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .follow-up-header .col-times,
+  .follow-up-row .col-times {
+    flex: 0.1;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+    text-align: center;
+  }
+
+  .follow-up-header .col-reason,
+  .follow-up-row .col-reason {
+    flex: 0.6;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .follow-up-header .col-instructions,
+  .follow-up-row .col-instructions {
+    flex: 1;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .follow-up-row {
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #d6d6d6;
+  }
+
+  .follow-up-row:last-child {
+    border-bottom: none;
+  }
+
+</style>
+
+<div class="followUpSubWrapper ">
   <% if (data.items.length > 0) { %>
-  <div style="border-collapse: collapse; width: 100%">
-    <div style="display: flex; padding: 5px; color: grey; max-width: 600px">
-      <div style="flex: 0.3; padding: 6px 0px 6px 6px; margin: 0px 0px 0px 0px">Type</div>
-      <div style="flex: 0.3; padding: 6px 0px 6px 6px; margin: 0px 0px 0px 0px">Date</div>
-      <div style="flex: 0.1; padding: 6px 0px 6px 6px; margin: 0px 0px 0px 0px">Times</div>
-      <div style="flex: 1; padding: 6px 0px 6px 6px; margin: 0px 0px 0px 0px">Reason</div>
+  <div class="follow-up-table">
+    <div class="follow-up-header no-page-break">
+      <div class="col-index">#</div>
+      <div class="col-type">Type</div>
+      <div class="col-date">Date & Time</div>
+      <div class="col-times">Times</div>
+      <div class="col-reason">Reason</div>
+      <div class="col-instructions">Instruction</div>
     </div>
 
     <% data.items.forEach((entry, index) => { %>
-    <div style="display: flex; font-size: 14px; font-weight: 700; max-width: 600px">
-      <div
-        style="flex: 0.3; padding: 6px 6px 6px 6px;
-            background-color: #ffff;
-            margin: 0px 5px 0px 0px;
-            border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-            border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-            border-bottom-right-radius: <% if (index === data.length-1) { %> 5px <% } %>;
-            border-bottom-left-radius: <% if (index === data.length-1) { %> 5px <% } %>;"
-      >
+    <div class="follow-up-row no-page-break">
+      <div class="col-index"><%= index + 1 %></div>
+      <div class="col-type">
         <% if (entry.followUpType && entry.followUpType === 'FOLLOW_UP') { %> Follow Up <% } else { %> Next Visit <% }%>
       </div>
-      <div
-        style="flex: 0.3; padding: 6px 6px 6px 6px;
-            background-color: #ffff;
-            margin: 0px 5px 0px 0px;
-            border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-            border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-            border-bottom-right-radius: <% if (index === data.length-1) { %> 5px <% } %>;
-            border-bottom-left-radius: <% if (index === data.length-1) { %> 5px <% } %>;"
-      >
-        <%= new Date(entry.followUpDate).toLocaleDateString() %>
+      <div class="col-date">
+        <%  const date = new Date(createdAt);
+               const formattedDate = date.toLocaleDateString('en-uk', { day: 'numeric', month: 'short', year: 'numeric' });
+               const formattedTime = date.toLocaleTimeString('en-uk', { hour: '2-digit', minute: '2-digit', hour12: true });
+            %>
+            <%= formattedDate %> , <%= formattedTime %>
       </div>
-      <div
-        style="flex: 0.1; padding: 6px 6px 6px 6px;
-            background-color: #ffff;
-            margin: 0px 5px 0px 0px;
-            border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-            border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-            border-bottom-right-radius: <% if (index === data.length-1) { %> 5px <% } %>;
-            border-bottom-left-radius: <% if (index === data.length-1) { %> 5px <% } %>;
-            text-align:center"
-      >
+      <div class="col-times">
         <%= entry.followUpTimes %>
       </div>
-      <div
-        style="flex: 1; padding: 6px 6px 6px 6px;
-            background-color: #ffff;
-            margin: 0px 5px 0px 0px;
-            border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-            border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-            border-bottom-right-radius: <% if (index === data.length-1) { %> 5px <% } %>;
-            border-bottom-left-radius: <% if (index === data.length-1) { %> 5px <% } %>;"
-      >
-        <%= entry.reason || '-' %>
+      <div class="col-reason">
+        <%= entry.followUpReason || '-' %>
       </div>
+      <div class="col-instructions">
+        <%= entry.instructions || '-' %>
+        </div>
     </div>
     <% }) %>
   </div>

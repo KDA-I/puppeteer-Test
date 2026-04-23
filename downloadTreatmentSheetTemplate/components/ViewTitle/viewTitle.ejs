@@ -1,25 +1,25 @@
 <div
   class="no-page-break"
-  style="display: flex; place-content: flex-start; place-items: center; gap: 10px; height: max-content"
+  style="display: flex; place-content: flex-start; place-items: center; gap: 8px; height: max-content"
   ,
 >
   <div
     style="
+    min-width: 22px;
       display: flex;
       place-content: center;
       place-items: center;
-      height: 44px;
-      width: 44px;
-      border-radius: 50%;
-      font-weight: bold;
-      font-size: 14px;
-      background-color: <%= color || '#000000' %>;
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 12px;
+      background-color: <%= primaryColor || '#000000' %>30;
+      color: #000000D9
     "
   >
     <%= symbol %>
   </div>
 
-  <p style="font-weight: 700; font-family: Mulish, sans-serif; letter-spacing: 3px">
+  <p style=" font-size: 12px; font-weight: 600; letter-spacing: 0.08rem; ">
     <% let result; switch (symbol) { case 'C/C': result = 'CHIEF COMPLAINTS';break; case 'O/E': result = 'EXAMINATION';
     break; case 'I': result ='INVESTIGATION'; break; case 'Rx': result ='TREATMENT'; break; case 'TDx': result =
     'DIAGNOSIS AND PROGNOSIS'; break; case 'F/U': result = 'FOLLOW UPS'; break; case 'A': result = 'ADVICE'; break;

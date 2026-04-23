@@ -1,51 +1,112 @@
-<div class="examinationSubWrapper no-page-break">
+<style>
+
+  .examination-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0px 0px 10px 0px;
+    color: #000000;
+  }
+
+  .examination-description {
+    font-size: 12px;
+    color: #000000;
+  }
+  
+  .vital-group {
+    font-size: 12px;
+    color: #000000;
+  }
+
+  .vitals-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .vitals-header {
+    display: flex;
+    color: #666666;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #d6d6d6;
+  }
+
+  .vitals-header .col-index {
+    flex: 0.1;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .vitals-header .col-vital-type {
+    flex: 1;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .vitals-header .col-value {
+    flex: 1;
+    padding: 8px;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .vitals-row {
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #d6d6d6;
+  }
+
+  .vitals-row:last-child {
+    border-bottom: none;
+  }
+
+  .vitals-row .col-index {
+    flex: 0.1;
+    padding: 8px;
+    background-color: #ffff;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .vitals-row .col-vital-type {
+    flex:1;
+    padding: 8px;
+    background-color: #ffff;
+    margin: 0px 5px 0px 0px;
+  }
+
+  .vitals-row .col-value {
+    flex: 1;
+    padding: 8px;
+    background-color: #ffff;
+    margin: 0px 5px 0px 0px;
+  }
+</style>
+
+<div class="examinationSubWrapper examination-container">
   <% if (vitalGroup) { %>
-  <div>
-    <p><strong> Vital Group - </strong> <%= vitalGroup.toLowerCase().replace(/_/g, ' '); %></p>
+  <div class="vital-group">
+    <p style="margin: 0px; font-weight: 400;"><span style="font-weight: 600;"> Vital Group - </span> <%= vitalGroup.charAt(0).toUpperCase() + vitalGroup.slice(1).toLowerCase().replace(/_/g, ' '); %></p>
   </div>
   <% } %>
-  <!--  -->
 
   <% if(description) { %>
-  <div><%= description %></div>
+  <div class="examination-description"><%= description %></div>
   <% } %>
 
-  <!--  -->
-  <% if (vitals.length >0) { %>
-
-  <div style="border-collapse: collapse; width: 100%">
-    <div style="display: flex; padding: 5px; color: grey; max-width: 400px">
-      <div style="flex: 0.4; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Vital Type</div>
-      <div style="flex: 1; padding: 6px 6px 6px 6px; margin: 0px 5px 0px 0px">Value</div>
+  <% if (vitals.length > 0) { %>
+  <div class="vitals-table">
+    <div class="vitals-header">
+      <div class="col-index">#</div>
+      <div class="col-vital-type">Vital Type</div>
+      <div class="col-value">Value</div>
     </div>
-
-    <% vitals.forEach((entry,index) => { %>
-    <div style="display: flex; font-size: 14px; font-weight: 700; max-width: 400px">
-      <div
-        style="flex: 0.4; padding: 6px 6px 6px 6px;
-          background-color: #ffff;
-          margin: 0px 5px 0px 0px;
-          border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-          border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-          border-bottom-right-radius: <% if (index === vitals.length-1) { %> 5px <% } %>;
-          border-bottom-left-radius: <% if (index === vitals.length-1) { %> 5px <% } %>;"
-      >
-        <%= entry.vitalTypeName %>
-      </div>
-      <div
-        style="flex: 1; padding: 6px 6px 6px 6px;
-          background-color: #ffff;
-          margin: 0px 5px 0px 0px;
-          border-top-right-radius: <% if (index === 0) { %> 5px <% } %>;
-          border-top-left-radius: <% if (index === 0) { %> 5px <% } %>;
-          border-bottom-right-radius: <% if (index === vitals.length-1) { %> 5px <% } %>;
-          border-bottom-left-radius: <% if (index === vitals.length-1) { %> 5px <% } %>;"
-      >
-        <%= entry.vitalName || entry.customVitalValue %>
-      </div>
+    <% vitals.forEach((entry, index) => { %>
+    <div class="vitals-row no-page-break ">
+      <div class="col-index"><%= index + 1 %></div>
+      <div class="col-vital-type"><%= entry.vitalTypeName %></div>
+      <div class="col-value"><%= entry.vitalName || entry.customVitalValue %></div>
     </div>
     <% }) %>
   </div>
-
   <% } %>
 </div>

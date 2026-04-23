@@ -1,8 +1,62 @@
-<div class="tentativeDiagnosisSubWrapper no-page-break">
+<style>
+  .tentativeDiagnosisSubWrapper {
+       margin: 0px 0px 10px 0px;
+       color: #000000;
+  }
+
+  .diagnosis-container {
+     gap: 6px;
+     display: flex;
+     flex-direction: row;
+  }
+
+  .diagnosis-container span {
+     font-size: 12px;
+     font-weight: 400;
+     margin-right: 4px;
+   }
+
+   .diagnosis-container span:last-child {
+     margin-right: 0px;
+   }
+
+   .diagnosis-container p {
+     font-size: 12px;
+     font-weight: 600;
+     margin: 0px 0px 4px 0px;
+   }
+
+   .prognosis-container {
+     display: flex;
+     flex-direction: row;
+     gap: 6px;
+     margin-top: 4px;
+   }
+
+     .prognosis-container p {
+     font-size: 12px;
+     font-weight: 600;
+     margin: 0px 0px 4px 0px;
+   }
+
+     .prognosis-container  span {
+     font-size: 12px;
+     font-weight: 400;
+     margin-right: 4px;
+   }
+
+   .description-container {
+     font-size: 12px;
+     padding-top: 6px;
+   }
+</style>
+
+
+<div class="tentativeDiagnosisSubWrapper">
   <!--  -->
   <% if (tentativeDiagnosis.values.length > 0 || tentativeDiagnosis.customValue) { %>
   <div class="diagnosis-container">
-    <p><strong>Diagnosis :</strong></p>
+    <p>Diagnosis :</p>
 
     <% const diagnoses = [ ...tentativeDiagnosis.values.map(v => v.name), ...(tentativeDiagnosis.customValue ?
     [tentativeDiagnosis.customValue] : []) ]; const uniqueDiagnoses = [...new Set(diagnoses)];
@@ -15,14 +69,17 @@
   <!--  -->
 
   <% if (prognosis) { %>
-  <div>
+  <div class="prognosis-container">
     <p>
-      <strong>Prognosis : </strong>
-      <span><%= prognosis.toLowerCase().replace(/_/g, ' '); %> </span>
+      Prognosis : 
+     
     </p>
+     <span><%= prognosis.toLowerCase().replace(/_/g, ' '); %> </span>
   </div>
-  <% } %> <% if (tentativeDiagnosis.description) { %>
-  <div><%= tentativeDiagnosis.description %></div>
+  <% } %> 
+  
+  <% if (tentativeDiagnosis.description) { %>
+  <div class='description-container'><%= tentativeDiagnosis.description %></div>
 
   <% } %>
 </div>

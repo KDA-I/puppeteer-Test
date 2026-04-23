@@ -1,5 +1,18 @@
-<div class="adviceSubWrapper no-page-break">
+
+<style>
+  .adviceSubWrapper {
+    margin: 0px 0px 10px 0px;
+    color: #000000;
+  }
+
+  .adviceSubWrapper .advice-description {
+    font-size: 12px;
+    color: #000000;
+  }
+</style>
+
+<div class="adviceSubWrapper">
   <% if (title) { %>
-  <div><%= title %></div>
+  <div class="adviceSubWrapper advice-description "><%= title %></div>
   <% } %>
 </div>
