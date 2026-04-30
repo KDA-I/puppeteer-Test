@@ -28,6 +28,12 @@ const footerPath = path.join(
   "invoiceTemplates/components",
   "page-footer.ejs"
 );
+
+const A4InvoiceFooterPath = path.join(
+  __dirname,
+  "A4InvoiceTemplates/components",
+  "footer.ejs"
+);
 const dataPath = path.join(__dirname, "data.js");
 
 const emailBody = path.join(
@@ -59,6 +65,17 @@ const prescriptionFooterPath = path.join(
   __dirname,
   "PrescriptionTemplates/components/footer",
   "footer.ejs"
+);
+
+const A4InvoicePath = path.join(
+  __dirname,
+  "A4InvoiceTemplates",
+  "body.ejs"
+);
+const thermalInvoicePath = path.join(
+  __dirname,
+  "invoiceTemplates",
+  "body.ejs"
 );
 
 const invoiceData = require(dataPath).invoiceData;
@@ -180,91 +197,121 @@ app.get("/generate-pdf/prescription", async (req, res) => {
   }
 }); 
 
-// app.get("/generate-pdf", async (req, res) => {
-//   try {
-//     const browser = await puppeteer.launch();
-//     const page = await browser.newPage();
+// Thermal Invoice
+app.get("/generate-pdf/thermal-invoice", async (req, res) => {
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-//     // Set viewport width to match the desired PDF width (80mm ≈ 302px)
-//     await page.setViewport({
-//       width: 302,
-//       height: 1000, // This will be adjusted automatically
-//     });
+    // Set viewport width to match the desired PDF width (80mm ≈ 302px)
+    await page.setViewport({
+      width: 273,
+      height: 1000,
+      deviceScaleFactor: 2
+    });
+    // Render your template
+    const renderedHtml = await ejs.renderFile(thermalInvoicePath, invoiceData);
+    await page.setContent(renderedHtml);
 
-//     // Render your template
-//     const renderedHtml = await ejs.renderFile(templatePath, invoiceData);
-//     await page.setContent(renderedHtml);
+    // Wait for any dynamic content to load
 
-//     // Wait for any dynamic content to load
-//     await page.evaluateHandle("document.fonts.ready");
+    await page.evaluateHandle('document.fonts.ready');
 
-//     // Get the page height
-//     const bodyHandle = await page.$("body");
-//     const { height } = await bodyHandle.boundingBox();
-//     await bodyHandle.dispose();
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
-//     // Generate PDF with calculated dimensions
-//     const pdfPath = path.join(__dirname, "output.pdf");
-//     await page.pdf({
-//       path: pdfPath,
-//       width: "80mm",
-//       height: `${Math.ceil(height)}px`,
-//       preferCSSPageSize: true,
-//       printBackground: true,
-//       margin: {
-//         top: "1px",
-//         bottom: "1px",
-//         left: "1px",
-//         right: "1px",
-//       },
-//     });
 
-//     await browser.close();
-//     res.download(pdfPath);
-//   } catch (error) {
-//     console.error("Error generating PDF:", error);
-//     res.status(500).send("Error generating PDF");
-//   }
-// });
+    // Get the page height
+    const bodyHandle = await page.$("body");
+        if (!bodyHandle) {
+      throw new Error('Failed to get the body element.');
+    }
 
-// app.get("/generate-pdf", async (req, res) => {
-//   try {
-//     const browser = await puppeteer.launch();
-//     const page = await browser.newPage();
+    const { height } = await bodyHandle.boundingBox();
+    await bodyHandle.dispose();
 
-//     // Set viewport width to match the desired PDF width (80mm ≈ 302px)
-//     await page.setViewport({
-//       width: 302,
-//       height: 1000, // This will be adjusted automatically
-//     });
+    // Generate PDF with calculated dimensions
 
-//     // Render your template
-//     const renderedHtml = await ejs.renderFile(emailBody, invoiceData);
-//     await page.setContent(renderedHtml);
+    const pdfPath = path.join(__dirname, "output.pdf");
+    await page.pdf({
+      path: pdfPath,
+      width: "80mm",
+      height: `${Math.ceil(height)}px`,
+      preferCSSPageSize: true,
+      printBackground: true,
+      margin: {
+        top: "20px",
+        bottom: "20px",
+        left: "20px",
+        right: "20px",
+      },
 
-//     // Wait for any dynamic content to load
-//     await page.evaluateHandle("document.fonts.ready");
+    });
 
-//     // Get the page height
-//     const bodyHandle = await page.$("body");
-//     const { height } = await bodyHandle.boundingBox();
-//     await bodyHandle.dispose();
+    await browser.close();
+    res.download(pdfPath);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    res.status(500).send("Error generating PDF");
+  }
+});
 
-//     // Generate PDF with calculated dimensions
-//     const pdfPath = path.join(__dirname, "output.pdf");
-//     await page.pdf({
-//       path: pdfPath,
-//       width: "80mm",
-//       height: `${Math.ceil(height)}px`,
-//       preferCSSPageSize: true,
-//       printBackground: true,
-//       margin: { top: "1px", bottom: "1px", left: "1px", right: "1px" },
-//     });
-//   } catch (error) {
-//     console.error("Error generating PDF:", error);
-//     res.status(500).send("Error generating PDF");
-//   }
-// });
+app.get("/preview/thermal-invoice", async (req, res) => {
+  app.set("views", path.join(__dirname, "invoiceTemplates"));
+  res.render("body", invoiceData);
+});
+
+// A4 Invoice
+app.get("/preview/a4-invoice", async (req, res) => {
+  app.set("views", path.join(__dirname, "A4InvoiceTemplates"));
+  res.render("body", invoiceData);
+  // res.render("components/footer", invoiceData);
+});
+
+app.get("/generate-pdf/a4-invoice", async (req, res) => {
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+
+
+    // Render your template
+    const renderedHtml = await ejs.renderFile(A4InvoicePath, invoiceData);
+    await page.setContent(renderedHtml);
+
+    // Wait for any dynamic content to load
+    await page.evaluateHandle("document.fonts.ready");
+
+    // Get the page height
+    const bodyHandle = await page.$("body");
+    const { height } = await bodyHandle.boundingBox();
+    await bodyHandle.dispose();
+
+    // Generate PDF with calculated dimensions
+    const pdfPath = path.join(__dirname, "output.pdf");
+    const footerTemplate = await ejs.renderFile(A4InvoiceFooterPath, invoiceData);
+
+    await page.pdf({
+      path: pdfPath,
+      format: "A4",
+      // preferCSSPageSize: true,
+      // height:'',
+      printBackground: true,
+      displayHeaderFooter: true,
+      footerTemplate: footerTemplate,
+      margin: {
+        top: "0px",
+        bottom: "0px",
+        left: "10px",
+        right: "10px",
+      },
+      scale:1.4
+    });
+    res.download(pdfPath);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    res.status(500).send("Error generating PDF");
+  }
+});
 
 // Start the server
 const PORT = 3000;
@@ -275,4 +322,10 @@ app.listen(PORT, () => {
   console.log("Preview the template at: http://localhost:3000/preview");
   console.log("Generate PDF at: http://localhost:3000/generate-pdf");
   console.log("Generate PDF at: http://localhost:3000/generate-pdf/prescription");
+  console.log("Preview the template at: http://localhost:3000/preview/prescription");
+  console.log("Preview the template at: http://localhost:3000/preview/a4-invoice");
+  console.log("Generate PDF at: http://localhost:3000/generate-pdf/a4-invoice");
+  console.log("Preview the template at: http://localhost:3000/preview/thermal-invoice");
+  console.log("Generate PDF at: http://localhost:3000/generate-pdf/thermal-invoice");
+
 });

@@ -1,120 +1,102 @@
-<!-- <% function formatDate(date) { if (!date) return ''; const d = new Date(date);
-if (isNaN(d.getTime())) return ''; const day = String(d.getDate()).padStart(2,
-'0'); const month = String(d.getMonth() + 1).padStart(2, '0'); const year =
-d.getFullYear(); return `${day}-${month}-${year}`; } %> <% if (organization) {
+<style>
+  .invoice-header {
+    margin: 6px 0 14px;
+    text-align: center;
+    line-height: 1.25;
+  }
+
+
+
+  .invoice-header-title {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.1px;
+    line-height: 100%;
+    margin: 0;
+    text-transform: uppercase;
+
+  }
+
+  .invoice-header-number {
+    font-size: 10px;
+    font-weight: 500;
+    margin: 4px 0 12px;
+    
+  }
+
+  .invoice-header-meta {
+    font-size: 10px;
+    margin: 3px 0;
+    font-weight: 600;
+  }
+
+  .invoice-header-org-name {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 12px 0 4px;
+    line-height: 1.2;
+  }
+
+  .invoice-header-org-line {
+    font-size: 10px;
+    margin: 2px 0;
+    line-height: 1.35;
+    font-weight: 400;
+  }
+
+  .invoice-header-divider {
+    border: 0;
+    border-top: 2px solid #d2d2d2;
+    margin: 20px 0 8px;
+  }
+</style>
+
+
+
+
+
+
+
+<%
+function formatDate(date) {
+  if (!date) return '';
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return '';
+  return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+const taxEnabled = typeof isTaxesEnabled !== 'undefined' ? isTaxesEnabled : isTaxEnabled;
 %>
-<div class="text-center mb-2" style="margin: 10px 0px; line-height: 1.6">
-  <% if(organization?.logo) { %>
-  <img src="<%= organization.logo %>" alt="logo" style="height: 50px" />
-  <% } %> <% if(organization?.organizationName) { %>
-  <div class="bold" style="margin: 4px 0px">
-    <%= organization.organizationName %>
-  </div>
-  <% } %> <% if(organization?.organizationLegalName) { %>
-  <div class="bold" style="line-height: 1.3">
-    <%= organization.organizationLegalName %>
-  </div>
+
+<div class="invoice-header">
+ 
+
+  <h1 class="invoice-header-title"><%= taxEnabled ? 'Tax Invoice' : 'Invoice' %></h1>
+
+  <% if (invoiceNumber) { %>
+  <div class="invoice-header-number"># <%= invoiceNumber %></div>
   <% } %>
 
-  <div style="font-size: 11px">
-    <% if(organization?.organizationAddress) { %>
-    <div style="line-height: 1.3"><%= organization.organizationAddress %></div>
-    <% } %> <% if(organization?.organizationPhone) { %>
-    <div>Phone number: <%= organization.organizationPhone %></div>
-    <% } %> <% if(organization?.gst) { %>
-    <div>GST: <%= organization.gst %></div>
-    <% } %> <% if(organization?.stateCode) { %>
-    <div>State Code: <%= organization.stateCode %></div>
+  <div class="invoice-header-meta">
+    <% if (invoiceDate) { %>
+    <span style="font-weight: 600;">Invoice Date: <span style="font-weight: 400;"> <%= formatDate(invoiceDate) %></span></span>
+    <% } %> <% if (invoiceDate && dueDate) { %>
+    <span> • </span>
+    <% } %> <% if (dueDate) { %>
+    <span style="font-weight: 600;">Due Date: <span style="font-weight: 400;"> <%= formatDate(dueDate) %></span></span>
     <% } %>
   </div>
-</div>
 
-<% } %>
+  <div class="invoice-header-meta">Place of Supply: <span style="font-weight: 400;"><%= placeOfSupply || '[Place of Supply]' %></span></div>
 
-<div
-  class="text-center bold mb-2"
-  style="
-    border-top: 2px dashed lightgrey;
-    border-bottom: 2px dashed lightgrey;
-    padding: 10px 0px;
-  "
->
-  TAX INVOICE
-</div>
-
-<div
-  class="item-row"
-  style="
-    margin: 12px 0px;
-    font-size: 11px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  "
->
-  <% if(invoiceNumber) { %>
-  <div>Invoice #: <%= invoiceNumber %></div>
-  <% } %> <% if(invoiceDate) { %>
-  <div>Date: <%= formatDate(invoiceDate) %></div>
-  <% } %> <% if(dueDate) { %>
-  <div>Due: <%= formatDate(dueDate) %></div>
-  <% } %>
-</div> -->
-<% function formatDate(date) { if (!date) return ''; const d = new Date(date);
-if (isNaN(d.getTime())) return ''; const day = String(d.getDate()).padStart(2,
-'0'); const month = String(d.getMonth() + 1).padStart(2, '0'); const year =
-d.getFullYear(); return `${day}-${month}-${year}`; } %> <% if (organization) {
-%>
-<div class="text-center mb-2" style="margin: 10px 0px; line-height: 1.6">
-  <% if(organization?.logo) { %>
-  <img src="<%= organization.logo %>" alt="logo" style="height: 50px" />
-  <% } %> <% if(organization?.organizationName) { %>
-  <div class="bold" style="margin: 4px 0px">
-    <%= organization.organizationName %>
-  </div>
-  <% } %> <% if(organization?.organizationLegalName) { %>
-  <div class="bold" style="line-height: 1.3">
-    <%= organization.organizationLegalName %>
-  </div>
-  <% } %>
-  <div style="font-size: 11px">
-    <% if(organization?.organizationAddress) { %>
-    <div style="line-height: 1.3"><%= organization.organizationAddress %></div>
-    <% } %> <% if(organization?.organizationPhone) { %>
-    <div>Phone number: <%= organization.organizationPhone %></div>
-    <% } %> <% if(organization?.gst) { %>
-    <div>GST: <%= organization.gst %></div>
-    <% } %> <% if(organization?.stateCode) { %>
-    <div>State Code: <%= organization.stateCode %></div>
-    <% } %>
-  </div>
-</div>
-<% } %>
-<div
-  class="text-center bold mb-2"
-  style="
-    border-top: 2px dashed lightgrey;
-    border-bottom: 2px dashed lightgrey;
-    padding: 10px 0px;
-  "
->
-  TAX INVOICE
-</div>
-<div
-  class="item-row"
-  style="
-    margin: 12px 0px;
-    font-size: 11px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  "
->
-  <% if(invoiceNumber) { %>
-  <div>Invoice #: <%= invoiceNumber %></div>
-  <% } %> <% if(invoiceDate) { %>
-  <div>Date: <%= formatDate(invoiceDate) %></div>
-  <% } %> <% if(dueDate) { %>
-  <div>Due: <%= formatDate(dueDate) %></div>
+  <% if (organization?.organizationName) { %>
+  <div class="invoice-header-org-name"><%= organization.organizationName %></div>
+  <% } %> <% if (organization?.organizationAddress) { %>
+  <div class="invoice-header-org-line"><%= organization.organizationAddress %></div>
+  <% } %> <% if (organization?.organizationEmail) { %>
+  <div class="invoice-header-org-line"><%= organization.organizationEmail %></div>
+  <% } %> <% if (organization?.organizationPhone) { %>
+  <div class="invoice-header-org-line"><%= organization.organizationPhone %></div>
   <% } %>
 </div>
+<hr class="invoice-header-divider" />

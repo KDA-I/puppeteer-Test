@@ -1,53 +1,106 @@
 <style>
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
+
   table th {
-    border-top: 2px dashed lightgrey;
-    border-bottom: 2px dashed lightgrey;
+    border-bottom: 2px solid #cccccc;
     padding: 6px 0px;
-    text-align: left; /* Optional: for alignment */
+    text-align: left;
+    font-size: 10px;
+    font-weight: 550;
+    letter-spacing: 1px;
+    text-transform: uppercase; 
   }
   td {
     vertical-align: top;
+    font-size: 10px;
+  }
+
+  .word-wrap {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  table th:nth-child(1),
+  table td:nth-child(1) {
+    max-width: 18px;
+    width: 18px;
+  }
+
+  table th:nth-child(2),
+  table td:nth-child(2) {
+    max-width: 120px;
+    width: 120px;
+  }
+
+  table th:nth-child(3),
+  table td:nth-child(3) {
+    max-width: 28px;
+    width: 28px;
+  }
+
+  table th:nth-child(4),
+  table td:nth-child(4) {
+    max-width: 44px;
+    width: 44px;
+  }
+
+  table th:nth-child(5),
+  table td:nth-child(5) {
+    max-width: 56px;
+    width: 56px;
   }
 </style>
+
+<%
+  const safeLineItems = Array.isArray(lineItems) ? lineItems : [];
+  const toAmount = value => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed.toFixed(2) : '0.00';
+  };
+%>
 
 <table>
   <thead>
     <tr>
       <th>#</th>
-      <th>Name</th>
-      <th>Qty</th>
-      <th class="text-right">Discounted Amount</th>
+      <th class="word-wrap">Item / HSN</th>
+      <th class="word-wrap" style="text-align: center;">Qty</th>
+      <th class="word-wrap" style="text-align: center;">Rate</th>
+      <th class="text-right word-wrap">Amount</th>
     </tr>
   </thead>
 
   <tbody>
-    <% lineItems.forEach((item, index) => { %>
+    <% safeLineItems.forEach((item, index) => { %>
     <tr>
-      <td><%= index + 1 %></td>
-      <td class="word-wrap" style="display: flex; flex-direction: column">
-        <% if(item?.itemName) { %> <%= item.itemName %> <% } %> <% if(item?.tax
-        && item.tax.length > 0) { %>
-        <div style="font-size: 8px; color: #999">
-          Tax @ <% const totalTaxPercent = item.tax.reduce((sum, tax) => sum +
-          Number(tax.percent), 0).toFixed(2); %> <%= totalTaxPercent %>%
+      <td class="word-wrap" style="font-weight: 500;"><%= index + 1 %></td>
+      <td class="word-wrap" style="display: flex; flex-direction: column;">
+       <span style="font-weight: 500" class="word-wrap"> <%= item?.itemName || 'N/A' %></span> <% if (Array.isArray(item?.tax) && item.tax.length > 0) { %>
+        <div class="word-wrap" style="font-size: 7px;  font-weight: 400; margin-top: 2px;">
+          <%- (item.hsn) ? `HSN: ${item.hsn} •` : '' %>
+          GST<% const totalTaxPercent = item.tax.reduce((sum, tax) => sum + Number(tax.percent), 0).toFixed(2); %>
+          <%= totalTaxPercent %>%
         </div>
         <% } %>
       </td>
 
-      <td>
-        <% if(item?.quantity) { %> <%= item.quantity %> <% } else { %> N/A <% }
-        %>
-      </td>
+      <td class="word-wrap" style="text-align: center; font-weight: 500;"><% if(item?.quantity || item?.quantity === 0) { %> <%= item.quantity %> <% } else { %> N/A <% } %></td>
 
-      <td class="text-right">
-        <% if(item?.lineItemTotalAmount) { %> <%=
-        parseFloat(item.lineItemTotalAmount).toFixed(2) %> <% } else { %> N/A <%
-        } %> <% if(item?.discount && item.discount.discountValue > 0) { %>
-        <div style="font-size: 8px; color: #999">
-          <% if(item.discount.discountType === 'PERCENTAGE') { %> <%=
-          item.discount.discountValue %>% discount <% } else { %> <% const
-          disPer = (item.discount.discountValue * 100) / (item?.subTotal || 1)
-          %> <%= disPer.toFixed(2) %> % discount <% } %>
+      <td class="word-wrap" style="text-align: center; font-weight: 500;"><% if(item?.unitPrice || item?.unitPrice === 0) { %> <%= toAmount(item.unitPrice) %> <% } else { %> 0 <% } %></td>
+      <td class="text-right word-wrap">
+        <span style="font-weight: 550;">
+        <% if(item?.lineItemTotalAmount || item?.lineItemTotalAmount === 0) { %> <%= currencySymbol %><%= toAmount(item.lineItemTotalAmount) %> <% } else { %> N/A
+        <% } %> 
+        </span>
+        <% if(item?.discount && Number(item.discount.discountValue) > 0) { %>
+
+
+        <div style="font-size: 7px;  font-weight: 400; margin-top: 2px; ">
+         <% if(item.discount.discountType === 'PERCENTAGE') { %> Disc <%= item.discount.discountValue %>%  <% } else
+          { %> <% const disPer = (Number(item.discount.discountValue) * 100) / (Number(item?.subTotal) || 1) %> Disc <%= disPer.toFixed(2) %>% <% } %>
         </div>
         <% } %>
       </td>
@@ -55,35 +108,4 @@
     <% }) %>
   </tbody>
 
-  <!-- <tbody>
-    <% lineItems.forEach((item,index) => { %>
-    <tr>
-      <td><%= index+1 %></td>
-      <td class="word-wrap" style="display: flex; flex-direction: column">
-        <%= item.itemName %> <% if(item.tax && item.tax.length > 0) { %>
-        <div style="font-size: 8px; color: #999">
-          Tax @ <% const totalTaxPercent = item.tax.reduce((sum, tax) => sum +
-          Number(tax.percent), 0).toFixed(2); %> <%= totalTaxPercent %>%
-        </div>
-
-        <% } %>
-      </td>
-
-      <td><%= item.quantity %></td>
-
-      <td class="text-right">
-        <%= parseFloat(item.lineItemTotalAmount).toFixed(2) %> <%
-        if(item?.discount && item?.discount?.discountValue > 0) { %>
-        <div style="font-size: 8px; color: #999">
-          <% if(item.discount.discountType === 'PERCENTAGE') { %> <%=
-          item.discount.discountValue %>% discount<% } else { %> <% const disPer
-          = (item.discount.discountValue * 100)/ (item?.subTotal || 1) %> <%=
-          disPer.toFixed(2) %> % discount <% } %>
-        </div>
-        <% } %>
-      </td>
-    </tr>
-
-    <% }) %>
-  </tbody> -->
 </table>

@@ -1,55 +1,93 @@
 <!-- customer-details.ejs -->
-<div>
-  <div
-    style="
-      background: #f9fafb;
-      padding: 6px 0px;
-      margin-bottom: 10px;
-      border-top: 1px solid #e5e7eb;
-      border-bottom: 1px solid #e5e7eb;
-    "
-  >
-    <div style="display: grid; grid-template-columns: 1fr 0.5fr; gap: 10px">
-      <% if(customerUser) { %>
-      <div>
-        <h4 style="margin: 0 0 6px 0">Bill To:</h4>
-        <% if(customerUser?.firstName && customerUser?.lastName) { %>
-        <p style="margin: 0 0 5px 0">
-          <%= customerUser.firstName %> <%= customerUser.lastName %>
-        </p>
-        <% } else { %>
-        <p style="margin: 0 0 5px 0">Name: N/A</p>
-        <% } %> <% if(customerUser?.phoneNumber) { %>
-        <p style="margin: 0 0 5px 0">Phone: <%= customerUser.phoneNumber %></p>
-        <% } else { %>
-        <p style="margin: 0 0 5px 0">Phone: N/A</p>
-        <% } %> <% if(customerUser?.address) { %>
-        <p style="margin: 0">Address: <%= customerUser.address %></p>
-        <% } else { %>
-        <p style="margin: 0">Address: N/A</p>
-        <% } %>
-      </div>
-      <% } %> <% if(pet) { %>
-      <div style="text-align: start; max-width: fit-content">
-        <h4 style="margin: 0 0 6px 0">Pet Details:</h4>
-        <% if(pet?.petName) { %>
-        <p style="margin: 0 0 5px 0">Name: <%= pet.petName %></p>
-        <% } %> <% if(pet?.petNumber) { %>
-        <p style="margin: 0">Pet ID: <%= pet.petNumber %></p>
-        <% }%>
-      </div>
-      <% } %>
-    </div>
+<style>
+  .customer-details-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 14px 0px;
+    margin-bottom: 10px;
+  }
+  .details-column {
+    display: flex;
+    flex-direction: column;
+  }
+  .details-header {
+    font-size: 7px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 0px 0;
+  }
+  .details-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 100%;
+    margin: 2px 0 2px 0;
+  }
+  .details-text {
+    font-size: 8px;
+    margin: 2px 0 2px 0;
+    line-height: 100%;
+    font-weight: 400;
+  }
+  .details-text:last-child {
+    margin-bottom: 0;
+  }
+</style>
+
+<div class="customer-details-section">
+  <div class="details-column">
+    <p class="details-header">BILL TO</p>
+    <% if(customerUser?.firstName && customerUser?.lastName) { %>
+    <p class="details-name">
+      <%= customerUser.firstName %> <%= customerUser.lastName %>
+    </p>
+    <% } else { %>
+    <p class="details-name">N/A</p>
+    <% } %>
+    <% if(customerUser?.phoneNumber) { %>
+    <p class="details-text"><%= customerUser.phoneNumber %></p>
+    <% } %>
+    <% if(customerUser?.email) { %>
+    <p class="details-text"><%= customerUser.email %></p>
+    <% } %>
+    <% if(customerUser?.address) { %>
+    <p class="details-text"><%= customerUser.address %></p>
+    <% } else { %>
+    <p class="details-text">Address: N/A</p>
+    <% } %>
+
   </div>
 
-  <% if (consultedBy) { %>
-  <div style="display: flex; gap: 10px">
-    <h4 style="margin: 0">Consulted by :</h4>
-    <span style="color: #666; margin-left: 4px">
-      <% if (consultedBy?.firstName && consultedBy?.lastName) { %> Dr. <%=
-      consultedBy.firstName %> <%= consultedBy.lastName %> <% } else { %> Dr.
-      N/A <% } %>
-    </span>
+  <div class="details-column">
+    <p class="details-header">PATIENT</p>
+    <% if(pet?.petName) { %>
+    <p class="details-name"><%= pet.petName %></p>
+    <% } else { %>
+    <p class="details-name">N/A</p>
+    <% } %>
+    <% if(pet?.petSpecies || pet?.petBreed) { %>
+    <p class="details-text">
+      <% if(pet?.petSpecies) { %><%= pet.petSpecies %><% if(pet?.petBreed) { %> • <%= pet.petBreed %><% } %><% } %>
+    </p>
+    <% } %>
+    <% if(pet?.petAge || pet?.petGender || pet?.petWeight) { %>
+    <p class="details-text">
+      <% if(pet?.petAge) { %>Age: <% if(pet.petAge.years) { %><%= pet.petAge.years %> yrs<% } %><% if(pet.petAge.months) { %> <%= pet.petAge.months %> months<% } %><% } %><% if(pet?.petGender) { %> • Sex: <%= pet.petGender %><% } %><% if(pet?.petWeight) { %> • Wt: <%= pet.petWeight %> kg<% } %>
+    </p>
+    <% } %>
+  </div>
+  <% if(consultedBy?.firstName && consultedBy?.lastName) { %>
+  <div class="details-column">
+    <p class="details-header">CONSULTED DOCTOR</p>
+    <% if(consultedBy?.firstName && consultedBy?.lastName) { %>
+    <p class="details-name">Dr. <%= consultedBy.firstName %> <%= consultedBy.lastName %></p>
+    <p class="details-text"><%- consultedBy.highestDegree?.replace(/\n/g, '<br>') %></p>
+    <% } else { %>
+    <p class="details-name">Dr. N/A</p>
+    <% } %>
   </div>
   <% } %>
 </div>

@@ -1,28 +1,85 @@
 <!-- footer.ejs -->
-<div class="footer no-page-break">
-  <% if(organization?.thankYouMessage) { %>
-  <h3 style="margin: 0 0 20px 0; text-align: center">
+<style>
+  .signature-wrapper {
+    max-width: 156px;
+    justify-self: end;
+  }
+  .computer-generated-box {
+    border: 1px dashed #d1d5db;
+    padding: 12px 14px;
+    border-radius: 6px;
+    text-align: center;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+  }
+
+  .with-signature {
+      max-height: 40px;
+    }
+  
+  .computer-generated-box p {
+    margin: 0;
+    font-size: 7px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+   .footer {
+        margin: 0px 40px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+</style>
+
+<div class="footer">
+ 
+
+  <div style="display: grid; grid-template-columns: 1fr 0.5fr; gap: 10px; align-items: flex-start; width: 100%;">
+    
+    <div>
+       <% if(organization?.thankYouMessage) { %>
+  <h3 style="margin: 0 0 0px 0; text-align: start; font-size: 10px; line-height:12px; font-weight: 600">
     <%= organization.thankYouMessage %>
   </h3>
   <% } else { %>
-  <h3 style="margin: 0 0 20px 0; text-align: center">
+  <h3 style="margin: 0 0 20px 0; text-align: center; font-size: 16px; font-weight: 600">
     Thank you for your business!
   </h3>
   <% } %>
-
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
-    <div>
-      <h4 style="margin: 0 0 10px 0">Terms & Conditions:</h4>
-      <% if(customTerms) { %>
-      <p style="color: #666; margin: 0"><%= customTerms %></p>
-      <% } else { %>
-      <p style="color: #666; margin: 0">No terms and conditions provided.</p>
-      <% } %>
+      <p style="margin: 0; font-size: 7px; line-height: 12px ;font-weight: 500; color: #000000 ; opacity: 0.6;">Billed by <%= createdBy?.name || 'N/A' %></p>
+     
     </div>
-    <div style="text-align: right">
-      <div style="margin-top: 120px">
-        <p style="font-weight: 500">Authorized Signatory</p>
+    
+    <% if (isComputerGenerated) { %>
+    <!-- Computer Generated Box -->
+     <div class="signature-wrapper">
+    <div class="computer-generated-box">
+      <p style="opacity: 0.45;">This is a computer-generated invoice and does not require a signature.</p>
+    </div>
+    </div>
+    <% } else { %>
+    <!-- Signature Space -->
+    <div style="width: 190px; text-align: center; justify-self: end;">
+      <div class="signature-wrapper" >
+      <div class="computer-generated-box with-signature" ></div></div>
+      <div style="padding-top: 8px;">
+        <p style=" font-weight: 500; font-size: 7px; margin: 0;">Authorized Signatory</p>
       </div>
     </div>
+    <% } %>
   </div>
+  <div style="width: 100%; display: flex; justify-content: space-between; font-size: 7px; width: 100%; color: #000000 ;font-weight: 500;">
+  <div style=" margin: 0px; opacity: 0.6;">
+    Powered By Simplivet
+  </div>
+  <% if(organization?.emergencyContact ) { %>
+  <div>
+   Incase of Emergency: <span style=" opacity: 0.6; "><%= organization?.emergencyContact || '' %></span>
+  </div>
+  <% } %>
+  <div  style="opacity: 0.6;">
+    <p>Page <span class="pageNumber"></span> of <span class="totalPages"></span></p>
+  </div>
+</div>
 </div>

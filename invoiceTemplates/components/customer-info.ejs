@@ -1,28 +1,97 @@
-<div class="mb-2" style="display: flex; justify-content: space-between; font-size: 12px;">
-  <div style="display: flex; flex-direction: column; gap: 4px">
-    <div class="word-wrap">
-      Bill to:
-      <strong
-        ><%= customerUser.firstName %> <%= customerUser.lastName %></strong
-      >
-    </div>
-    <div>Phone: <strong><%= customerUser.phoneNumber %></strong></div>
+<style>
+  .invoice-party {
+    margin: 20px 0 18px;
+    color: #111;
+  }
+
+  .invoice-party-section {
+    margin-bottom: 16px;
+  }
+
+  .invoice-party-label {
+    margin: 0 0 2px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .invoice-party-name {
+    margin: 0 0 0px;
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .invoice-party-line {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.35;
+    font-weight: 500;
+    word-break: break-word;
+  }
+</style>
+
+<%
+  const customerFullName = [customerUser?.firstName, customerUser?.lastName]
+    .map(value => (value || '').toString().trim())
+    .filter(Boolean)
+    .join(' ');
+  const doctorFullName = [consultedBy?.firstName, consultedBy?.lastName]
+    .map(value => (value || '').toString().trim())
+    .filter(Boolean)
+    .join(' ');
+  const petSpecies = pet?.species || pet?.petSpecies;
+  const petBreed = pet?.breed || pet?.petBreed;
+  const petAgeYears = pet?.petAge?.years;
+  const petAgeText = petAgeYears || petAgeYears === 0 ? `Age: ${petAgeYears} yrs` : '';
+  const petSex = pet?.sex || pet?.gender || pet?.petGender;
+  const petWeight = pet?.weight || pet?.petWeight;
+  const petWeightUnit = pet?.weightUnit || pet?.petWeightUnit || 'kg';
+  const sexText = petSex ? `Sex: ${petSex}` : '';
+  const weightText = petWeight || petWeight === 0 ? `Wt: ${petWeight} ${petWeightUnit}` : '';
+  const petProfileLine = [petAgeText, sexText, weightText].filter(Boolean).join(' • ');
+  const petSpeciesBreed = [petSpecies, petBreed].filter(Boolean).join(' • ');
+  const customerEmail = customerUser?.email || customerUser?.mail;
+  const placeOfSupplyText = placeOfSupply || '[Place of Supply]';
+%>
+
+<div class="invoice-party">
+  <div class="invoice-party-section">
+    <h4 class="invoice-party-label">Bill To</h4>
+    <p class="invoice-party-name"><%= customerFullName || 'N/A' %></p>
+    <% if (customerUser?.address) { %>
+    <p class="invoice-party-line"><%= customerUser.address %></p>
+    <% } %> <% if (customerEmail) { %>
+    <p class="invoice-party-line"><%= customerEmail %></p>
+    <% } %>
+    <p class="invoice-party-line">State: <%= placeOfSupplyText %></p>
   </div>
-  <% if(pet) { %>
-    <div>
-  <div>
-    <div class="word-wrap">
-      Pet name:
-      <strong><%= pet?.petName %> </strong>
-    </div>
+
+  <% if (pet) { %>
+  <div class="invoice-party-section">
+    <h4 class="invoice-party-label">Patient</h4>
+    <p class="invoice-party-name"><%= pet?.petName || 'N/A' %></p>
+    <% if (petSpeciesBreed) { %>
+    <p class="invoice-party-line"><%= petSpeciesBreed %></p>
+    <% } %> <% if (petProfileLine) { %>
+    <p class="invoice-party-line"><%= petProfileLine %></p>
+    <% } %>
   </div>
-  <div>
-    <div class="word-wrap">
-      Pet no.:
-      <strong><%= pet?.petNumber %> </strong>
-    </div>
-  </div>
-</div>
   <% } %>
 
+  <% if (consultedBy) { %>
+  <div class="invoice-party-section" style="margin-bottom: 0">
+    <h4 class="invoice-party-label">Attending Veterinarian</h4>
+    <p class="invoice-party-name">Dr. <%= doctorFullName || 'N/A' %></p>
+    <% if (consultedBy?.qualification || consultedBy?.highestDegree) { %>
+    <p class="invoice-party-line"><%= consultedBy?.qualification || consultedBy?.highestDegree %></p>
+    <% } %> <% if (consultedBy?.registrationNumber || consultedBy?.veterinaryRegistrationNumber || consultedBy?.regNo) { %>
+    <p class="invoice-party-line">
+      Reg. No: <%= consultedBy?.registrationNumber || consultedBy?.veterinaryRegistrationNumber || consultedBy?.regNo %>
+    </p>
+    <% } %>
+  </div>
+  <% } %>
 </div>

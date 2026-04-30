@@ -1,88 +1,234 @@
 <!-- items-table.ejs -->
-<table>
-  <thead style="border-top-left-radius: 10px; border-top-right-radius: 10px">
+<% const itemsPerPage = 8;
+   const totalItems = (lineItems || []).length;
+   const pages = [];
+   for (let i = 0; i < totalItems; i += itemsPerPage) {
+     pages.push((lineItems || []).slice(i, i + itemsPerPage));
+   }
+%>
+
+<style>
+  .invoice-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 8px;
+    border-bottom: 2px solid #1f2937;
+  }
+  .invoice-items-table th,
+  .invoice-items-table td {
+    border-bottom: none;
+    padding: 8px 4px;
+    vertical-align: top;
+    font-size: 8px;
+  }
+  .invoice-items-table th {
+    background: transparent;
+    color: #6b7280;
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #d1d5db;
+    line-height: 10px;
+  }
+  .invoice-items-table .col-description {
+    width: 30%;
+  }
+  .invoice-items-table .col-qty {
+    width: 8%;
+    text-align: center;
+  }
+  .invoice-items-table .col-rate {
+    width: 8%;
+    text-align: right;
+  }
+  .invoice-items-table .col-disc {
+    width: 9%;
+    text-align: end;
+  }
+  .invoice-items-table .col-cgst {
+    width: 8%;
+    text-align: end;
+  }
+  .invoice-items-table .col-sgst {
+    width: 8%;
+    text-align: end;
+  }
+  .invoice-items-table .col-igst {
+    width: 8%;
+    text-align: end;
+  }
+  .invoice-items-table .col-amount {
+    width: 12%;
+    text-align: right;
+    font-weight: 700;
+  }
+  
+  /* Adjusted widths when taxes are disabled */
+  .invoice-items-table.no-taxes .col-description {
+    width: 40%;
+  }
+  .invoice-items-table.no-taxes .col-rate {
+    width: 20%;
+  }
+  .invoice-items-table.no-taxes .col-disc {
+    width: 12%;
+  }
+  .invoice-items-table.no-taxes .col-amount {
+    width: 18%;
+  }
+  .tax-value {
+    font-size: 8px;
+    color: #6b7280;
+    margin-top: 2px;
+  }
+  .item-name {
+    margin: 0;
+    font-size: 8px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 10px;
+  }
+  .item-subtext {
+    margin: 2px 0 0;
+    font-size: 7px;
+    color: #6b7280;
+    font-weight: 400;
+    line-height: 10px;
+  }
+  .money {
+    white-space: nowrap;
+  }
+  
+  .page-section-break {
+    page-break-after: always;
+  }
+  
+  .turn-page-message {
+    text-align: center;
+  }
+  
+  .end-of-items {
+    text-align: center;
+   
+  }
+</style>
+
+<% pages.forEach((pageItems, pageIndex) => { const isLastPage = pageIndex === pages.length - 1; %>
+<div class="<%= isLastPage ? '' : 'page-section-break' %>">
+<table class="invoice-items-table <%= !isTaxesEnabled ? 'no-taxes' : '' %>">
+  <% const isIgstPresent = (lineItems || []).some(item => item?.tax?.some(t => t.code === 'IGST' && t.percent && Number(t.percent) > 0));
+    const isSgstPresent = (lineItems || []).some(item => item?.tax?.some(t => t.code === 'SGST' && t.percent && Number(t.percent) > 0));
+    const isCgstPresent = (lineItems || []).some(item => item?.tax?.some(t => t.code === 'CGST' && t.percent && Number(t.percent) > 0));
+  %>
+  <thead>
     <tr>
-      <th style="border-start-start-radius: 10px">Item</th>
-      <th style="text-align: right">Qty</th>
-      <th style="text-align: right">Unit Price ( ₹ )</th>
-      <th style="text-align: right">Discount ( ₹ )</th>
-      <th style="text-align: right; border-top-right-radius: 10px">
-        Amount ( ₹ )
-      </th>
+      <th class="col-description">Item Name</th>
+      <th class="col-qty">Qty</th>
+      <!-- <% if (isTaxesEnabled) { %>
+        <th class="col-hsn">HSN/SAC</th>
+      <% } %> -->
+      <th class="col-rate">Rate</th>
+      <th class="col-disc">Disc.</th>
+      <% if (isTaxesEnabled) { %>
+        <th class="col-cgst">CGST</th>
+        <th class="col-sgst">SGST</th>
+           <% if (isIgstPresent) { %>
+        <th class="col-igst">IGST</th>
+      <% } %>
+      <% } %>
+   
+      <th class="col-amount">Amount</th>
     </tr>
   </thead>
 
-  <!-- <tbody>
-    <% lineItems.forEach(function(item) { %>
-    <tr>
-      <td>
-        <div style="font-weight: 500; max-width: 300px">
-          <%= item.itemName %> <% if(item.tax && item.tax.length > 0) { %>
-          <div style="font-size: 12px; color: #999">
-            Tax @ <% const totalTaxPercent = item.tax.reduce((sum, tax) => sum +
-            Number(tax.percent), 0).toFixed(2); %> <%= totalTaxPercent %>%
-          </div>
-
-          <% } %>
-        </div>
-        <div style="color: #666; font-size: 0.9em">
-          <%= item.categoryName %>
-        </div>
-      </td>
-      <td style="text-align: right"><%= item.quantity %></td>
-      <td style="text-align: right">
-        <%= Number(item.subTotal) / Number(item.quantity)||1 %>
-      </td>
-      <td style="text-align: right; color: red">
-        <%= parseFloat(item.discount.discountValue).toFixed(2) %>
-      </td>
-      <td style="text-align: right">
-        <%= parseFloat(item.lineItemTotalAmount).toFixed(2) %>
-      </td>
-    </tr>
-    <% }); %>
-  </tbody> -->
-
   <tbody>
-    <% lineItems.forEach(function(item) { %>
+    <% pageItems.forEach(function(item) { 
+      const qty = Number(item?.quantity) || 1;
+      const baseRate = item?.unitPrice ?? (item?.subTotal ? Number(item.subTotal) / qty : 0);
+      const rate = Number(baseRate) || 0;
+      const discountValue = Number(item?.discount?.discountValue || 0);
+      const isPercentDiscount = String(item?.discount?.discountType || '').toUpperCase().includes('PERCENT');
+      const discountLabel = discountValue ? (isPercentDiscount ? discountValue.toFixed(0) + '%' : '-₹' + discountValue.toFixed(2)) : '-';
+      
+      const sgstTax = item?.tax?.find(t => t.code === 'SGST');
+      const cgstTax = item?.tax?.find(t => t.code === 'CGST');
+      const igstTax = item?.tax?.find(t => t.code === 'IGST');
+      const sgstPercent = sgstTax?.percent || '0';
+      const cgstPercent = cgstTax?.percent || '0';
+      const igstPercent = igstTax?.percent || '0';
+      
+      // Calculate tax amounts (tax is calculated on total line amount after discount)
+      const discountedAmount = (rate * qty) - discountValue;
+      const sgstAmount = (discountedAmount * Number(sgstPercent)) / 100;
+      const cgstAmount = (discountedAmount * Number(cgstPercent)) / 100;
+      const igstAmount = (discountedAmount * Number(igstPercent)) / 100;
+      
+      const amount = Number(item?.lineItemTotalAmount || 0);
+      const batchInfo = item?.batches?.length ? item.batches.map(b => `Batch ${b.batchNumber} / Exp: ${b.expiryDate}`).join(', ') : '';
+    %>
     <tr>
-      <td>
-        <div style="font-weight: 500; max-width: 300px">
-          <% if(item?.itemName) { %> <%= item.itemName %> <% if(item?.tax &&
-          item.tax.length > 0) { %>
-          <div style="font-size: 12px; color: #999">
-            Tax @ <% const totalTaxPercent = item.tax.reduce((sum, tax) => sum +
-            Number(tax.percent), 0).toFixed(2); %> <%= totalTaxPercent %>%
-          </div>
-          <% } %> <% } else { %> Item name: N/A <% } %>
-        </div>
-        <div style="color: #666; font-size: 0.9em">
-          <% if(item?.categoryName) { %> <%= item.categoryName %> <% } else { %>
-          Category: N/A <% } %>
-        </div>
-      </td>
-
-      <td style="text-align: right">
-        <% if(item?.quantity) { %> <%= item.quantity %> <% } else { %> 1 <% } %>
-      </td>
-
-      <td style="text-align: right">
-        <% if(item?.subTotal && item.quantity) { %> <%= (Number(item.subTotal) /
-        Number(item.quantity)).toFixed(2) %> <% } else { %> 0.00 <% } %>
-      </td>
-
-      <td style="text-align: right; color: red">
-        <% if(item?.discount?.discountValue) { %> <%=
-        parseFloat(item.discount.discountValue).toFixed(2) %> <% } else { %>
-        0.00 <% } %>
-      </td>
-
-      <td style="text-align: right">
-        <% if(item?.lineItemTotalAmount) { %> <%=
-        parseFloat(item.lineItemTotalAmount).toFixed(2) %> <% } else { %> 0.00
+      <td class="col-description">
+        <p class="item-name"><%= item?.itemName || 'Item name: N/A' %></p>
+         <% if (isTaxesEnabled && (item?.hsn  || item?.sac)) { %>
+        <p class="item-subtext"><%- item?.hsn ?  `HSN: ${item.hsn}` : item?.sac ? `SAC: ${item.sac}` : '' %></p>
+      <% } %>
+        <% if (batchInfo) { %>
+          <p class="item-subtext"><%= batchInfo %></p>
         <% } %>
       </td>
+      <td class="col-qty" style="vertical-align:middle;"><%= qty %></td>
+     
+      <td class="col-rate money"  style="vertical-align:middle;">₹<%= rate.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+      <td class="col-disc" style="vertical-align:middle;"><%= discountLabel %></td>
+      <% if (isTaxesEnabled) { %>
+        <% if(isSgstPresent && sgstAmount && Number(sgstAmount) > 0) { %>
+        <td class="col-cgst"  style="vertical-align:middle;">
+          <div><%= cgstPercent %>%</div>
+          <div class="tax-value money">₹<%= cgstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
+        </td>
+        <% } else { %> 
+             <td class="col-cgst"  style="vertical-align:middle;">
+          <div>-</div>
+        </td>
+          <% } %>
+        <% if(isSgstPresent && sgstAmount && Number(sgstAmount) > 0) { %>
+        <td class="col-sgst" style="vertical-align:middle;">
+          <div><%= sgstPercent %>%</div>
+          <div class="tax-value money"  style="vertical-align:middle;">₹<%= sgstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
+        </td>
+        <% }  else { %> 
+             <td class="col-sgst" style="vertical-align:middle;">
+          <div>-</div>
+        </td>
+        <% } %>
+   
+      <% if (isIgstPresent && igstAmount && Number(igstAmount) > 0) { %>
+        <td class="col-igst" style="vertical-align:middle;">
+          <div><%= igstPercent %>%</div>
+          <div class="tax-value money">₹<%= igstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
+        </td>
+      <% } else { %> 
+             <td class="col-igst" style="vertical-align:middle;">
+          <div>-</div>
+        </td>
+      <% } %>
+
+         <% } %>
+      <td class="col-amount money"  style="vertical-align:middle;">₹<%= amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
     </tr>
     <% }); %>
   </tbody>
 </table>
+
+<% if (!isLastPage) { %>
+<!-- Turn page message - shown on all pages except the last -->
+<div class="turn-page-message"></div>
+<% } else { %>
+<!-- End of items - only on last page -->
+<div class="end-of-items"></div>
+<% } %>
+</div>
+<% }); %>

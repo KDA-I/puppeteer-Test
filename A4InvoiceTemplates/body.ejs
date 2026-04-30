@@ -3,11 +3,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
-      rel="stylesheet"
-    />
-    <title>Tax Invoice - <%= organization.organizationName %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <!-- <title>Tax Invoice - <%= organization.organizationName %></title> -->
     <style>
       /* @page {
         size: A4;
@@ -22,70 +21,25 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: Mulish, sans-serif;
+        font-family: Inter;
         font-size: 14px;
-        line-height: 1.4;
-        color: #283845;
       }
       .invoice-container {
-        width: 210mm;
+        width: 595px;
         min-height: 297mm;
-        padding: 20px;
-        margin: 0 auto;
+        padding: 20px 40px;
+        margin: 0;
         background: white;
       }
-      .header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0px;
-        h4 {
-          margin: 0;
-        }
-      }
-      .company-details {
-        flex: 1;
-      }
-      .invoice-details {
-        border-left: 1px solid #e5e7eb;
-        text-align: left;
-        padding: 0px 0px 10px 10px;
-        p {
-          margin: 4px;
-        }
-      }
-      .invoice-title {
-        font-size: 40px;
-        margin-bottom: 15px;
-        border-radius: 10px;
-        padding: 0px 20px 0px 0px;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 10px 0;
-      }
-      th,
-      td {
-        padding: 4px;
-        text-align: left;
-        border-bottom: 1px solid #e5e7eb;
-      }
-      th {
-        background-color: #f3f4f6;
-        padding: 8px;
-      }
       .amount-summary {
-        padding: 20px;
-        width: 300px;
-        background-color: #f3f4f6;
+        padding: 20px 0px;
+        min-width: 300px;
         border-radius: 8px;
-        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        
       }
-      .footer {
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid #e5e7eb;
-      }
+    
     </style>
   </head>
   <body>
@@ -93,7 +47,9 @@
       <%- include('./components/header') %> <%-
       include('./components/customer-details') %> <%-
       include('./components/items-table') %> <%- include('./components/summary')
-      %> <%- include('./components/footer') %>
+      %>
+
+
     </div>
   </body>
 </html>

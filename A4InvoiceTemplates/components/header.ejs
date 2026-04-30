@@ -1,68 +1,139 @@
 <!-- header.ejs -->
-<div class="header">
-  <div class="company-details">
-    <div style="display: flex; justify-self: flex-start">
-      <% if(organization?.logo) { %>
-      <img
-        src="<%= organization.logo %>"
-        alt="Logo"
-        style="width: auto; height: 150px; object-fit: fill; max-width: 225px; display: <%= organization?.logo ? 'inherit' : 'none' %>"
-      />
-      <% } %>
+<style>
+  .invoice-header {
+    padding-bottom: 24px;
+    border-bottom: 1px solid #d1d5db;
+  }
+  .invoice-header-top {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr auto;
+    align-items: start;
+    gap: 14px;
+  }
+  .invoice-main-title {
+    margin: 0;
+    font-size: 24px;
+    line-height: 100%;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #111827;
+  }
+  .invoice-sub-title {
+    margin: 0;
+    font-size: 10px;
+    font-weight: 500;
+    color: #4b5563;
+    line-height: 100%;
+  }
+  .invoice-header-center {
+    text-align: right;
+    color: #111827;
+  }
+  .invoice-org-name {
+    margin: 0;
+    font-size: 14px;
+    line-height: 100%;
+  }
+  .invoice-org-address {
+    margin: 3px 0;
+    font-size: 8px;
+  }
+  .invoice-org-contact {
+    margin: 2px 0;
+    font-size: 8px;
+  }
+  .invoice-header-right {
+    text-align: right;
+  }
+  .invoice-gstin {
+    margin: 0 0 6px;
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #6b7280;
+    text-align: right;
+  }
+  .invoice-logo {
+    width: 95px;
+    height: 95px;
+    object-fit: cover;
+  }
+  .invoice-meta-row {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 8px;
+    color: #1f2937;
+  }
+  .meta-separator {
+    color: #6b7280;
+  }
+  .invoice-place-row {
+    margin: 2px 0 0;
+    font-size: 8px;
+    color: #374151;
+  }
+  .span-strong {
+    font-weight: 550;
+  }
+</style>
+<div>
+  <% if(isTaxesEnabled) { %>
+      <p class="invoice-gstin">GSTIN: <%= organization?.gst || 'N/A' %> <%- isTaxesEnabled ? `• STATE CODE ${ organization?.stateCode || ''}` : '' %> </p>
+  <% } %>
+<div class="invoice-header">
+  <div class="invoice-header-top">
+    <div class="invoice-header-left">
+      <h1 class="invoice-main-title">TAX INVOICE</h1>
+      <p class="invoice-sub-title"># <%= invoiceNumber || 'N/A' %></p>
 
-      <div style="margin: 10px 0px 0px 10px">
-        <% if(organization?.organizationName) { %>
-        <h3 style="margin: 0"><%= organization.organizationName %></h3>
-        <% } %> <% if(organization?.organizationLegalName) { %>
-        <h4 style="margin: 0px 0px 0px 0px">
-          <%= organization.organizationLegalName %>
-        </h4>
-        <% } %> <% if(organization?.organizationAddress) { %>
-        <p style="color: #666; margin: 10px 0 5px 0; font-size: 12px">
-          <%= organization.organizationAddress %>
-        </p>
-        <% } %>
-      </div>
+       <div class="invoice-meta-row">
+    <span>
+     <span class="span-strong" >Invoice Date:</span> 
+      <%= invoiceDate ? new Date(invoiceDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A' %>
+    </span>
+    <span class="meta-separator">•</span>
+    <span>
+      <span class="span-strong" >Due Date:</span>  
+      <%= dueDate ? new Date(dueDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A' %>
+    </span>
+  </div>
+
+   <!-- <p class="invoice-place-row">
+   <span class="span-strong" >Place of Supply:</span> <%= placeOfSupply || organization?.stateCode || 'N/A' %>
+  </p> -->
+
     </div>
 
-    <div style="display: flex; margin-top: 10px; gap: 10px">
-      <% if(organization?.organizationPhone) { %>
-      <p style="margin: 0 0 5px 0">
-        <strong>Phone:</strong>
-        <%= organization.organizationPhone %>
-      </p>
-      <% } %> <% if (organization?.organizationEmail) { %>
-      <p style="margin: 0 0 5px 0">
-        <strong>Email:</strong> <%= organization.organizationEmail %>
-      </p>
+    <div class="invoice-header-center">
+      <% if (organization?.organizationName) { %>
+      <h2 class="invoice-org-name"><%= organization.organizationName %></h2>
+      <% } %>
+
+      <% if (organization?.organizationAddress) { %>
+      <p class="invoice-org-address"><%= organization.organizationAddress %></p>
+      <% } %>
+
+      <% if (organization?.organizationEmail) { %>
+      <p class="invoice-org-contact"><%= organization.organizationEmail %></p>
+      <% } %>
+
+      <% if (organization?.organizationPhone) { %>
+      <p class="invoice-org-contact"><strong>+91</strong> <%= organization.organizationPhone %></p>
+      <% } %>
+    </div>
+
+    <div class="invoice-header-right">
+      <% if (organization?.logo) { %>
+      <img src="<%= organization.logo %>" alt="Logo" class="invoice-logo" />
       <% } %>
     </div>
   </div>
 
-  <div class="invoice-details">
-    <div class="invoice-title">TAX INVOICE</div>
-    <% if(invoiceNumber) { %>
-    <p><strong>Invoice No :</strong> <%= invoiceNumber %></p>
-    <% } else { %>
-    <p><strong>Invoice No :</strong> N/A</p>
-    <% } %> <% if(invoiceDate) { %>
-    <p>
-      <strong>Date :</strong> <%= new Date(invoiceDate).toLocaleDateString() %>
-    </p>
-    <% } else { %>
-    <p><strong>Date :</strong> N/A</p>
-    <% } %> <% if(dueDate) { %>
-    <p>
-      <strong>Due Date :</strong> <%= new Date(dueDate).toLocaleDateString() %>
-    </p>
-    <% } else { %>
-    <p><strong>Due Date :</strong> N/A</p>
-    <% } %> <% if(organization?.gst) { %>
-    <p><strong>GSTIN :</strong> <%= organization.gst %></p>
-    <% } else { %>
-    <p><strong>GSTIN :</strong> N/A</p>
-    <% } %>
-
-    <p><strong>State Code :</strong> <%= organization?.stateCode || 'N/A' %></p>
-  </div>
+ 
+ 
 </div>
+
+</div>
+
