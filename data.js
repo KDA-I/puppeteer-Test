@@ -14,13 +14,13 @@ const invoiceData = {
     stateCode: "STATE_CODE_PLACEHOLDER",
     emergencyContact: "9844598562"
   },
-  isTaxesEnabled: true,
-  isComputerGenerated: true,
+  isTaxesEnabled: false,
+  isComputerGenerated: false,
   placeOfSupply: "Karnataka (29)",
   invoiceNumber: "INV-2025-000042",
   invoiceDate: "2025-01-03",
   dueDate: "2025-01-03",
-    subTotal: "6050.00",              // 3800 + 2250
+  subTotal: "6050.00",              // 3800 + 2250
   totalDiscountAmount: "588.00",    // 383 + 205
   totalAmount: "5462.00",           // 3417 + 2045
   roundOffAmount: "0.00",

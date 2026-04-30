@@ -12,7 +12,7 @@
     width: 100%;
     border-collapse: collapse;
     margin: 12px 0 8px;
-    border-bottom: 2px solid #1f2937;
+    border-bottom: 1px solid #000000;
   }
   .invoice-items-table th,
   .invoice-items-table td {
@@ -71,7 +71,7 @@
     width: 40%;
   }
   .invoice-items-table.no-taxes .col-rate {
-    width: 20%;
+    width: 16%;
   }
   .invoice-items-table.no-taxes .col-disc {
     width: 12%;
@@ -152,6 +152,7 @@
       const discountValue = Number(item?.discount?.discountValue || 0);
       const isPercentDiscount = String(item?.discount?.discountType || '').toUpperCase().includes('PERCENT');
       const discountLabel = discountValue ? (isPercentDiscount ? discountValue.toFixed(0) + '%' : '-₹' + discountValue.toFixed(2)) : '-';
+      const discountAmountInPercent = isPercentDiscount ? discountValue : (rate * qty) > 0 ? (discountValue / (rate * qty)) * 100 : 0;
       
       const sgstTax = item?.tax?.find(t => t.code === 'SGST');
       const cgstTax = item?.tax?.find(t => t.code === 'CGST');
@@ -182,7 +183,13 @@
       <td class="col-qty" style="vertical-align:middle;"><%= qty %></td>
      
       <td class="col-rate money"  style="vertical-align:middle;">₹<%= rate.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
-      <td class="col-disc" style="vertical-align:middle;"><%= discountLabel %></td>
+      <td class="col-disc" style="vertical-align:middle;">
+          <div><%= discountAmountInPercent.toFixed(2) %></div>
+          <% if (discountValue && !isPercentDiscount) { %>
+            <div class="tax-value">(<%= discountLabel %>%)</div>
+          <% } %>
+
+      </td>
       <% if (isTaxesEnabled) { %>
         <% if(isSgstPresent && sgstAmount && Number(sgstAmount) > 0) { %>
         <td class="col-cgst"  style="vertical-align:middle;">

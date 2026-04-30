@@ -75,7 +75,7 @@
     <% } %>
     <% if(pet?.petAge || pet?.petGender || pet?.petWeight) { %>
     <p class="details-text">
-      <% if(pet?.petAge) { %>Age: <% if(pet.petAge.years) { %><%= pet.petAge.years %> yrs<% } %><% if(pet.petAge.months) { %> <%= pet.petAge.months %> months<% } %><% } %><% if(pet?.petGender) { %> • Sex: <%= pet.petGender %><% } %><% if(pet?.petWeight) { %> • Wt: <%= pet.petWeight %> kg<% } %>
+      <% if(pet?.petAge) { %>Age: <% if(pet.petAge.years) { %><%= pet.petAge.years %> yrs<% } %><% if(pet.petAge.months) { %> <%= pet.petAge.months %> months<% } %><% } %><% if(pet?.petGender) { %> • Sex: <%= pet.petGender %><% } %><% if(pet?.petWeight) { %> • Wt: <%= parseFloat(pet.petWeight).toFixed(2) %> kg<% } %>
     </p>
     <% } %>
   </div>

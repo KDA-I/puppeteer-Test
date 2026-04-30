@@ -85,7 +85,7 @@
 <div class="invoice-header">
   <div class="invoice-header-top">
     <div class="invoice-header-left">
-      <h1 class="invoice-main-title">TAX INVOICE</h1>
+      <h1 class="invoice-main-title"><%= isTaxesEnabled ? 'TAX INVOICE' : 'INVOICE' %></h1>
       <p class="invoice-sub-title"># <%= invoiceNumber || 'N/A' %></p>
 
        <div class="invoice-meta-row">
