@@ -1,36 +1,50 @@
 <!-- footer.ejs -->
-<style>
-  .signature-wrapper {
-    max-width: 156px;
-    justify-self: end;
-  }
-  .computer-generated-box {
-    border: 1px dashed #d1d5db;
-    padding: 12px 14px;
-    border-radius: 6px;
-    text-align: center;
-    justify-self: end;
-    display: flex;
-    align-items: center;
-  }
-
-  .with-signature {
-      max-height: 40px;
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * {
+      font-family: Inter, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     }
-  
-  .computer-generated-box p {
-    margin: 0;
-    font-size: 7px;
-    color: #6b7280;
-    line-height: 1.5;
-  }
-   .footer {
-        margin: 0px 40px;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
+    
+    .signature-wrapper {
+      justify-self: end;
+      width: <%= isComputerGenerated ? '160px' : 'auto' %>;
+    }
+    .computer-generated-box {
+      border: 1px dashed #CCCCCC;
+      padding: <%= isComputerGenerated ? '16px 18px' : '0' %>;
+      border-radius: 6px;
+      text-align: center;
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; 
+      width: <%= isComputerGenerated ? 'auto' : '156px' %>;
+      min-height: <%= isComputerGenerated ? 'auto' : '44px' %>;
+    }
+
+    .with-signature {
+        max-height: 40px;
       }
-</style>
+    
+    .computer-generated-box p {
+      margin: 0;
+      font-size: 7px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+     .footer {
+          margin: 0px 40px;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+  </style>
+</head>
+<body>
 
 <div class="footer">
  
@@ -60,12 +74,13 @@
     </div>
     <% } else { %>
     <!-- Signature Space -->
-    <div style="width: 190px; text-align: center; justify-self: end;">
-      <div class="signature-wrapper" >
-      <div class="computer-generated-box with-signature" ></div></div>
-      <div style="padding-top: 8px;">
-        <p style=" font-weight: 500; font-size: 7px; margin: 0;">Authorized Signatory</p>
-      </div>
+    <div class="signature-wrapper">
+    <div class="computer-generated-box">
+      <p style="opacity: 0;">This is a computer-generated invoice and does not require a signature.</p>
+    </div>
+    <div style="padding-top: 8px; text-align: center;">
+      <p style="font-weight: 500; font-size: 7px; margin: 0;">Authorized Signatory</p>
+    </div>
     </div>
     <% } %>
   </div>
@@ -83,3 +98,5 @@
   </div>
 </div>
 </div>
+</body>
+</html>

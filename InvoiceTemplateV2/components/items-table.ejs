@@ -34,55 +34,66 @@
     line-height: 10px;
   }
   .invoice-items-table .col-description {
-    width: 30%;
+    width: 26%;
   }
   .invoice-items-table .col-qty {
     width: 8%;
     text-align: center;
   }
   .invoice-items-table .col-rate {
-    width: 8%;
+    width: 15%;
     text-align: right;
   }
   .invoice-items-table .col-disc {
-    width: 9%;
+    width: 7%;
+    text-align: end;
+  }
+  .invoice-items-table .col-taxable-value {
+    width: 13%;
     text-align: end;
   }
   .invoice-items-table .col-cgst {
-    width: 8%;
+    width: 7%;
     text-align: end;
   }
   .invoice-items-table .col-sgst {
-    width: 8%;
+    width: 7%;
     text-align: end;
   }
   .invoice-items-table .col-igst {
-    width: 8%;
+    width: 7%;
     text-align: end;
   }
   .invoice-items-table .col-amount {
     width: 12%;
     text-align: right;
-    font-weight: 700;
+    font-weight: 600;
   }
   
   /* Adjusted widths when taxes are disabled */
   .invoice-items-table.no-taxes .col-description {
-    width: 40%;
+    width: 35%;
   }
   .invoice-items-table.no-taxes .col-rate {
-    width: 16%;
+    width: 14%;
   }
   .invoice-items-table.no-taxes .col-disc {
     width: 12%;
   }
+  .invoice-items-table.no-taxes .col-rate-inc-disc {
+    width: 16%;
+    text-align: right;
+  }
   .invoice-items-table.no-taxes .col-amount {
-    width: 18%;
+    width: 20%;
   }
   .tax-value {
-    font-size: 8px;
+    font-size: 7px;
     color: #6b7280;
     margin-top: 2px;
+    font-family: "Roboto Mono", monospace;
+    font-stretch: condensed;
+     font-style: normal;
   }
   .item-name {
     margin: 0;
@@ -97,9 +108,13 @@
     color: #6b7280;
     font-weight: 400;
     line-height: 10px;
+    font-family: "Roboto Mono", monospace;
+    font-stretch: condensed;
   }
   .money {
     white-space: nowrap;
+    font-family: "Roboto Mono", monospace;
+    font-stretch: condensed;
   }
   
   .page-section-break {
@@ -118,26 +133,27 @@
 
 <% pages.forEach((pageItems, pageIndex) => { const isLastPage = pageIndex === pages.length - 1; %>
 <div class="<%= isLastPage ? '' : 'page-section-break' %>">
-<table class="invoice-items-table <%= !isTaxesEnabled ? 'no-taxes' : '' %>">
-  <% const isIgstPresent = (lineItems || []).some(item => item?.tax?.some(t => t.code === 'IGST' && t.percent && Number(t.percent) > 0));
-    const isSgstPresent = (lineItems || []).some(item => item?.tax?.some(t => t.code === 'SGST' && t.percent && Number(t.percent) > 0));
-    const isCgstPresent = (lineItems || []).some(item => item?.tax?.some(t => t.code === 'CGST' && t.percent && Number(t.percent) > 0));
+<table class="invoice-items-table <%= !organization?.isTaxesEnabled ? 'no-taxes' : '' %>">
+  <% const isIgstPresent = (lineItems || []).some(item => item?.taxes?.some(t => t.code === 'IGST' && t.percent && Number(t.percent) > 0));
+    const isSgstPresent = (lineItems || []).some(item => item?.taxes?.some(t => t.code === 'SGST' && t.percent && Number(t.percent) > 0));
+    const isCgstPresent = (lineItems || []).some(item => item?.taxes?.some(t => t.code === 'CGST' && t.percent && Number(t.percent) > 0));
   %>
   <thead>
     <tr>
       <th class="col-description">Item Name</th>
       <th class="col-qty">Qty</th>
-      <!-- <% if (isTaxesEnabled) { %>
-        <th class="col-hsn">HSN/SAC</th>
-      <% } %> -->
-      <th class="col-rate">Rate</th>
+      <th class="col-rate">Rate <%- organization?.isTaxesEnabled ? `(Excl. Tax)`: '' %> </th>
       <th class="col-disc">Disc.</th>
-      <% if (isTaxesEnabled) { %>
+      <% if (organization?.isTaxesEnabled) { %>
+        <th class="col-taxable-value">Taxable Value</th>
         <th class="col-cgst">CGST</th>
         <th class="col-sgst">SGST</th>
            <% if (isIgstPresent) { %>
         <th class="col-igst">IGST</th>
       <% } %>
+      <% } %>
+      <% if (!organization?.isTaxesEnabled) { %>
+        <th class="col-rate-inc-disc">Rate (Inc. Disc.)</th>
       <% } %>
    
       <th class="col-amount">Amount</th>
@@ -154,9 +170,9 @@
       const discountLabel = discountValue ? (isPercentDiscount ? discountValue.toFixed(0) + '%' : '-₹' + discountValue.toFixed(2)) : '-';
       const discountAmountInPercent = isPercentDiscount ? discountValue : (rate * qty) > 0 ? (discountValue / (rate * qty)) * 100 : 0;
       
-      const sgstTax = item?.tax?.find(t => t.code === 'SGST');
-      const cgstTax = item?.tax?.find(t => t.code === 'CGST');
-      const igstTax = item?.tax?.find(t => t.code === 'IGST');
+      const sgstTax = item?.taxes?.find(t => t.code === 'SGST');
+      const cgstTax = item?.taxes?.find(t => t.code === 'CGST');
+      const igstTax = item?.taxes?.find(t => t.code === 'IGST');
       const sgstPercent = sgstTax?.percent || '0';
       const cgstPercent = cgstTax?.percent || '0';
       const igstPercent = igstTax?.percent || '0';
@@ -173,38 +189,53 @@
     <tr>
       <td class="col-description">
         <p class="item-name"><%= item?.itemName || 'Item name: N/A' %></p>
-         <% if (isTaxesEnabled && (item?.hsn  || item?.sac)) { %>
+         <% if (organization?.isTaxesEnabled && (item?.hsn  || item?.sac)) { %>
         <p class="item-subtext"><%- item?.hsn ?  `HSN: ${item.hsn}` : item?.sac ? `SAC: ${item.sac}` : '' %></p>
       <% } %>
         <% if (batchInfo) { %>
           <p class="item-subtext"><%= batchInfo %></p>
         <% } %>
       </td>
-      <td class="col-qty" style="vertical-align:middle;"><%= qty %></td>
+
+
+
+      <td class="col-qty" style="vertical-align:middle; font-family: 'Roboto Mono', monospace;"><%= qty %></td>
+
+
      
-      <td class="col-rate money"  style="vertical-align:middle;">₹<%= rate.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+      <td class="col-rate money"  style="vertical-align:middle;"><%= currencySymbol %><%= rate.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+
+
+
+
+
       <td class="col-disc" style="vertical-align:middle;">
-          <div><%= discountAmountInPercent.toFixed(2) %></div>
-          <% if (discountValue && !isPercentDiscount) { %>
-            <div class="tax-value">(<%= discountLabel %>%)</div>
+          <div style="font-family: 'Roboto Mono', monospace;"><%- parseFloat(item?.discount?.discountValue) || '-' %>%</div>
+          <% if (item?.discount?.discountAmount) { %>
+            <div class="tax-value">-<%= currencySymbol %><%= item?.discount?.discountAmount || '-' %></div>
           <% } %>
 
       </td>
-      <% if (isTaxesEnabled) { %>
+
+      <% if (organization?.isTaxesEnabled) { %>
+      <td class="col-taxable-value money" style="vertical-align:middle;"><%= currencySymbol %><%= item?.taxableAmount?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+        <% } %>
+      
+      <% if (organization?.isTaxesEnabled) { %>
         <% if(isSgstPresent && sgstAmount && Number(sgstAmount) > 0) { %>
         <td class="col-cgst"  style="vertical-align:middle;">
-          <div><%= cgstPercent %>%</div>
-          <div class="tax-value money">₹<%= cgstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
+          <div style="font-family: 'Roboto Mono', monospace;"><%- parseFloat(sgstTax?.percent) %>%</div>
+          <div class="tax-value money"><%= currencySymbol %><%= sgstTax?.taxValue?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
         </td>
         <% } else { %> 
              <td class="col-cgst"  style="vertical-align:middle;">
           <div>-</div>
         </td>
           <% } %>
-        <% if(isSgstPresent && sgstAmount && Number(sgstAmount) > 0) { %>
+        <% if(isCgstPresent && cgstAmount && Number(cgstAmount) > 0) { %>
         <td class="col-sgst" style="vertical-align:middle;">
-          <div><%= sgstPercent %>%</div>
-          <div class="tax-value money"  style="vertical-align:middle;">₹<%= sgstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
+          <div style="font-family: 'Roboto Mono', monospace;"><%- parseFloat(cgstTax?.percent) %>%</div>
+          <div class="tax-value money"  style="vertical-align:middle;"><%= currencySymbol %><%= cgstTax?.taxValue?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
         </td>
         <% }  else { %> 
              <td class="col-sgst" style="vertical-align:middle;">
@@ -214,17 +245,20 @@
    
       <% if (isIgstPresent && igstAmount && Number(igstAmount) > 0) { %>
         <td class="col-igst" style="vertical-align:middle;">
-          <div><%= igstPercent %>%</div>
-          <div class="tax-value money">₹<%= igstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
-        </td>
-      <% } else { %> 
-             <td class="col-igst" style="vertical-align:middle;">
-          <div>-</div>
+          <div style="font-family: 'Roboto Mono', monospace;"><%- parseFloat(igstTax?.percent) %>%</div>
+          <div class="tax-value money"><%= currencySymbol %><%= igstTax?.taxValue?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></div>
         </td>
       <% } %>
 
          <% } %>
-      <td class="col-amount money"  style="vertical-align:middle;">₹<%= amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+
+         <% if (!organization?.isTaxesEnabled) { %>
+        <td class="col-rate-inc-disc money" style="vertical-align:middle;"><%= currencySymbol %><%= ((rate * qty) - discountValue).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+      <% } %>
+
+
+
+      <td class="col-amount money"  style="vertical-align:middle;"><%= currencySymbol %><%= item?.lineItemTotalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
     </tr>
     <% }); %>
   </tbody>

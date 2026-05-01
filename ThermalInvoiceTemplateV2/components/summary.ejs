@@ -1,0 +1,172 @@
+<style>
+  .item-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+  }
+
+  .numeric {
+    font-family: "Roboto Mono", monospace;
+    font-stretch: condensed;
+  }
+
+  .section-title {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 8px;
+  }
+
+  .tax-breakup-row {
+    font-size: 9px;
+    font-style: italic;
+    color: #6b7280;
+    padding-left: 10px;
+  }
+</style>
+
+<%
+  const toNumber = value => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+
+  const toFixedAmount = value => parseFloat(value).toFixed(2);
+  const subTotalValue = toNumber(subTotal);
+  const discountValue = toNumber(totalDiscountAmount);
+  const roundOffValue = toNumber(roundOffAmount);
+  const paidValue = toNumber(totalAmountPaid);
+  const taxSummaryData = taxSummary || {};
+  const taxGroups = Array.isArray(taxSummaryData.gstGroups) ? [...taxSummaryData.gstGroups] : [];
+  const taxableValueExcludingGST = taxSummaryData.taxableValueExcludingGST ?? (subTotalValue - discountValue).toFixed(2);
+  const totalGSTValue = taxSummaryData.totalGST ?? 0;
+  const totalInvoiceValueIncludingGST = taxSummaryData.totalInvoiceValueIncludingGST ?? totalAmount;
+  const discountPercent = subTotalValue > 0 ? (discountValue * 100) / subTotalValue : 0;
+
+  taxGroups.sort((left, right) => toNumber(right.totalTaxPercent) - toNumber(left.totalTaxPercent));
+
+  const afterDiscount = subTotalValue - discountValue;
+  const afterRoundOff = afterDiscount + roundOffValue;
+%>
+
+<div style="display: flex; flex-direction: column; gap: 8px; margin: 8px 0px; border-top: 1px solid black; padding: 16px 0px 8px 0px">
+  <div class="item-row">
+    <div>Gross Value <%- organization?.isTaxesEnabled ? '(Inc. Taxes)' : '' %> : </div>
+    <div><span class="numeric"><%= currencySymbol %><%= subTotal ? toFixedAmount(subTotal) : 'N/A' %></span></div>
+  </div>
+
+  <% if (discountValue > 0) { %>
+  <div class="item-row">
+    <div>Additional Discount :</div>
+    <div>- <span class="numeric">(<%= parseFloat(discountPercent) %>%)</span> <span class="numeric"><%= currencySymbol %><%= toFixedAmount(totalDiscountAmount) %></span></div>
+  </div>
+  <% } %>
+
+  <div class="item-row">
+    <div>Sub Total <%- organization?.isTaxesEnabled ? '(Inc. Taxes)' : '' %> : </div>
+    <div><span class="numeric"><%= currencySymbol %><%= toFixedAmount(afterDiscount) %></span></div>
+  </div>
+
+  <% if (Math.abs(roundOffValue) > 0) { %>
+  <div class="item-row">
+    <div>Round Off :</div>
+    <div><span class="numeric"><%= roundOffValue >= 0 ? '- ' : '' %><%= currencySymbol %><%= Math.abs(roundOffValue).toFixed(2) %></span></div>
+  </div>
+  <% } %>
+
+  <div class="item-row" style="font-weight: 600;">
+    <div>Total <%- organization?.isTaxesEnabled ? '(Inc. Taxes)' : '' %> :</div>
+    <div><span class="numeric"><%= currencySymbol %><%= toFixedAmount(afterRoundOff) %></span></div>
+  </div>
+
+  <div style="margin-top: 12px; padding: 8px 0px; display: flex; flex-direction: column; gap: 6px;">
+    <div class="section-title">Payment Summary</div>
+
+    <div class="item-row">
+      <div>Total Invoice Value :</div>
+      <div><span class="numeric"><%= currencySymbol %><%= totalAmount ? toFixedAmount(totalAmount) : 'N/A' %></span></div>
+    </div>
+
+    <% if (paidValue > 0) { %>
+    <div class="item-row">
+      <div>Amount Paid :</div>
+      <div>- <span class="numeric"><%= currencySymbol %><%= toFixedAmount(totalAmountPaid) %></span></div>
+    </div>
+    <% } %>
+    <% if (toNumber(creditsApplied) > 0) { %>
+    <div class="item-row">
+      <div>Credits Applied :</div>
+      <div>- <span class="numeric"><%= currencySymbol %><%= toFixedAmount(creditsApplied) %></span></div>
+    </div>
+    <% } %>
+    <% if (toNumber(totalWriteOffAmount) > 0) { %>
+    <div class="item-row">
+      <div>Total Write-Off :</div>
+      <div>- <span class="numeric"><%= currencySymbol %><%= toFixedAmount(totalWriteOffAmount) %></span></div>
+    </div>
+    <% } %>
+
+    <div class="item-row bold" style="font-size: 12px; font-weight: 700; border-top: 1px solid #E6E6E6; padding-top: 6px; margin-top:8px;">
+      <div>Total Payable (INR):</div>
+      <div><span class="numeric"><%= currencySymbol %><%= amountPayable ? amountPayable : 'N/A' %></span></div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; font-size: 8px; font-weight: 400; padding: 8px 0px; text-align: right;">
+      <span style="max-width: 80%;"><%= amountPayableInWords %></span>
+    </div>
+
+    <% if (organization?.isTaxesEnabled) { %>
+    <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px; padding-top: 8px;">
+      <div class="section-title">Tax Summary</div>
+      <div class="item-row">
+        <div>Taxable Value (Excluding GST):</div>
+        <div><span class="numeric"><%= currencySymbol %><%= toFixedAmount(taxableValueExcludingGST) %></span></div>
+      </div>
+
+      <% if (taxGroups.length > 0) { %>
+        <% taxGroups.forEach(group => {
+          const components = Array.isArray(group.components) ? group.components : [];
+          const igst = components.find(component => component.code === 'IGST');
+          const cgst = components.find(component => component.code === 'CGST');
+          const sgst = components.find(component => component.code === 'SGST');
+          const rate = toNumber(group.totalTaxPercent);
+        %>
+      <div class="item-row">
+        <div><%= rate.toFixed(rate % 1 === 0 ? 0 : 2) %>% GST :</div>
+        <div><span class="numeric"><%= currencySymbol %><%= toFixedAmount(group.totalTaxAmount) %></span></div>
+      </div>
+      <% if (igst) { %>
+      <div class="item-row tax-breakup-row">
+        <div>IGST (<%= toNumber(igst.percent).toFixed(toNumber(igst.percent) % 1 === 0 ? 0 : 2) %>%) :</div>
+        <div><span class="numeric"><%= currencySymbol %><%= toFixedAmount(igst.taxAmount) %></span></div>
+      </div>
+      <% } else if (cgst || sgst) { %>
+      <div class="item-row tax-breakup-row">
+        <div>CGST (<%= cgst ? toNumber(cgst.percent).toFixed(toNumber(cgst.percent) % 1 === 0 ? 0 : 2) : '0' %>%) / SGST (<%= sgst ? toNumber(sgst.percent).toFixed(toNumber(sgst.percent) % 1 === 0 ? 0 : 2) : '0' %>%) :</div>
+        <div><span class="numeric"><%= currencySymbol %><%= toFixedAmount(cgst ? cgst.taxAmount : 0) %></span> / <span class="numeric"><%= currencySymbol %><%= toFixedAmount(sgst ? sgst.taxAmount : 0) %></span></div>
+      </div>
+      <% } %>
+        <% }); %>
+      <% } else { %>
+      <div class="item-row tax-breakup-row">
+        <div>Tax Breakup :</div>
+        <div>Tax Details</div>
+      </div>
+      <% } %>
+
+      <div class="item-row" style="border-top: 1px solid #E6E6E6; padding-top: 6px; margin-top: 4px;">
+        <div style="font-weight: 600;">Total GST :</div>
+        <div><span class="numeric" style="font-weight: 600;"><%= currencySymbol %><%= toFixedAmount(totalGSTValue) %></span></div>
+      </div>
+
+      <div class="item-row" style="font-weight: 600;">
+        <div>Total Invoice Value (Inc. GST) :</div>
+        <div><span class="numeric"><%= currencySymbol %><%= toFixedAmount(totalInvoiceValueIncludingGST) %></span></div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+
+  
+</div>

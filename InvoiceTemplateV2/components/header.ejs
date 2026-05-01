@@ -6,7 +6,7 @@
   }
   .invoice-header-top {
     display: grid;
-    grid-template-columns: 1fr 1.2fr auto;
+    grid-template-columns: <%- organization?.logo ? '1fr 1.2fr auto' : '1fr 1.2fr' %>;
     align-items: start;
     gap: 14px;
   }
@@ -54,8 +54,8 @@
     text-align: right;
   }
   .invoice-logo {
-    width: 95px;
-    height: 95px;
+    width: 70px;
+    height:  70px;
     object-fit: cover;
   }
   .invoice-meta-row {
@@ -79,13 +79,13 @@
   }
 </style>
 <div>
-  <% if(isTaxesEnabled) { %>
-      <p class="invoice-gstin">GSTIN: <%= organization?.gst || 'N/A' %> <%- isTaxesEnabled ? `• STATE CODE ${ organization?.stateCode || ''}` : '' %> </p>
+  <% if(organization?.isTaxesEnabled) { %>
+      <p class="invoice-gstin">GSTIN: <%= organization?.gst || 'N/A' %> <%- organization?.isTaxesEnabled ? `• STATE CODE ${ organization?.stateCode || ''}` : '' %> </p>
   <% } %>
 <div class="invoice-header">
   <div class="invoice-header-top">
     <div class="invoice-header-left">
-      <h1 class="invoice-main-title"><%= isTaxesEnabled ? 'TAX INVOICE' : 'INVOICE' %></h1>
+      <h1 class="invoice-main-title"><%= organization?.isTaxesEnabled ? 'TAX INVOICE' : 'INVOICE' %></h1>
       <p class="invoice-sub-title"># <%= invoiceNumber || 'N/A' %></p>
 
        <div class="invoice-meta-row">
@@ -100,9 +100,6 @@
     </span>
   </div>
 
-   <!-- <p class="invoice-place-row">
-   <span class="span-strong" >Place of Supply:</span> <%= placeOfSupply || organization?.stateCode || 'N/A' %>
-  </p> -->
 
     </div>
 
@@ -123,12 +120,11 @@
       <p class="invoice-org-contact"><strong>+91</strong> <%= organization.organizationPhone %></p>
       <% } %>
     </div>
-
+<% if (organization?.logo) { %>
     <div class="invoice-header-right">
-      <% if (organization?.logo) { %>
       <img src="<%= organization.logo %>" alt="Logo" class="invoice-logo" />
-      <% } %>
     </div>
+    <% } %>
   </div>
 
  

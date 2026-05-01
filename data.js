@@ -1,286 +1,172 @@
 const invoiceData = {
-  currencySymbol: '₹',
+  currencySymbol:'₹',
   organization: {
-    organizationName: "RMV Multispeciality Veterinary Clinic",
-    organizationAddress:
-      "269, 4th Main Rd, Mahalakshmipuram Layout, Mahalakshmi Layout, Bengaluru, Karnataka 560086",
-    organizationEmail: "EMAIL_RMV_@gmail.com",
-    organizationLegalName: "RMV_LEGAL_NAME",
-    organizationPhone: "9844598562",
-    gst: "29AAKCR7132ZID7",
-    thankYouMessage: "Thank you for choosing us!",
-    logo: "https://placehold.co/600x400",
-    // "https://placehold.co/600x400",
-    stateCode: "STATE_CODE_PLACEHOLDER",
-    emergencyContact: "9844598562"
+    organizationName: 'ZION PETS CLINIC',
+    organizationAddress: 'fsdfsf, adgsdg, fsdfsf, Bangalior, sfsdfs, India, 560086',
+    organizationEmail: 'vivek@simplivet.in',
+    organizationLegalName: null,
+    organizationPhone: '8105441689',
+    gst: '29AAFCH7821P1ZK',
+    thankYouMessage: 'Thank you for choosing us!  ⚠️⚠️⚠️⚠️',
+    logo: null,
+    stateCode: '29',
+    isTaxesEnabled: false,
+    invoiceSetting: 'MANUAL'
   },
-  isTaxesEnabled: false,
-  isComputerGenerated: false,
-  placeOfSupply: "Karnataka (29)",
-  invoiceNumber: "INV-2025-000042",
-  invoiceDate: "2025-01-03",
-  dueDate: "2025-01-03",
-  subTotal: "6050.00",              // 3800 + 2250
-  totalDiscountAmount: "588.00",    // 383 + 205
-  totalAmount: "5462.00",           // 3417 + 2045
-  roundOffAmount: "0.00",
-  amountPayable: "5462.00",
-  comments:
-    "Payment is due upon receipt \nAll services are non-refundable \nThis is a computer-generated invoice and does not require a signature",
-  customTerms:
-    "Payment is due upon receipt \nAll services are non-refundable \nThis is a computer-generated invoice and does not require a signature",
   customerUser: {
-    firstName: "Karthik ",
-    lastName: "DA",
-    phoneNumber: "9844598562",
-    email:"dummy@example.com",
-    address: "269, 4th Main Rd, Mahalakshmipuram Layout, Mahalakshmi Layout, Bengaluru, Karnataka 560086"
+    firstName: 'Vivek',
+    lastName: 'Janardhan',
+    phoneNumber: '8105441689',
+    email: 'vivi.football@gmail.com',
+    address: 'no.6 lakshimi nagar vadakku thottam, Rg Pudur, Coimbatore, Tamil Nadu, India, 641062',
+    placeOfSupply: 'Karnataka (29)'
   },
   consultedBy: {
-    id: "4ea18c3b-ba7e-4d27-8243-6b2e1771c232",
-    firstName: "Karthik ",
-    lastName: "DA",
-    highestDegree: 'B.V.Sc. & A.H., M.V.Sc.\nPHD\nSecond line\nThird line'
+    id: 'a9aa3dd5-f769-4a50-a135-ea4f7cab702d',
+    firstName: 'Vivek',
+    lastName: 'Janardhan',
+    qualificationToDisplay: 'Orthopaedic Surgery'
   },
-  pet:   {
-    petNumber: "PET-073",
-    petName: "notRetarded",
-    petAge: { years: 5, months: 8, days: 4 },
-    petWeight: "25.000",
-    petBreed: "Belgian Malinois",
-    petSpecies: "Dog",
-    petGender: 'MALE'
+  pet: {
+    petNumber: 'PET-023',
+    petName: 'Luna',
+    petWeight: '2.000',
+    petAge: {
+      years: 5,
+      months: 8,
+      days: 9
+    },
+    species: 'Dog (Canine)',
+    breed: 'Golden Retriever Corgi'
   },
-  createdBy:{
+  isComputerGenerated: false,
+  invoiceNumber: 'INV-26/27-000002',
+  invoiceDate: '2026-05-01',
+  dueDate: '2026-05-01',
+  subTotal: '2200.00',
+  totalDiscountAmount: '440.00',
+  creditsApplied: '50.00',
+  totalAmount: '1710.00',
+  roundOffAmount: '0.00',
+  totalAmountAfterDiscountAndCreditsApplied: '1710.00',
+  amountPayable: '0',
+  totalAmountPaid: '1000.00',
+  totalWriteOffAmount: '710.00',
+  comments: 'qwertyu345',
+  customTerms: 'qwerty234567',
+   createdBy:{
     name: "Karthik DA",
   },
+  lineItems: [
+    {
+      itemName: 'test rerere1',
+      hsnCode: 'TICTIC',
+      sacCode: null,
+      quantity: '10.000',
+      batches: [
+        {
+          batchNumber: 'BN-2026-000002',
+          quantity: '10.000',
+          expiryDate: '2026-05-26'
+        }
+      ],
+      unitPrice: '90.00',
+      subTotal: '900.00',
+      discount: {
+        discountType: 'PERCENTAGE',
+        discountValue: '5.56',
+        discountAmount: '50.00'
+      },
+      taxableAmount: '586.21',
+      taxAmount: '93.79',
+      taxes: [
+        {
+          code: 'CGST',
+          percent: '8.00',
+          taxValue: '46.90'
+        },
+        {
+          code: 'SGST',
+          percent: '8.00',
+          taxValue: '46.90'
+        }
+      ],
+      lineItemTotalAmount: '850.00'
+    },
+    {
+      itemName: 'test rererere 2',
+      hsnCode: 'TICTIC',
+      sacCode: null,
+      quantity: '10.000',
+      batches: null,
+      unitPrice: '150.00',
+      subTotal: '1500.00',
+      discount: {
+        discountType: 'PERCENTAGE',
+        discountValue: '10.00',
+        discountAmount: '150.00'
+      },
+      taxableAmount: '900.00',
+      taxAmount: '180.00',
+      taxes: [
+        {
+          code: 'CGST',
+          percent: '10.00',
+          taxValue: '90.00'
+        },
+        {
+          code: 'SGST',
+          percent: '10.00',
+          taxValue: '90.00'
+        }
+      ],
+      lineItemTotalAmount: '1350.00'
+    }
+  ],
+  taxSummary: {
+    taxableValueExcludingGST: '1486.21',
+    gstGroups: [
+      {
+        totalTaxPercent: '16.00',
+        totalTaxAmount: '93.80',
+        taxableAmount: '586.21',
+        components: [
+          {
+            code: 'SGST',
+            percent: '8.00',
+            taxAmount: '46.90'
+          },
+          {
+            code: 'CGST',
+            percent: '8.00',
+            taxAmount: '46.90'
+          }
+        ]
+      },
+      {
+        totalTaxPercent: '20.00',
+        totalTaxAmount: '180.00',
+        taxableAmount: '900.00',
+        components: [
+          {
+            code: 'SGST',
+            percent: '10.00',
+            taxAmount: '90.00'
+          },
+          {
+            code: 'CGST',
+            percent: '10.00',
+            taxAmount: '90.00'
+          }
+        ]
+      }
+    ],
+    totalGST: '273.80',
+    totalInvoiceValueIncludingGST: '1710.00',
+  },
+  amountPayableInWords: 'One Thousand Seven Hundred Ten Rupees Only'
 
-  lineItems : [
-  {
-    itemName: "Paracetamol 500mg Tablets",
-    quantity: 2,
-    unitPrice: "120.00",
-    subTotal: "240.00",
-    discount: {
-      discountType: "MRP",
-      discountValue: "20.00",
-    },
-    lineItemTotalAmount: "220.00",
-    tax: [
-      { code: "SGST", percent: "6.00" },
-      { code: "CGST", percent: "6.00" },
-    ],
-    hsn: "3004",
-    batches: [
-      {
-        batchNumber: "PCM-001",
-        expiryDate: "2026-03-31",
-        quantity: 1,
-      },
-      {
-        batchNumber: "PCM-002",
-        expiryDate: "2026-08-31",
-        quantity: 1,
-      },
-    ],
-  },
-  {
-    itemName: "Vitamin C Tablets",
-    quantity: 1,
-    unitPrice: "180.00",
-    subTotal: "180.00",
-    discount: {
-      discountType: "MRP",
-      discountValue: "18.00",
-    },
-    lineItemTotalAmount: "162.00",
-    tax: [
-      { code: "SGST", percent: "9.00" },
-      { code: "CGST", percent: "9.00" },
-    ],
-    hsn: "2106",
-  },
-  {
-    itemName: "Hand Sanitizer 500ml",
-    quantity: 3,
-    unitPrice: "150.00",
-    subTotal: "450.00",
-    discount: {
-      discountType: "MRP",
-      discountValue: "50.00",
-    },
-    lineItemTotalAmount: "400.00",
-    tax: [
-      { code: "SGST", percent: "9.00" },
-      { code: "CGST", percent: "9.00" },
-    ],
-    hsn: "3808",
-  },
-  {
-    itemName: "Consultation Fee",
-    quantity: 1,
-    unitPrice: "500.00",
-    serviceFee: "50.00",
-    subTotal: "550.00",
-    discount: {
-      discountType: "FLAT",
-      discountValue: "0.00",
-    },
-    lineItemTotalAmount: "550.00",
-    tax: [
-      { code: "SGST", percent: "9.00" },
-      { code: "CGST", percent: "9.00" },
-    ],
-    hsn: "9983",
-  },
-  {
-    itemName: "Blood Test Package",
-    quantity: 1,
-    unitPrice: "1200.00",
-    subTotal: "1200.00",
-    discount: {
-      discountType: "FLAT",
-      discountValue: "200.00",
-    },
-    lineItemTotalAmount: "1000.00",
-    tax: [
-      { code: "IGST", percent: "18.00" },
-    ],
-    hsn: "9985",
-  },
-  {
-    itemName: "Glucose Powder 1kg",
-    quantity: 2,
-    unitPrice: "90.00",
-    subTotal: "180.00",
-    discount: {
-      discountType: "MRP",
-      discountValue: "10.00",
-    },
-    lineItemTotalAmount: "170.00",
-    tax: [
-      { code: "SGST", percent: "2.50" },
-      { code: "CGST", percent: "2.50" },
-    ],
-    hsn: "1702",
-    batches: [
-      {
-        batchNumber: "GLU-101",
-        expiryDate: "2025-12-31",
-        quantity: 2,
-      },
-    ],
-  },
-  {
-    itemName: "Syringe 5ml",
-    quantity: 10,
-    unitPrice: "15.00",
-    subTotal: "150.00",
-    discount: {
-      discountType: "FLAT",
-      discountValue: "0.00",
-    },
-    lineItemTotalAmount: "150.00",
-    tax: [
-      { code: "SGST", percent: "12.00" },
-      { code: "CGST", percent: "12.00" },
-    ],
-    hsn: "9018",
-  },
-  {
-    itemName: "Insulin Injection",
-    quantity: 1,
-    unitPrice: "850.00",
-    subTotal: "850.00",
-    discount: {
-      discountType: "MRP",
-      discountValue: "85.00",
-    },
-    lineItemTotalAmount: "765.00",
-    tax: [
-      { code: "IGST", percent: "5.00" },
-    ],
-    hsn: "3004",
-    batches: [
-      {
-        batchNumber: "INS-778",
-        expiryDate: "2026-01-15",
-        quantity: 1,
-      },
-    ],
-  },
-  {
-  itemName: "Face Mask (Pack of 50)",
-  quantity: 1,
-  unitPrice: "300.00",
-  subTotal: "300.00",
-  discount: { discountType: "MRP", discountValue: "30.00" },
-  lineItemTotalAmount: "270.00",
-  tax: [
-    { code: "SGST", percent: "6.00" },
-    { code: "CGST", percent: "6.00" },
-  ],
-  hsn: "6307",
-},
-{
-  itemName: "Thermometer Digital",
-  quantity: 1,
-  unitPrice: "250.00",
-  subTotal: "250.00",
-  discount: { discountType: "FLAT", discountValue: "25.00" },
-  lineItemTotalAmount: "225.00",
-  tax: [
-    { code: "SGST", percent: "9.00" },
-    { code: "CGST", percent: "9.00" },
-  ],
-  hsn: "9025",
-},
-{
-  itemName: "Protein Powder 1kg",
-  quantity: 1,
-  unitPrice: "1500.00",
-  subTotal: "1500.00",
-  discount: { discountType: "MRP", discountValue: "150.00" },
-  lineItemTotalAmount: "1350.00",
-  tax: [
-    { code: "IGST", percent: "18.00" },
-  ],
-  hsn: "2106",
-},
-{
-  itemName: "Bandage Roll",
-  quantity: 5,
-  unitPrice: "40.00",
-  subTotal: "200.00",
-  discount: { discountType: "FLAT", discountValue: "0.00" },
-  lineItemTotalAmount: "200.00",
-  tax: [
-    { code: "SGST", percent: "12.00" },
-    { code: "CGST", percent: "12.00" },
-  ],
-  hsn: "3005",
-}
-],
-  taxes: [
-    {
-      code: "SGST",
-      taxRate: "9.00",
-      totalTaxableAmount: "291.36",
-      totalTaxAmount: "26.22",
-    },
-    {
-      code: "CGST",
-      taxRate: "9.00",
-      totalTaxableAmount: "291.36",
-      totalTaxAmount: "26.22",
-    },
-  ],
-  totalWriteOffAmount : "0.00",
-  totalAmountPaid : "0.00",
-  creditsApplied : "0.00",
-  totalInWords: "Nine Thousand Nine Hundred Seventy One Rupees and Forty Five Paise Only"
 };
-
 
 
 const treatmentSheetData = {
@@ -600,6 +486,7 @@ const treatmentSheetData = {
 const prescriptionData = {
   primaryColor: '#2761c4',
   id: "b96d74c1-e95f-411e-a100-3edeee8bdd79",
+  showChipLegend: true,
   title: "Veterinary Prescription Titile",
   notes: "Patient presents with localized skin irritation on the lower back. Mild redness and scaling observed. No fever. Appetite and activity levels are normal. Recommended topical and oral treatment.",
   createdBy: {
@@ -824,4 +711,289 @@ const prescriptionData = {
 
   
 }
+
+const invoiceV1Data = {
+  currencySymbol: '₹',
+  organization: {
+    organizationName: "RMV Multispeciality Veterinary Clinic",
+    organizationAddress:
+      "269, 4th Main Rd, Mahalakshmipuram Layout, Mahalakshmi Layout, Bengaluru, Karnataka 560086",
+    organizationEmail: "EMAIL_RMV_@gmail.com",
+    organizationLegalName: "RMV_LEGAL_NAME",
+    organizationPhone: "9844598562",
+    gst: "29AAKCR7132ZID7",
+    thankYouMessage: "Thank you for choosing us!⚠️⚠️⚠️⚠️⚠️⚠️⚠️",
+    logo: "https://placehold.co/600x400",
+    // "https://placehold.co/600x400",
+    stateCode: "29",
+    emergencyContact: "9844598562"
+  },
+  isTaxesEnabled: true,
+  isComputerGenerated: true,
+  placeOfSupply: "Karnataka (29)",
+  invoiceNumber: "INV-2025-000042",
+  invoiceDate: "2025-01-03",
+  dueDate: "2025-01-03",
+  subTotal: "6050.00",              // 3800 + 2250
+  totalDiscountAmount: "588.00",    // 383 + 205
+  totalAmount: "5462.00",           // 3417 + 2045
+  roundOffAmount: "0.00",
+  amountPayable: "5462.00",
+  comments:
+    "Payment is due upon receipt \nAll services are non-refundable \nThis is a computer-generated invoice and does not require a signature",
+  customTerms:
+    "Payment is due upon receipt \nAll services are non-refundable \nThis is a computer-generated invoice and does not require a signature",
+  customerUser: {
+    firstName: "Karthik ",
+    lastName: "DA",
+    phoneNumber: "9844598562",
+    email:"dummy@example.com",
+    address: "269, 4th Main Rd, Mahalakshmipuram Layout, Mahalakshmi Layout, Bengaluru, Karnataka 560086"
+  },
+  consultedBy: {
+    id: "4ea18c3b-ba7e-4d27-8243-6b2e1771c232",
+    firstName: "Karthik ",
+    lastName: "DA",
+    highestDegree: 'B.V.Sc. & A.H., M.V.Sc.\nPHD\nSecond line\nThird line'
+  },
+  pet:   {
+    petNumber: "PET-073",
+    petName: "notRetarded",
+    petAge: { years: 5, months: 8, days: 4 },
+    petWeight: "25.000",
+    petBreed: "Belgian Malinois",
+    petSpecies: "Dog",
+    petGender: 'MALE'
+  },
+  createdBy:{
+    name: "Karthik DA",
+  },
+
+  lineItems : [
+  {
+    itemName: "Paracetamol 500mg Tablets",
+    quantity: 2,
+    unitPrice: "120.00",
+    subTotal: "240.00",
+    discount: {
+      discountType: "MRP",
+      discountValue: "20.00",
+    },
+    lineItemTotalAmount: "220.00",
+    tax: [
+      { code: "SGST", percent: "6.00" },
+      { code: "CGST", percent: "6.00" },
+    ],
+    hsn: "3004",
+    batches: [
+      {
+        batchNumber: "PCM-001",
+        expiryDate: "2026-03-31",
+        quantity: 1,
+      },
+      {
+        batchNumber: "PCM-002",
+        expiryDate: "2026-08-31",
+        quantity: 1,
+      },
+    ],
+  },
+  {
+    itemName: "Vitamin C Tablets",
+    quantity: 1,
+    unitPrice: "180.00",
+    subTotal: "180.00",
+    discount: {
+      discountType: "MRP",
+      discountValue: "18.00",
+    },
+    lineItemTotalAmount: "162.00",
+    tax: [
+      { code: "SGST", percent: "9.00" },
+      { code: "CGST", percent: "9.00" },
+    ],
+    hsn: "2106",
+  },
+  {
+    itemName: "Hand Sanitizer 500ml",
+    quantity: 3,
+    unitPrice: "150.00",
+    subTotal: "450.00",
+    discount: {
+      discountType: "MRP",
+      discountValue: "50.00",
+    },
+    lineItemTotalAmount: "400.00",
+    tax: [
+      { code: "SGST", percent: "9.00" },
+      { code: "CGST", percent: "9.00" },
+    ],
+    hsn: "3808",
+  },
+  {
+    itemName: "Consultation Fee",
+    quantity: 1,
+    unitPrice: "500.00",
+    serviceFee: "50.00",
+    subTotal: "550.00",
+    discount: {
+      discountType: "FLAT",
+      discountValue: "0.00",
+    },
+    lineItemTotalAmount: "550.00",
+    tax: [
+      { code: "SGST", percent: "9.00" },
+      { code: "CGST", percent: "9.00" },
+    ],
+    hsn: "9983",
+  },
+  {
+    itemName: "Blood Test Package",
+    quantity: 1,
+    unitPrice: "1200.00",
+    subTotal: "1200.00",
+    discount: {
+      discountType: "FLAT",
+      discountValue: "200.00",
+    },
+    lineItemTotalAmount: "1000.00",
+    tax: [
+      { code: "IGST", percent: "18.00" },
+    ],
+    hsn: "9985",
+  },
+  {
+    itemName: "Glucose Powder 1kg",
+    quantity: 2,
+    unitPrice: "90.00",
+    subTotal: "180.00",
+    discount: {
+      discountType: "MRP",
+      discountValue: "10.00",
+    },
+    lineItemTotalAmount: "170.00",
+    tax: [
+      { code: "SGST", percent: "2.50" },
+      { code: "CGST", percent: "2.50" },
+    ],
+    hsn: "1702",
+    batches: [
+      {
+        batchNumber: "GLU-101",
+        expiryDate: "2025-12-31",
+        quantity: 2,
+      },
+    ],
+  },
+  {
+    itemName: "Syringe 5ml",
+    quantity: 10,
+    unitPrice: "15.00",
+    subTotal: "150.00",
+    discount: {
+      discountType: "FLAT",
+      discountValue: "0.00",
+    },
+    lineItemTotalAmount: "150.00",
+    tax: [
+      { code: "SGST", percent: "12.00" },
+      { code: "CGST", percent: "12.00" },
+    ],
+    hsn: "9018",
+  },
+  {
+    itemName: "Insulin Injection",
+    quantity: 1,
+    unitPrice: "850.00",
+    subTotal: "850.00",
+    discount: {
+      discountType: "MRP",
+      discountValue: "85.00",
+    },
+    lineItemTotalAmount: "765.00",
+    tax: [
+      { code: "IGST", percent: "5.00" },
+    ],
+    hsn: "3004",
+    batches: [
+      {
+        batchNumber: "INS-778",
+        expiryDate: "2026-01-15",
+        quantity: 1,
+      },
+    ],
+  },
+  {
+  itemName: "Face Mask (Pack of 50)",
+  quantity: 1,
+  unitPrice: "300.00",
+  subTotal: "300.00",
+  discount: { discountType: "MRP", discountValue: "30.00" },
+  lineItemTotalAmount: "270.00",
+  tax: [
+    { code: "SGST", percent: "6.00" },
+    { code: "CGST", percent: "6.00" },
+  ],
+  hsn: "6307",
+},
+{
+  itemName: "Thermometer Digital",
+  quantity: 1,
+  unitPrice: "250.00",
+  subTotal: "250.00",
+  discount: { discountType: "FLAT", discountValue: "25.00" },
+  lineItemTotalAmount: "225.00",
+  tax: [
+    { code: "SGST", percent: "9.00" },
+    { code: "CGST", percent: "9.00" },
+  ],
+  hsn: "9025",
+},
+{
+  itemName: "Protein Powder 1kg",
+  quantity: 1,
+  unitPrice: "1500.00",
+  subTotal: "1500.00",
+  discount: { discountType: "MRP", discountValue: "150.00" },
+  lineItemTotalAmount: "1350.00",
+  tax: [
+    { code: "IGST", percent: "18.00" },
+  ],
+  hsn: "2106",
+},
+{
+  itemName: "Bandage Roll",
+  quantity: 5,
+  unitPrice: "40.00",
+  subTotal: "200.00",
+  discount: { discountType: "FLAT", discountValue: "0.00" },
+  lineItemTotalAmount: "200.00",
+  tax: [
+    { code: "SGST", percent: "12.00" },
+    { code: "CGST", percent: "12.00" },
+  ],
+  hsn: "3005",
+}
+],
+  taxes: [
+    {
+      code: "SGST",
+      taxRate: "9.00",
+      totalTaxableAmount: "291.36",
+      totalTaxAmount: "26.22",
+    },
+    {
+      code: "CGST",
+      taxRate: "9.00",
+      totalTaxableAmount: "291.36",
+      totalTaxAmount: "26.22",
+    },
+  ],
+  totalWriteOffAmount : "1000.00",
+  totalAmountPaid : "10.00",
+  creditsApplied : "10.00",
+  totalInWords: "Nine Thousand Nine Hundred Seventy One Rupees and Forty Five Paise Only"
+};
+
+
 module.exports = { treatmentSheetData, invoiceData, prescriptionData };

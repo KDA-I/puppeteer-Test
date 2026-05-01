@@ -1,0 +1,59 @@
+
+<%
+  const normalizedCustomTerms = typeof customTerms === 'string' ? customTerms.trim() : '';
+  const thankYouMessage = organization?.thankYouMessage?.trim();
+  const createdByName = createdBy?.name || '';
+  const emergencyContact = organization?.emergencyContact || '';
+  const organizationName = organization?.name || 'Simplivet';
+  const normalizedComments = typeof comments === 'string' ? comments.trim() : '';
+%>
+
+<div class="text-center mb-2" style="border-bottom: 1px solid #E6E6E6; padding-bottom:16px">
+    <% if (normalizedComments) { %>
+  <div style="font-size: 8px; line-height: 12px;">
+    <div style="font-weight: 600; margin-bottom: 4px; text-align: center;">Consultation Notes:</div>
+    <div style="text-align: center; font-style: italic;"><%- normalizedComments?.replace(/\n/g, '<br>') %></div>
+  </div>
+  <% } %>
+  <% if (normalizedCustomTerms) { %>
+  <div style="font-size: 8px; line-height: 12px; padding-top: 20px;">
+    <div style="font-weight: 600; margin-bottom: 4px; text-align: center;">Terms & Conditions:</div>
+    <div style="text-align: center;"><%- normalizedCustomTerms.split('\n').join('<br>') %></div>
+  </div>
+  <% } %>
+
+  <div style="max-width: <%= isComputerGenerated ? '164px' : '164px' %>; justify-self: center; margin-top: 20px; padding: 12px 14px; border: 1px dashed #CCCCCC; border-radius: 4px; text-align: center; font-size: 8px; line-height: 12px;">
+    <div style="opacity: <%= isComputerGenerated ? '0.85' : '0' %>;">
+        This is a computer-generated invoice and does not require a signature.
+    </div>
+</div>
+
+
+  <% if (!isComputerGenerated) { %>
+  <div style="font-size: 7px; line-height: 10px; text-align: center; margin-top: 4px; font-weight:500">
+    Authorized Signatory
+  </div>
+  <% } %>
+
+  
+</div>
+
+  <% if (thankYouMessage) { %>
+  <div style="margin-top: 8px; font-size: 10px; line-height: 16px; font-weight: 600; text-align: center;">
+    <%= thankYouMessage %>
+  </div>
+  <% } %>
+
+  <% if (createdByName) { %>
+  <div style=" font-size: 7px; line-height:12px; text-align: center; opacity: 0.85;">
+    Billed by <%= createdByName %>
+  </div>
+  <% } %>
+
+  <% if (emergencyContact) { %>
+  <div style="margin-top: 4px; font-size: 7px;  line-height:12px; text-align: center;">
+    In case of Emergency: <span style="opacity: 0.85;"> <%= emergencyContact %></span>
+  </div>
+  <% } %>
+
+  <div style="margin-top: 8px; font-size: 7px; line-height:10px; font-weight: 500; text-align: center;">Powered by <%= organizationName %></div>

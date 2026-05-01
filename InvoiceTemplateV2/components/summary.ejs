@@ -1,0 +1,258 @@
+<!-- summary.ejs -->
+<style>
+  .summary-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .summary-column {
+    flex: 1;
+  }
+  
+  .column-title {
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  
+  .summary-title {
+    margin: 12px 0px;
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    font-size: 8px;
+  }
+  
+  .summary-label {
+    text-align: left;
+    flex: 1;
+  }
+  
+  .summary-value {
+    text-align: right;
+    font-weight: 400;
+    min-width: 80px;
+    font-family: "Roboto Mono", monospace;
+    line-height: 10px;
+  }
+  
+  .tax-breakup-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0 2px 12px;
+    font-size: 8px;
+    font-style: italic;
+    color: #6b7280;
+  }
+  
+  .tax-breakup-label {
+    flex: 1;
+  }
+  
+  .tax-breakup-value {
+    text-align: right;
+    min-width: 80px;
+    font-family: "Roboto Mono", monospace;
+  }
+  
+  .separator-line {
+    border-bottom: 1px solid #d1d5db;
+    margin: 6px 0;
+  }
+  
+  .discount-value {
+    color: #dc2626;
+  }
+  
+  .total-payable {
+    font-size: 8px;
+    font-weight: 700;
+    padding: 6px 0;
+  }
+  
+  .total-in-words {
+    font-size: 8px;
+    color: #6b7280;
+    margin-top: 4px;
+    text-align: right;
+    font-family: "Roboto Mono", monospace;
+  }
+</style>
+
+<%
+  const toNumber = value => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+
+  const toCurrency = value => `₹${toNumber(value).toFixed(2)}`;
+  const discountAmount = toNumber(totalDiscountAmount);
+  const discountPercent = toNumber(subTotal) > 0 ? (discountAmount * 100) / toNumber(subTotal) : 0;
+  const subtotalValue = toNumber(subTotal);
+  const roundOffValue = toNumber(roundOffAmount);
+  const taxSummaryData = taxSummary || {};
+  const taxGroups = Array.isArray(taxSummaryData.gstGroups) ? [...taxSummaryData.gstGroups] : [];
+  const taxableValueExcludingGST = taxSummaryData.taxableValueExcludingGST ?? (subtotalValue - discountAmount).toFixed(2);
+  const totalGSTValue = taxSummaryData.totalGST ?? 0;
+  const totalInvoiceValueIncludingGST = taxSummaryData.totalInvoiceValueIncludingGST ?? subTotal;
+
+  taxGroups.sort((left, right) => toNumber(right.totalTaxPercent) - toNumber(left.totalTaxPercent));
+%>
+
+<div class="no-page-break" style="margin-top: 10px;">
+  <div class="summary-container">
+    <% if (organization?.isTaxesEnabled) { %>
+    <div class="summary-column">
+      <div class="column-title">Tax Summary</div>
+      <div class="summary-row">
+        <span class="summary-label">Taxable Value (Excluding GST):</span>
+        <span class="summary-value"><%= toCurrency(taxableValueExcludingGST) %></span>
+      </div>
+
+      <% if (taxGroups.length > 0) { %>
+        <% taxGroups.forEach(group => {
+          const components = Array.isArray(group.components) ? group.components : [];
+          const igst = components.find(component => component.code === 'IGST');
+          const cgst = components.find(component => component.code === 'CGST');
+          const sgst = components.find(component => component.code === 'SGST');
+          const rate = toNumber(group.totalTaxPercent);
+        %>
+        <div class="summary-row">
+          <span class="summary-label"><%= rate.toFixed(rate % 1 === 0 ? 0 : 2) %>% GST :</span>
+          <span class="summary-value"><%= toCurrency(group.totalTaxAmount) %></span>
+        </div>
+        <% if (igst) { %>
+        <div class="tax-breakup-row">
+          <span class="tax-breakup-label">IGST (<%= toNumber(igst.percent).toFixed(toNumber(igst.percent) % 1 === 0 ? 0 : 2) %>%) :</span>
+          <span class="tax-breakup-value"><%= toCurrency(igst.taxAmount) %></span>
+        </div>
+        <% } else if (cgst || sgst) { %>
+        <div class="tax-breakup-row">
+          <span class="tax-breakup-label">CGST (<%= cgst ? toNumber(cgst.percent).toFixed(toNumber(cgst.percent) % 1 === 0 ? 0 : 2) : '0' %>%) / SGST (<%= sgst ? toNumber(sgst.percent).toFixed(toNumber(sgst.percent) % 1 === 0 ? 0 : 2) : '0' %>%) :</span>
+          <span class="tax-breakup-value"><%= toCurrency(cgst ? cgst.taxAmount : 0) %> / <%= toCurrency(sgst ? sgst.taxAmount : 0) %></span>
+        </div>
+        <% } %>
+        <% }); %>
+      <% } else { %>
+        <div class="summary-row">
+          <span class="summary-label">GST Summary:</span>
+          <span class="summary-value"><%= currencySymbol %>0.00</span>
+        </div>
+      <% } %>
+
+      <div class="separator-line"></div>
+
+      <div class="summary-row">
+        <span class="summary-label" style="font-weight: 600;">Total GST:</span>
+        <span class="summary-value" style="font-weight: 600;"><%= toCurrency(totalGSTValue) %></span>
+      </div>
+
+      <div class="summary-row">
+        <span class="summary-label" style="font-weight: 600;">Total Invoice Value (Inc. GST):</span>
+        <span class="summary-value" style="font-weight: 600;"><%= toCurrency(totalInvoiceValueIncludingGST) %></span>
+      </div>
+    </div>
+    <% } else { %>
+      <div class="summary-column"></div>
+    <% } %>
+
+    <!-- Right Column: Payment Summary -->
+    <div class="summary-column">
+      <div class="summary-row">
+        <span class="summary-label">Gross Value <%- organization?.isTaxesEnabled ? '(Inc. Taxes)' : '' %> :</span>
+        <span class="summary-value"><%= toCurrency(subtotalValue) %></span>
+      </div>
+
+      <% if (totalDiscountAmount && Number(totalDiscountAmount) > 0) { %>
+      <div class="summary-row">
+        <span class="summary-label">Additional Discount :</span>
+        <span class="summary-value discount-value">-(<%= parseFloat(discountPercent) %>%) <%= currencySymbol %><%= parseFloat(totalDiscountAmount).toFixed(2) %></span>
+      </div>
+      <% } else { %>
+      <div class="summary-row">
+        <span class="summary-label">Additional Discount :</span>
+        <span class="summary-value" style="color:#BA1A1A">- <%= currencySymbol %>0.00</span>
+      </div>
+      <% } %>
+
+      <div class="summary-row">
+        <span class="summary-label">Sub Total <%- organization?.isTaxesEnabled ? '(Inc. Taxes)' : '' %> :</span>
+        <span class="summary-value"><%= toCurrency(subtotalValue - discountAmount) %></span>
+      </div>
+
+      <% if ( Math.abs((roundOffAmount)) > 0) { %>
+      <div class="summary-row">
+        <span class="summary-label">Round Off :</span>
+        <span class="summary-value discount-value"><%= roundOffAmount.toString().includes('-') ? '- ' : '' %><%= currencySymbol %><%= Math.abs(parseFloat(roundOffAmount)).toFixed(2) %></span>
+      </div>
+      <% } %>
+
+      <div class="summary-row" style="font-weight: 600;">
+        <span class="summary-label" >Total <%- organization?.isTaxesEnabled ? '(Inc. Taxes)' : '' %> :</span>
+        <span class="summary-value"><%= toCurrency(subtotalValue - discountAmount + roundOffValue) %></span>
+      </div>
+
+      <div class="column-title summary-title">Payment Summary</div>
+      <div class="summary-row">
+        <span class="summary-label">Total Invoice Value :</span>
+        <span class="summary-value"><%= toCurrency(totalInvoiceValueIncludingGST) %></span>
+      </div>  
+
+      <% if (totalAmountPaid && Number(totalAmountPaid) > 0) { %>
+      <div class="summary-row">
+        <span class="summary-label">Amount Paid :</span>
+        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= currencySymbol %><%= parseFloat(totalAmountPaid).toFixed(2) %></span>
+      </div>
+      <% } %>
+
+      <% if (creditsApplied && Number(creditsApplied) > 0) { %>
+      <div class="summary-row">
+        <span class="summary-label">Credits Applied :</span>
+        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= currencySymbol %><%= parseFloat(creditsApplied).toFixed(2) %></span>
+      </div>
+      <% } %>
+
+      <% if (totalWriteOffAmount && Number(totalWriteOffAmount) > 0) { %>
+      <div class="summary-row">
+        <span class="summary-label">Write Off :</span>
+        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= currencySymbol %><%= parseFloat(totalWriteOffAmount).toFixed(2) %></span>
+      </div>
+      <% }  %>
+     
+
+      <div class="separator-line"></div>
+
+      <div class="summary-row total-payable">
+        <span class="summary-label">Total Payable (INR):</span>
+        <span class="summary-value" style="font-weight: 600; font-size: 12px;"><%= currencySymbol %><%= parseFloat(amountPayable || 0).toFixed(2) %></span>
+      </div>
+      <div class="total-in-words">
+       INR <%= amountPayableInWords || '' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 22px;">
+  <% if (comments) { %>
+  <div>
+    <p style="font-size: 8px; margin: 0; font-weight: 500; line-height: 11px">
+      <span style="font-weight: 600;">Customer Notes : </span>
+      <span style="color:#000000; opacity: 0.7; font-style: italic;"><%- comments.replace(/\n/g, '<br>') %></span>
+    </p>
+  </div>
+  <% } %>
+
+  <% if (customTerms) { %>
+  <div style="margin-top: 8px;">
+    <p style="font-size: 8px; margin: 0; font-weight: 500; line-height: 11px">
+      <span style="font-weight: 600;">Terms & Conditions: </span>
+      <span style="color:#000000; opacity: 0.7;"><%- customTerms.replace(/\n/g, '<br>') %></span>
+    </p>
+  </div>
+  <% } %>
+</div>
