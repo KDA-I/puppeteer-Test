@@ -2,7 +2,7 @@
 <%
   const normalizedCustomTerms = typeof customTerms === 'string' ? customTerms.trim() : '';
   const thankYouMessage = organization?.thankYouMessage?.trim();
-  const createdByName = createdBy?.name || '';
+  const createdByName = createdBy?.firstName + ' ' + createdBy?.lastName || '';
   const emergencyContact = organization?.emergencyContact || '';
   const organizationName = organization?.name || 'Simplivet';
   const normalizedComments = typeof comments === 'string' ? comments.trim() : '';

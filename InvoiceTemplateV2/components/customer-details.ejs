@@ -2,7 +2,7 @@
 <style>
   .customer-details-section {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: <%- pet ? '1fr 1fr 1fr' : '1fr 1fr' %>;
     gap: 20px;
     padding: 14px 0px;
     margin-bottom: 10px;
@@ -60,7 +60,7 @@
     <% } %>
 
   </div>
-
+  <% if(pet) { %>
   <div class="details-column">
     <p class="details-header">PATIENT</p>
     <% if(pet?.petName) { %>
@@ -79,6 +79,7 @@
     </p>
     <% } %>
   </div>
+  <% } %>
   <% if(consultedBy?.firstName && consultedBy?.lastName) { %>
   <div class="details-column">
     <p class="details-header">CONSULTED DOCTOR</p>

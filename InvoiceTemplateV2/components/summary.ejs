@@ -65,7 +65,7 @@
   }
   
   .discount-value {
-    color: #dc2626;
+    color: #BA1A1A
   }
   
   .total-payable {
@@ -89,16 +89,22 @@
     return Number.isFinite(parsed) ? parsed : 0;
   };
 
-  const toCurrency = value => `₹${toNumber(value).toFixed(2)}`;
-  const discountAmount = toNumber(totalDiscountAmount);
-  const discountPercent = toNumber(subTotal) > 0 ? (discountAmount * 100) / toNumber(subTotal) : 0;
+  const toCurrency = value => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? `${currencySymbol}${parsed.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : `${currencySymbol}0.00`;
+  };
+
+  const discountAmount = overAllDiscount ? toNumber(overAllDiscount.amount) : 0;
+  const discountPercent = overAllDiscount ? toNumber(overAllDiscount.value) : 0;
   const subtotalValue = toNumber(subTotal);
+  const subTotalAfterDiscount = totalAmountAfterDiscount ? toNumber(totalAmountAfterDiscount) : 0;
   const roundOffValue = toNumber(roundOffAmount);
+  const totalAfterRoundOff = totalAmountAfterRoundOff ? toNumber(totalAmountAfterRoundOff) : 0;
   const taxSummaryData = taxSummary || {};
   const taxGroups = Array.isArray(taxSummaryData.gstGroups) ? [...taxSummaryData.gstGroups] : [];
   const taxableValueExcludingGST = taxSummaryData.taxableValueExcludingGST ?? (subtotalValue - discountAmount).toFixed(2);
   const totalGSTValue = taxSummaryData.totalGST ?? 0;
-  const totalInvoiceValueIncludingGST = taxSummaryData.totalInvoiceValueIncludingGST ?? subTotal;
+  const totalInvoiceValueIncludingGST = totalAfterRoundOff ?? subTotal;
 
   taxGroups.sort((left, right) => toNumber(right.totalTaxPercent) - toNumber(left.totalTaxPercent));
 %>
@@ -140,7 +146,7 @@
       <% } else { %>
         <div class="summary-row">
           <span class="summary-label">GST Summary:</span>
-          <span class="summary-value"><%= currencySymbol %>0.00</span>
+          <span class="summary-value"><%= toCurrency(0) %></span>
         </div>
       <% } %>
 
@@ -167,59 +173,54 @@
         <span class="summary-value"><%= toCurrency(subtotalValue) %></span>
       </div>
 
-      <% if (totalDiscountAmount && Number(totalDiscountAmount) > 0) { %>
+      <% if (discountAmount && Number(discountAmount) > 0) { %>
       <div class="summary-row">
         <span class="summary-label">Additional Discount :</span>
-        <span class="summary-value discount-value">-(<%= parseFloat(discountPercent) %>%) <%= currencySymbol %><%= parseFloat(totalDiscountAmount).toFixed(2) %></span>
+        <span class="summary-value discount-value">-(<%= parseFloat(discountPercent) %>%) <%= toCurrency(discountAmount) %></span>
       </div>
-      <% } else { %>
-      <div class="summary-row">
-        <span class="summary-label">Additional Discount :</span>
-        <span class="summary-value" style="color:#BA1A1A">- <%= currencySymbol %>0.00</span>
-      </div>
-      <% } %>
+      <% }  %>
 
       <div class="summary-row">
         <span class="summary-label">Sub Total <%- organization?.isTaxesEnabled ? '(Inc. Taxes)' : '' %> :</span>
-        <span class="summary-value"><%= toCurrency(subtotalValue - discountAmount) %></span>
+        <span class="summary-value"><%= toCurrency(subTotalAfterDiscount) %></span>
       </div>
 
-      <% if ( Math.abs((roundOffAmount)) > 0) { %>
+      <% if ( Math.abs((roundOffValue)) > 0) { %>
       <div class="summary-row">
         <span class="summary-label">Round Off :</span>
-        <span class="summary-value discount-value"><%= roundOffAmount.toString().includes('-') ? '- ' : '' %><%= currencySymbol %><%= Math.abs(parseFloat(roundOffAmount)).toFixed(2) %></span>
+        <span class="summary-value discount-value"><%= roundOffValue.toString().includes('-') ? '- ' : '' %><%= toCurrency(Math.abs(parseFloat(roundOffValue))) %></span>
       </div>
       <% } %>
 
       <div class="summary-row" style="font-weight: 600;">
         <span class="summary-label" >Total <%- organization?.isTaxesEnabled ? '(Inc. Taxes)' : '' %> :</span>
-        <span class="summary-value"><%= toCurrency(subtotalValue - discountAmount + roundOffValue) %></span>
+        <span class="summary-value"><%= toCurrency(totalAfterRoundOff) %></span>
       </div>
 
       <div class="column-title summary-title">Payment Summary</div>
       <div class="summary-row">
         <span class="summary-label">Total Invoice Value :</span>
-        <span class="summary-value"><%= toCurrency(totalInvoiceValueIncludingGST) %></span>
+        <span class="summary-value"><%= toCurrency(totalAfterRoundOff) %></span>
       </div>  
 
       <% if (totalAmountPaid && Number(totalAmountPaid) > 0) { %>
       <div class="summary-row">
         <span class="summary-label">Amount Paid :</span>
-        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= currencySymbol %><%= parseFloat(totalAmountPaid).toFixed(2) %></span>
+        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= toCurrency(totalAmountPaid) %></span>
       </div>
       <% } %>
 
       <% if (creditsApplied && Number(creditsApplied) > 0) { %>
       <div class="summary-row">
         <span class="summary-label">Credits Applied :</span>
-        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= currencySymbol %><%= parseFloat(creditsApplied).toFixed(2) %></span>
+        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= toCurrency(creditsApplied) %></span>
       </div>
       <% } %>
 
       <% if (totalWriteOffAmount && Number(totalWriteOffAmount) > 0) { %>
       <div class="summary-row">
         <span class="summary-label">Write Off :</span>
-        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= currencySymbol %><%= parseFloat(totalWriteOffAmount).toFixed(2) %></span>
+        <span class="summary-value discount-value" style="color:#BA1A1A">- <%= toCurrency(totalWriteOffAmount) %></span>
       </div>
       <% }  %>
      
@@ -228,7 +229,7 @@
 
       <div class="summary-row total-payable">
         <span class="summary-label">Total Payable (INR):</span>
-        <span class="summary-value" style="font-weight: 600; font-size: 12px;"><%= currencySymbol %><%= parseFloat(amountPayable || 0).toFixed(2) %></span>
+        <span class="summary-value" style="font-weight: 600; font-size: 12px;"><%= toCurrency(amountPayable || 0) %></span>
       </div>
       <div class="total-in-words">
        INR <%= amountPayableInWords || '' %>

@@ -23,6 +23,7 @@
   .word-wrap {
     word-break: break-word;
     overflow-wrap: anywhere;
+    
   }
 
   /* table th:nth-child(1),
@@ -31,34 +32,32 @@
     width: 18px;
   } */
 
-  table th:nth-child(1),
-  table td:nth-child(1) {
+  table th.col-desc,
+  table td.col-desc {
     max-width: 120px;
     width: 120px;
     text-align: start;
     vertical-align: top;
   }
 
-  table th:nth-child(2),
-  table td:nth-child(2) {
+  table th.col-qty,
+  table td.col-qty {
     max-width: 28px;
     width: 28px;
     text-align: center;
     vertical-align: top;
-
   }
 
-  table th:nth-child(3),
-  table td:nth-child(3) {
-    max-width: 50px;
-    width: 50px;
+  table th.col-rate,
+  table td.col-rate {
+    max-width: 53px;
+    width: 53px;
     text-align: end;
     vertical-align: top;
-
   }
 
-  table th:nth-child(4),
-  table td:nth-child(4) {
+  table th.col-amount,
+  table td.col-amount {
     max-width: 56px;
     width: 56px;
     text-align:end;
@@ -82,22 +81,33 @@
     const parsed = Number(value);
     return Number.isFinite(parsed) ? parsed.toFixed(2) : '0.00';
   };
+
+  const toCurrency = value => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? `${currencySymbol}${parsed.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : `${currencySymbol}0.00`;
+  };
+
+     const formatedBatchAndExpiry = b => {
+      const expiry = new Date(b.expiryDate).toLocaleDateString('en-GB', { month: 'short', year: '2-digit' });
+        return `Batch ${b.batchNumber} / Exp: ${expiry}`;
+      
+      }
 %>
 
 <table>
   <thead>
     <tr>
-      <th class="word-wrap">ITEM NAME & HSN/SAC</th>
-      <th class="word-wrap" >Qty</th>
-      <th class="word-wrap" >Rate<br />(Excl.Tax)</th>
-      <th class="text-right word-wrap">Amount <br />(Inc. Tax)</th>
+      <th class="word-wrap col-desc">ITEM NAME & HSN/SAC</th>
+      <th class="word-wrap col-qty">Qty</th>
+      <th class="word-wrap col-rate">Rate<br /><%- organization?.isTaxesEnabled ? `(Excl. Tax)` : `(Inc. DISC.)` %></th>
+      <th class="text-right word-wrap col-amount">Amount <br />(Inc. Tax)</th>
     </tr>
   </thead>
 
   <tbody>
     <% safeLineItems.forEach((item, index) => { %>
     <tr>
-      <td class="word-wrap" style="display: flex; flex-direction: column;">
+      <td class="word-wrap col-desc" style="display: flex; flex-direction: column;">
        <span style="font-weight: 600" class="word-wrap"> <%= item?.itemName || 'N/A' %></span>
         <div class="word-wrap" style="font-size: 7px; font-weight: 400; margin-top: 2px; font-family: 'Roboto Mono', monospace; font-stretch: condensed;">
           <% if (item?.hsn || item?.sac) { %>
@@ -107,9 +117,9 @@
         </div>
         <% if (Array.isArray(item?.batches) && item.batches.length > 0) { %>
           <% item.batches.forEach((batch, batchIndex) => { %>
-          <div class="word-wrap" style="font-size: 7px; font-weight: 400; margin-top: 2px; font-family: 'Roboto Mono', monospace; font-stretch: condensed;">
-            Batch / Expiry: <%= batch.batchNumber %> / <%= batch.expiryDate %>
-          </div>
+              <div class="word-wrap" style="font-size: 7px; font-weight: 400; margin-top: 2px; font-family: 'Roboto Mono', monospace; font-stretch: condensed;">
+                <%= formatedBatchAndExpiry(batch) %>
+              </div>
           <% }) %>
         <% } %>
         <br />
@@ -117,27 +127,27 @@
       
           <div class="word-wrap" style="font-size: 7px; font-weight: 400; margin-top: 2px; font-family: 'Roboto Mono', monospace; font-stretch: condensed;">
             <% item.taxes.forEach((tax, idx) => { %>
-              <%= tax.code %> (<span class="number-text"><%= parseFloat(tax.percent) %></span>%) <%= currencySymbol %><span class="number-text"><%= tax.taxValue %></span><% if (idx < item.taxes.length - 1) { %> / <% } %>
+              <%= tax.code %> (<span class="number-text"><%= parseFloat(tax.percent) %></span>%) <span class="number-text"><%= toCurrency(tax.taxValuePerLineItemQuantity) %></span><% if (idx < item.taxes.length - 1) { %> / <% } %>
             <% }) %>
           </div>
         <% } %>
       </td>
 
-      <td class="word-wrap number-cell" style=" font-weight: 500;"><% if(item?.quantity || item?.quantity === 0) { %> <%= parseFloat(item.quantity) %> <% } else { %> N/A <% } %></td>
+      <td class="word-wrap number-cell col-qty" style=" font-weight: 500;"> <%= parseFloat(item.quantity) || '' %>  </td>
 
-      <td class="word-wrap number-cell" style=" font-weight: 500;"><% if(item?.taxableAmount || item?.unitPrice === 0) { %> <%= toAmount(item.unitPrice) %> <% } else { %> 0 <% } %>
+      <td class="word-wrap number-cell col-rate" style=" font-weight: 500;"><%= organization?.isTaxesEnabled ? toCurrency(item.rateExcludingTax) : toCurrency(item.taxableValuePerUnitAfterDiscount) %>
         <% if(item?.discount && Number(item.discount.discountValue) > 0) { %>
         <div style="font-size: 7px;  font-weight: 400; margin-top: 2px; font-family: 'Roboto Mono', monospace; font-stretch: condensed;">
          Disc <span class="number-text"><%- parseFloat(item.discount.discountValue) %></span>%  
         </div>
         <div style="font-size: 7px; font-weight: 400; font-family: 'Roboto Mono', monospace; font-stretch: condensed;">
-          (-<span class="number-text"><%= toAmount(item.discount.discountAmount) %></span>)
+          (-<span class="number-text"><%= toCurrency(item.discount.discountAmountPerUnit) %></span>)
         </div>
         <% } %>
       </td>
-      <td class="text-right word-wrap number-cell">
+      <td class="text-right word-wrap number-cell col-amount">
         <span style="font-weight: 700;">
-        <% if(item?.lineItemTotalAmount || item?.lineItemTotalAmount === 0) { %> <%= currencySymbol %><%= toAmount(item.lineItemTotalAmount) %> <% } else { %> N/A
+        <% if(item?.lineItemTotalAmount || item?.lineItemTotalAmount === 0) { %> <%= toCurrency(item.lineItemTotalAmount) %> <% } else { %> N/A
         <% } %> 
         </span>
       </td>

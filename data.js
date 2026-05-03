@@ -1,13 +1,18 @@
 const invoiceData = {
-  currencySymbol:'₹',
+  currencySymbol: '₹',
+  createdBy: {
+    firstName: 'Vivek',
+    lastName: 'Janardhan'
+  },
   organization: {
     organizationName: 'ZION PETS CLINIC',
     organizationAddress: 'fsdfsf, adgsdg, fsdfsf, Bangalior, sfsdfs, India, 560086',
     organizationEmail: 'vivek@simplivet.in',
     organizationLegalName: null,
     organizationPhone: '8105441689',
+    organizationWebsite: null,
     gst: '29AAFCH7821P1ZK',
-    thankYouMessage: 'Thank you for choosing us!  ⚠️⚠️⚠️⚠️',
+    thankYouMessage: 'Thank you for choosing us!',
     logo: null,
     stateCode: '29',
     isTaxesEnabled: false,
@@ -27,145 +32,87 @@ const invoiceData = {
     lastName: 'Janardhan',
     qualificationToDisplay: 'Orthopaedic Surgery'
   },
-  pet: {
-    petNumber: 'PET-023',
-    petName: 'Luna',
-    petWeight: '2.000',
-    petAge: {
-      years: 5,
-      months: 8,
-      days: 9
-    },
-    species: 'Dog (Canine)',
-    breed: 'Golden Retriever Corgi'
-  },
+  pet: null,
   isComputerGenerated: false,
-  invoiceNumber: 'INV-26/27-000002',
-  invoiceDate: '2026-05-01',
-  dueDate: '2026-05-01',
-  subTotal: '2200.00',
-  totalDiscountAmount: '440.00',
-  creditsApplied: '50.00',
-  totalAmount: '1710.00',
-  roundOffAmount: '0.00',
-  totalAmountAfterDiscountAndCreditsApplied: '1710.00',
-  amountPayable: '0',
-  totalAmountPaid: '1000.00',
-  totalWriteOffAmount: '710.00',
-  comments: 'qwertyu345',
-  customTerms: 'qwerty234567',
-   createdBy:{
-    name: "Karthik DA",
+  invoiceNumber: 'INV-26/27-000016',
+  invoiceDate: '2026-05-03',
+  dueDate: '2026-05-03',
+  subTotal: '4000.00',
+  overAllDiscount: {
+    amount: '0.00',
+    type: 'PERCENTAGE',
+    value: '0.00'
   },
+  totalAmountAfterDiscount: '4000.00',
+  roundOffAmount: '0.00',
+  totalAmountAfterRoundOff: '4000.00',
+  creditsApplied: null,
+  totalAmountAfterDiscountAndCreditsApplied: '4000.00',
+  totalAmountPaid: '0',
+  totalWriteOffAmount: null,
+  amountPayable: '4000',
+  amountPayableInWords: 'Rupees Four Thousand Only',
+  comments: '',
+  customTerms: '',
   lineItems: [
     {
-      itemName: 'test rerere1',
-      hsnCode: 'TICTIC',
+      itemName: 'test service rerererere 1',
+      hsnCode: null,
       sacCode: null,
-      quantity: '10.000',
-      batches: [
-        {
-          batchNumber: 'BN-2026-000002',
-          quantity: '10.000',
-          expiryDate: '2026-05-26'
-        }
-      ],
-      unitPrice: '90.00',
-      subTotal: '900.00',
-      discount: {
-        discountType: 'PERCENTAGE',
-        discountValue: '5.56',
-        discountAmount: '50.00'
-      },
-      taxableAmount: '586.21',
-      taxAmount: '93.79',
-      taxes: [
-        {
-          code: 'CGST',
-          percent: '8.00',
-          taxValue: '46.90'
-        },
-        {
-          code: 'SGST',
-          percent: '8.00',
-          taxValue: '46.90'
-        }
-      ],
-      lineItemTotalAmount: '850.00'
-    },
-    {
-      itemName: 'test rererere 2',
-      hsnCode: 'TICTIC',
-      sacCode: null,
-      quantity: '10.000',
+      quantity: '5.000',
       batches: null,
-      unitPrice: '150.00',
-      subTotal: '1500.00',
+      unitPrice: '1000.00',
+      rateExcludingTax: '833.33',
       discount: {
         discountType: 'PERCENTAGE',
-        discountValue: '10.00',
-        discountAmount: '150.00'
+        discountValue: '20.00',
+        discountAmount: '1000.00',
+        discountAmountPerUnit: '200.00'
       },
-      taxableAmount: '900.00',
-      taxAmount: '180.00',
+      taxableValuePerUnitAfterDiscount: '633.33',
       taxes: [
         {
           code: 'CGST',
           percent: '10.00',
-          taxValue: '90.00'
+          taxValue: '83.33',
+          taxValuePerUnit: '83.33',
+          taxValuePerLineItemQuantity: '416.67'
         },
         {
           code: 'SGST',
           percent: '10.00',
-          taxValue: '90.00'
+          taxValue: '83.33',
+          taxValuePerUnit: '83.33',
+          taxValuePerLineItemQuantity: '416.67'
         }
       ],
-      lineItemTotalAmount: '1350.00'
+      lineItemTotalAmount: '4000.00'
     }
   ],
   taxSummary: {
-    taxableValueExcludingGST: '1486.21',
+    taxableValueExcludingGST: '3333.33',
     gstGroups: [
       {
-        totalTaxPercent: '16.00',
-        totalTaxAmount: '93.80',
-        taxableAmount: '586.21',
-        components: [
-          {
-            code: 'SGST',
-            percent: '8.00',
-            taxAmount: '46.90'
-          },
-          {
-            code: 'CGST',
-            percent: '8.00',
-            taxAmount: '46.90'
-          }
-        ]
-      },
-      {
         totalTaxPercent: '20.00',
-        totalTaxAmount: '180.00',
-        taxableAmount: '900.00',
+        totalTaxAmount: '666.66',
+        taxableAmount: '3333.33',
         components: [
           {
             code: 'SGST',
             percent: '10.00',
-            taxAmount: '90.00'
+            taxAmount: '333.33'
           },
           {
             code: 'CGST',
             percent: '10.00',
-            taxAmount: '90.00'
+            taxAmount: '333.33'
           }
         ]
       }
     ],
-    totalGST: '273.80',
-    totalInvoiceValueIncludingGST: '1710.00',
-  },
-  amountPayableInWords: 'One Thousand Seven Hundred Ten Rupees Only'
-
+    totalGST: '666.66',
+    totalInvoiceValueIncludingGST: '4000.00'
+  }
 };
 
 
