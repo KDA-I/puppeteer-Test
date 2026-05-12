@@ -22,9 +22,11 @@ const PATHS = {
   A4Invoice:             path.join(__dirname, "InvoiceTemplateV2/body.ejs"),
   thermalInvoice:        path.join(__dirname, "ThermalInvoiceTemplateV2/body.ejs"),
   data:                  path.join(__dirname, "data.js"),
+  endOfDayReport:        path.join(__dirname, "EndOfDayReportTemplate/body.ejs"),
+  endOfDayFooter:        path.join(__dirname, "EndOfDayReportTemplate/components/footer.ejs"),
 };
 
-const { invoiceData, prescriptionData, treatmentSheetData } = require(PATHS.data);
+const { invoiceData, prescriptionData, treatmentSheetData, endOfDayReportData } = require(PATHS.data);
 
 // ─── Template Cache ───────────────────────────────────────────────────────────
 // Compile each EJS template once at startup, reuse on every request.
@@ -134,6 +136,11 @@ app.get("/preview/thermal-invoice", (req, res) => {
 app.get("/preview/a4-invoice", (req, res) => {
   app.set("views", path.join(__dirname, "InvoiceTemplateV2"));
   res.render("body", invoiceData);
+});
+
+app.get("/preview/end-of-day-report", (req, res) => {
+  app.set("views", path.join(__dirname, "EndOfDayReportTemplate"));
+  res.render("body", endOfDayReportData);
 });
 
 // ─── PDF: Treatment Sheet ─────────────────────────────────────────────────────
@@ -272,6 +279,36 @@ app.get("/generate-pdf/a4-invoice", async (req, res) => {
   }
 });
 
+// ─── PDF: End of Day Report ───────────────────────────────────────────────────
+
+app.get("/generate-pdf/end-of-day-report", async (req, res) => {
+  try {
+    const renderedHtml = renderTemplate(PATHS.endOfDayReport, endOfDayReportData);
+    const footerTemplate = renderTemplate(PATHS.endOfDayFooter,  endOfDayReportData);
+    const pdfBuffer = await generatePdfBuffer(async (page, tmpPath) => {
+      await page.setContent(renderedHtml, { waitUntil: "networkidle0"  });
+      await page.evaluateHandle("document.fonts.ready");
+
+      await page.pdf({
+        path: tmpPath,
+        format: "A4",
+        printBackground: true,
+        footerTemplate,
+        margin: { top:  "0px", bottom:  "0px", left:  "0px", right: "0px" },
+        displayHeaderFooter: true,
+        preferCSSPageSize: true,
+        scale: 1.3,
+      });
+    });
+
+    res.set({ "Content-Type": "application/pdf", "Content-Disposition": "attachment; filename=end-of-day-report.pdf" });
+    res.send(pdfBuffer);
+  } catch (error) {
+    console.error("Error generating end-of-day-report PDF:", error);
+    res.status(500).send("Error generating PDF");
+  }
+});
+
 // ─── Start ────────────────────────────────────────────────────────────────────
 
 const PORT = 4000;
@@ -285,11 +322,13 @@ app.listen(PORT, () => {
     ${base}/preview/prescription
     ${base}/preview/thermal-invoice
     ${base}/preview/a4-invoice
+    ${base}/preview/end-of-day-report
 
   PDF Generation:
     ${base}/generate-pdf/treatment-sheet
     ${base}/generate-pdf/prescription
     ${base}/generate-pdf/thermal-invoice
     ${base}/generate-pdf/a4-invoice
+    ${base}/generate-pdf/end-of-day-report
   `);
 });

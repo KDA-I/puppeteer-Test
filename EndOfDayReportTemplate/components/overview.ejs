@@ -1,0 +1,452 @@
+<style>
+    /* ─── Section Headers ──────────────────────────────────────────────── */
+    .overview-section-header {
+        display: grid;
+        padding: 0px 8px;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 12px;
+        margin-top: 32px;
+        page-break-inside: avoid;
+    }
+
+    .overview-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: rgba(26, 26, 26, 1);
+        line-height: 16px;
+        text-transform: uppercase;
+        min-width: fit-content;
+    }
+
+    .overview-section-line {
+        height: 1px;
+        width:100%;
+        background: #e5e7eb;
+    }
+
+    .overview-section-label {
+        font-size: 8px;
+        color: rgba(138, 138, 138, 1);
+        text-transform: uppercase;
+        line-height: 10px;
+        font-weight: 600;
+        min-width: fit-content;
+    }
+
+    /* ─── Overview Section ─────────────────────────────────────────────── */
+    .overview-cards {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        margin-bottom: 12px;
+        page-break-inside: avoid;
+    }
+
+    .overview-card {
+        background: rgba(255, 254, 251, 1);
+        padding: 4px 8px;
+        border-radius: 8px;
+        page-break-inside: avoid;
+    }
+
+    .overview-card-label {
+        font-size: 8px;
+        color: rgba(97, 97, 97, 1);
+        text-transform: uppercase;
+        line-height: 16px;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .overview-card-value {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(26, 26, 26, 1);
+        line-height: 20px;
+    }
+
+    .numeric-value {
+        font-family: "Roboto Mono", monospace;
+    }
+
+    .text-value {
+        font-family: "Inter", sans-serif;
+    }
+
+    .overview-card-detail {
+        font-size: 8px;
+        line-height: 16px;
+        font-weight: 400;
+        color:rgba(97, 97, 97, 1);
+    }
+
+    /* ─── Overview Panel ──────────────────────────────────────────────── */
+    .overview-panel {
+        background: rgba(255, 254, 251, 1);
+        border-radius: 8px;
+        padding: 8px 16px 4px 16px;
+        margin-bottom: 24px;
+        page-break-inside: avoid;
+    }
+
+    .overview-panel-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        position: relative;
+    }
+
+    .overview-panel-grid::before {
+        content: '';
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 50%;
+        width: 1px;
+        background: #e5e7eb;
+        transform: translateX(-50%);
+    }
+
+    .subsection-title {
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 16px;
+        color: rgba(97, 97, 97, 1);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+
+    /* ─── Payments Breakdown ───────────────────────────────────────────── */
+    .breakdown-section {
+        page-break-inside: avoid;
+    }
+
+    .breakdown-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 0;
+        font-size: 12px;
+    }
+
+    .breakdown-row:last-child {
+        border-bottom: none;
+    }
+
+    .breakdown-label {
+        font-size: 9px;
+        color: rgba(138, 138, 138, 1);
+        font-weight: 500;
+        line-height: 16px;
+    }
+
+    .breakdown-value {
+        font-style: 'Roboto Mono', monospace;
+        font-size: 9px;
+        font-weight: 600;
+        color: rgba(26, 26, 26, 1);
+        letter-spacing: -0.4px;
+    }
+
+    .breakdown-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* padding: 10px 0 6px; */
+        margin-top: 8px;
+        border-bottom: none;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    .breakdown-total-label {
+        color: rgba(97, 97, 97, 1);
+        font-size: 8px;
+        line-height: 16px;
+    }
+
+    .breakdown-total-value {
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: -0.4px;
+        color: rgba(0, 101, 255, 1);
+        font-weight: 700;
+    }
+
+    .breakdown-outstanding {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 6px;
+        font-size: 8px;
+        line-height: 16px;
+        font-weight: 700;
+    }
+
+    .outstanding-label {
+        color: rgba(97, 97, 97, 1);
+        
+    }
+
+    .outstanding-value {  
+        font-size: 10px;
+        line-height: 16px;
+        color: rgba(255, 136, 0, 1);
+        letter-spacing: -0.4px;
+    }
+
+    /* ─── Visits Today ────────────────────────────────────────────────── */
+    .visits-grid {
+        display: flex;
+        flex-direction: column;
+        page-break-inside: avoid;
+    }
+
+    .visit-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 0;
+    }
+
+    .visit-item:last-child {
+        border-bottom: none;
+    }
+
+    .visit-label {
+        font-size: 9px;
+        color: rgba(138, 138, 138, 1);
+        line-height: 16px;
+        font-weight: 500;
+    }
+
+    .visit-value {
+        font-size: 9px;
+        font-weight: 700;
+        color: rgba(26, 26, 26, 1);
+    }
+
+    .visit-badge {
+        display: inline-block;
+        background: rgba(205, 254, 212, 1);
+        color: rgba(1, 75, 64, 1);
+        border-radius: 4px;
+        border: 0.5px solid rgba(17, 223, 123, 1);
+        font-size: 8px;
+        font-weight: 500;
+        line-height: 12px;
+        padding: 0px 5px;
+        margin-left: 6px;
+    }
+
+    /* ─── NEW vs FOLLOW-UP ────────────────────────────────────────────── */
+    .new-vs-followup {
+        margin-top: 8px;
+    }
+
+    .new-vs-followup-title {
+        font-size: 8px;
+        line-height: 16px;
+        font-weight: 600;
+        color: rgba(97, 97, 97, 1);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .percentage-bar {
+        display: flex;
+        height: 4px;
+        gap:10px;
+        border-radius: 999px;
+        overflow: hidden;
+        /* margin-bottom: 4px; */
+        margin: 4px 0px;
+    }
+
+    .percentage-segment {
+        background: rgba(157, 254, 160, 1);
+        opacity: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        border-radius: 999px;
+    }
+
+    .percentage-legend {
+        display: flex;
+        justify-content: space-between;
+        font-size: 8px;
+        font-weight: 500;
+        color: rgba(138, 138, 138, 1);
+    }
+
+    .percentage-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .percent-value {
+        font-size: 8px;
+        color: rgba(26, 26, 26, 1);
+        font-size: 8px;
+        line-height: 16px;
+    }
+
+    .percentage-color-new {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        background: #7fbcb2;
+    }
+
+    .percentage-color-followup {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        background: #b8f38b;
+    }
+</style>
+
+   <% 
+        function formatCurrency(value) {
+            const symbol = currencySymbol || '₹';
+            const amount = (value ?? 0).toLocaleString('en-IN');
+            return `${symbol}${amount}`;
+        }
+
+        function formatNumber(value) {
+            return (value ?? 0).toLocaleString('en-IN');
+        }
+    %>
+
+<!-- ═══ OVERVIEW CARDS ═══ -->
+<div class="overview-section-header">
+    <div class="overview-section-title">OVERVIEW</div>
+    <div class="overview-section-line"></div>
+    <div class="overview-section-label">END OF DAY REPORT</div>
+</div>
+
+<div class="overview-cards">
+    <div class="overview-card">
+        <div class="overview-card-label">Total Visits</div>
+        <div class="overview-card-value"><span class="numeric-value"><%= formatNumber(summary?.totalVisits?.count) %></span></div>
+        <div class="overview-card-detail"><span class="numeric-value"><%= formatNumber(summary?.totalVisits?.newCustomer) %></span> new customers</div>
+    </div>
+    <div class="overview-card">
+        <div class="overview-card-label">Avg Case Value</div>
+        <div class="overview-card-value"><span class="numeric-value"><%= formatCurrency(summary?.averageCaseValue) %></span></div>
+        <div class="overview-card-detail">Avg. Revenue / visit</div>
+    </div>
+    <div class="overview-card">
+        <div class="overview-card-label">Total Revenue</div>
+        <div class="overview-card-value"><span class="numeric-value"><%= formatCurrency(summary?.totalRevenue) %></span></div>
+        <div class="overview-card-detail">Total billing amount</div>
+    </div>
+    <div class="overview-card">
+        <div class="overview-card-label">Collected</div>
+        <div class="overview-card-value"><span class="numeric-value"><%= formatCurrency(summary?.collected) %></span></div>
+        <div class="overview-card-detail">Payments received</div>
+    </div>
+    <div class="overview-card">
+        <div class="overview-card-label">Due / Pending</div>
+        <div class="overview-card-value"><span class="numeric-value"><%= formatCurrency(summary?.due?.amount) %></span></div>
+        <div class="overview-card-detail"><span class="numeric-value"><%= formatNumber(summary?.due?.unpaidCount) %></span> unpaid / partial</div>
+    </div>
+</div>
+
+<!-- ═══ PAYMENTS & VISITS GRID ═══ -->
+<div class="overview-panel">
+    <div class="overview-panel-grid">
+        <!-- Payments Breakdown -->
+        <div class="breakdown-section">
+            <div class="subsection-title">PAYMENTS BREAKDOWN</div>
+            
+            <div class="breakdown-row">
+                <span class="breakdown-label">Cash</span>
+                <span class="breakdown-value numeric-value"><%= formatCurrency(paymentsBreakdown?.cash) %></span>
+            </div>
+            <div class="breakdown-row">
+                <span class="breakdown-label">UPI</span>
+                <span class="breakdown-value numeric-value"><%= formatCurrency(paymentsBreakdown?.upi) %></span>
+            </div>
+            <div class="breakdown-row">
+                <span class="breakdown-label">Card</span>
+                <span class="breakdown-value numeric-value"><%= formatCurrency(paymentsBreakdown?.card) %></span>
+            </div>
+            <div class="breakdown-row">
+                <span class="breakdown-label">Net Banking</span>
+                <span class="breakdown-value numeric-value"><%= formatCurrency(paymentsBreakdown?.netBanking) %></span>
+            </div>
+            
+            <div class="breakdown-total">
+                <span class="breakdown-total-label">TOTAL COLLECTED</span>
+                <span class="breakdown-total-value numeric-value"><%= formatCurrency(paymentsBreakdown?.totalCollected) %></span>
+            </div>
+            
+            <div class="breakdown-outstanding">
+                <span class="outstanding-label">OUTSTANDING</span>
+                <span class="outstanding-value numeric-value"><%= formatCurrency(paymentsBreakdown?.outstanding) %></span>
+            </div>
+        </div>
+
+        <!-- Visits Today -->
+        <div class="breakdown-section">
+            <div class="subsection-title">VISITS TODAY</div>
+            
+            <div class="visits-grid">
+                <div class="visit-item">
+                    <div class="visit-label">Total Visits</div>
+                    <div class="visit-value numeric-value"><%= formatNumber(visitsToday?.totalVisits) %></div>
+                </div>
+                <div class="visit-item">
+                    <div class="visit-label">New Patients <span>
+                         <span class="visit-badge">New</span>
+                    </span></div>
+                    <div class="visit-value">
+                        <span class="numeric-value"><%= formatNumber(visitsToday?.newPatients) %></span>
+                    </div>
+                </div>
+                <div class="visit-item">
+                    <div class="visit-label">Follow-ups</div>
+                    <div class="visit-value numeric-value"><%= formatNumber((visitsToday?.totalVisits || 0) - (visitsToday?.newPatients || 0)) %></div>
+                </div>
+                <div class="visit-item">
+                    <div class="visit-label">Pending Bill</div>
+                    <div class="visit-value numeric-value"><%= formatNumber(summary?.due?.unpaidCount) %></div>
+                </div>
+            </div>
+
+            <!-- NEW vs FOLLOW-UP -->
+            <div class="new-vs-followup">
+                <div class="new-vs-followup-title">NEW VS FOLLOW-UP</div>
+                
+                <div class="percentage-bar">
+                    <% 
+                        const totalV = visitsToday?.totalVisits || 1;
+                        const newP = visitsToday?.newPatients || 0;
+                        const newPercent = ((newP / totalV) * 100).toFixed(0);
+                        const followPercent = 100 - parseInt(newPercent);
+                    %>
+                    <div class="percentage-segment" style="width: calc(<%= newPercent %>% - 5px); background: rgba(0, 101, 255, 1);"></div>
+                    <div class="percentage-segment" style="width: calc(<%= followPercent %>% - 5px); background: rgba(42, 167, 31, 1);"></div>
+                </div>
+
+                <div class="percentage-legend">
+                    <div class="percentage-item">
+                        <!-- <div class="percentage-color-new"></div> -->
+                       NEW <span class="percent-value"><%= formatNumber(newPercent) %>%</span>
+                    </div>
+                    <div class="percentage-item">
+                        <!-- <div class="percentage-color-followup"></div> -->
+                        <span class="percent-value"><%= formatNumber(followPercent) %>% </span>FOLLOW-UP
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

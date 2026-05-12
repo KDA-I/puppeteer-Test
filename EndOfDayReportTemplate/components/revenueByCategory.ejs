@@ -1,0 +1,296 @@
+<style>
+    /* ─── Section Headers ──────────────────────────────────────────────── */
+    .revenue-section-header {
+        display: grid;
+        padding: 0 8px;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 12px;
+        margin-top: 24px;
+        page-break-inside: avoid;
+    }
+
+    .revenue-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: rgba(26, 26, 26, 1);
+        line-height: 16px;
+        text-transform: uppercase;
+        min-width: fit-content;
+    }
+
+    .revenue-section-line {
+        height: 1px;
+        width: 100%;
+        background: #e5e7eb;
+    }
+
+    .revenue-section-label {
+        font-size: 8px;
+        color: rgba(138, 138, 138, 1);
+        text-transform: uppercase;
+        line-height: 10px;
+        font-weight: 600;
+        min-width: fit-content;
+    }
+
+    /* ─── Revenue Panel ──────────────────────────────────────────────── */
+    .revenue-panel {
+        background: rgba(255, 254, 251, 1);
+        border-radius: 8px;
+        padding: 8px 16px;
+        page-break-inside: avoid;
+    }
+
+    .revenue-panel-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        position: relative;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+    }
+
+    .revenue-panel-grid::before {
+        content: '';
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 50%;
+        width: 1px;
+        background: #e5e7eb;
+        transform: translateX(-50%);
+    }
+
+    .revenue-category {
+        page-break-inside: avoid;
+    }
+
+    .revenue-category-title {
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 16px;
+        color: rgba(97, 97, 97, 1);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .revenue-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 0;
+        font-size: 9px;
+        line-height: 16px;
+    }
+
+    .revenue-item-name {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: rgba(97, 97, 97, 1);
+    }
+
+    .revenue-item-qty {
+        font-size: 8px;
+        color: rgba(97, 97, 97, 1);
+    }
+
+    .revenue-item-amount {
+        font-size: 9px;
+        font-weight: 600;
+        color: rgba(26, 26, 26, 1);
+        text-align: right;
+        min-width: 60px;
+    }
+
+    .numeric-value {
+        font-family: "Roboto Mono", monospace;
+    }
+
+    .text-value {
+        font-family: "Inter", sans-serif;
+    }
+
+    .revenue-section-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 16px;
+        color: rgba(97, 97, 97, 1);
+    }
+
+    .revenue-section-total-value {
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: -0.4px;
+        color: rgba(0, 101, 255, 1);
+        font-weight: 700;
+    }
+
+    .revenue-section-products-total-value {
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: -0.4px;
+        color: rgba(13, 156, 106, 1);
+    }
+
+    .revenue-divider {
+        height: 1px;
+        background: #e5e7eb;
+        margin: 8px 0 10px;
+    }
+
+    .grand-total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 8px;
+        font-weight: 600;
+        color: rgba(97, 97, 97, 1);
+        margin-bottom: 6px;
+    }
+
+    .grand-total-value {
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: -0.4px;
+        color: rgba(13, 156, 106, 1);
+        font-weight: 700;
+    }
+
+    .grand-total-bar {
+        display: flex;
+        gap: 8px;
+        height: 4px;
+        margin-bottom: 4px;
+    }
+
+    .grand-total-segment {
+        border-radius: 999px;
+        height: 100%;
+    }
+
+    .grand-total-segment.services {
+        background: rgba(0, 101, 255, 1)
+    }
+
+    .grand-total-segment.products {
+        background: rgba(42, 167, 31, 1)    
+    }
+
+    .revenue-summary-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 8px;
+        color: rgba(138, 138, 138, 1);
+        line-height: 16px;
+        margin-bottom: 8px;
+    }
+
+    .revenue-summary-row strong {
+        color: rgba(26, 26, 26, 1);
+        font-weight: 600;
+    }
+
+    .revenue-footnote {
+        font-size: 8px;
+        color: rgba(138, 138, 138, 1);
+        line-height: 14px;
+        margin-top: 8px;
+        font-weight: 400;
+    }
+</style>
+
+<!-- ═══ REVENUE BY CATEGORIES ═══ -->
+    <% 
+        function formatCurrency(value) {
+            const symbol = currencySymbol || '₹';
+            const amount = (value ?? 0).toLocaleString('en-IN');
+            return `${symbol}${amount}`;
+        }
+
+        function formatNumber(value) {
+            return (value ?? 0).toLocaleString('en-IN');
+        }
+    %>
+<% const servicesTotal = revenueByCategory?.services?.totalRevenue || 0; %>
+<% const productsTotal = revenueByCategory?.products?.totalRevenue || 0; %>
+<% const grandTotal = servicesTotal + productsTotal || 1; %>
+<% const servicesPercent = ((servicesTotal / grandTotal) * 100).toFixed(0); %>
+<% const productsPercent = 100 - parseInt(servicesPercent); %>
+
+<div class="revenue-section-header">
+    <div class="revenue-section-title">REVENUE BY CATEGORIES</div>
+    <div class="revenue-section-line"></div>
+    <div class="revenue-section-label">END OF DAY REPORT</div>
+</div>
+
+<div class="revenue-panel">
+    <div class="revenue-panel-grid">
+        <!-- Services -->
+        <div class="revenue-category">
+            <div class="revenue-category-title">SERVICES — TAX EXEMPT</div>
+            
+            <% (revenueByCategory?.services?.items || []).forEach(item => { %>
+                <div class="revenue-item">
+                    <div class="revenue-item-name">
+                        <span><%= item.type || 'Service' %></span>
+                    </div>
+                    <div class="revenue-item-amount numeric-value">
+                        <span class="revenue-item-qty text-value"><%= formatNumber(item.quantityBilled) %> Billed</span>
+                        <%= formatCurrency(item.revenue) %>
+                    </div>
+                </div>
+            <% }); %>
+
+            <div class="revenue-section-total">
+                <span>SERVICES REVENUE</span>
+                <span class="revenue-section-total-value numeric-value"><%= formatCurrency(servicesTotal) %></span>
+            </div>
+        </div>
+
+        <!-- Products -->
+        <div class="revenue-category">
+            <div class="revenue-category-title">PRODUCTS</div>
+            
+            <% (revenueByCategory?.products?.items || []).forEach(item => { %>
+                <div class="revenue-item">
+                    <div class="revenue-item-name">
+                        <span><%= item.type || 'Product' %></span>
+                    </div>
+                    <div class="revenue-item-amount numeric-value"><%=  (item.revenue) %></div>
+                </div>
+            <% }); %>
+
+            <div class="revenue-section-total">
+                <span>PRODUCTS REVENUE</span>
+                <span class="revenue-section-products-total-value numeric-value"><%= formatCurrency(productsTotal) %></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="grand-total-row">
+        <span>GRAND TOTAL (ALL CATEGORIES)</span>
+        <span class="grand-total-value numeric-value"><%= formatCurrency(servicesTotal + productsTotal) %></span>
+    </div>
+
+    <div class="grand-total-bar">
+        <div class="grand-total-segment services" style="width: calc(<%= servicesPercent %>% - 4px);"></div>
+        <div class="grand-total-segment products" style="width: calc(<%= productsPercent %>% - 4px);"></div>
+    </div>
+
+    <div class="revenue-summary-row">
+        <span>SERVICES <strong class="numeric-value"><%= formatCurrency(servicesTotal) %></strong></span>
+        <span><strong class="numeric-value"><%= formatCurrency(productsTotal) %></strong> PRODUCTS</span>
+    </div>
+
+    <div class="revenue-footnote">
+        *Categories shown are based on configured products or service categories in inventory
+    </div>
+</div>

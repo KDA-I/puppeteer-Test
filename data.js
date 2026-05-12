@@ -1,119 +1,127 @@
-const invoiceData = {
+const invoiceData =  {
   currencySymbol: '₹',
   createdBy: {
-    firstName: 'Vivek',
-    lastName: 'Janardhan'
+    firstName: 'Muresh',
+    lastName: 'Balaji'
   },
   organization: {
-    organizationName: 'ZION PETS CLINIC',
-    organizationAddress: 'fsdfsf, adgsdg, fsdfsf, Bangalior, sfsdfs, India, 560086',
-    organizationEmail: 'vivek@simplivet.in',
-    organizationLegalName: null,
-    organizationPhone: '8105441689',
-    organizationWebsite: null,
-    gst: '29AAFCH7821P1ZK',
-    thankYouMessage: 'Thank you for choosing us!',
-    logo: null,
-    stateCode: '29',
-    isTaxesEnabled: false,
-    invoiceSetting: 'MANUAL'
+    organizationName: 'MB Clinic',
+    organizationAddress: '11P, MG Road, Indiranagar, Bengaluru, Karnataka, India, 560038',
+    organizationEmail: 'mbclinic@gmail.com',
+    organizationLegalName: 'MB Clinic',
+    organizationPhone: '0442222225',
+    organizationWebsite: 'https://simplivet.in',
+    gst: 'GSTNUMBER002',
+    thankYouMessage: 'Thank you for choosing Muresh Balaji pet care',
+    logo: 'https://assets.dev.simplivet.in/734c9f4c-74d3-456b-b678-4e5931b30baf/3209543b-1f81-45f7-9740-bd949e701058/de14333d-01c1-41cb-add6-84f41ca8c480-splendor-yellowstone-images-34-mb-260nw-2346869823.webp',
+    stateCode: 'GS',
+    isTaxesEnabled: true,
+    invoiceSetting: 'COMPUTER_GENERATED'
   },
   customerUser: {
-    firstName: 'Vivek',
-    lastName: 'Janardhan',
-    phoneNumber: '8105441689',
-    email: 'vivi.football@gmail.com',
-    address: 'no.6 lakshimi nagar vadakku thottam, Rg Pudur, Coimbatore, Tamil Nadu, India, 641062',
-    placeOfSupply: 'Karnataka (29)'
+    firstName: 'Anthony',
+    lastName: 'Joushua',
+    phoneNumber: '5555555555',
+    email: 'aj55@mail.com',
+    address: '',
+    placeOfSupply: null
   },
-  consultedBy: {
-    id: 'a9aa3dd5-f769-4a50-a135-ea4f7cab702d',
-    firstName: 'Vivek',
-    lastName: 'Janardhan',
-    qualificationToDisplay: 'Orthopaedic Surgery'
+  consultedBy: null,
+  pet: {
+    petNumber: 'PET-9197',
+    petName: 'Chill',
+    petWeight: '10.000',
+    petAge: {
+      years: 2,
+      months: 5,
+      days: 9
+    },
+    species: 'Dog (Canine)',
+    breed: 'Chihuahua'
   },
-  pet: null,
-  isComputerGenerated: false,
-  invoiceNumber: 'INV-26/27-000016',
-  invoiceDate: '2026-05-03',
-  dueDate: '2026-05-03',
-  subTotal: '4000.00',
+  isComputerGenerated: true,
+  invoiceNumber: 'INV-26/27-000130',
+  invoiceDate: '2026-05-04',
+  dueDate: '2026-05-04',
+  subTotal: '100.00',
   overAllDiscount: {
     amount: '0.00',
     type: 'PERCENTAGE',
     value: '0.00'
   },
-  totalAmountAfterDiscount: '4000.00',
+  totalAmountAfterDiscount: '100.00',
   roundOffAmount: '0.00',
-  totalAmountAfterRoundOff: '4000.00',
+  totalAmountAfterRoundOff: '100.00',
   creditsApplied: null,
-  totalAmountAfterDiscountAndCreditsApplied: '4000.00',
+  totalAmountAfterDiscountAndCreditsApplied: '100.00',
   totalAmountPaid: '0',
   totalWriteOffAmount: null,
-  amountPayable: '4000',
-  amountPayableInWords: 'Rupees Four Thousand Only',
+  amountPayable: '100',
+  amountPayableInWords: 'Rupees One Hundred Only',
   comments: '',
   customTerms: '',
   lineItems: [
     {
-      itemName: 'test service rerererere 1',
+      itemName: 'Check invoice year 5',
       hsnCode: null,
       sacCode: null,
-      quantity: '5.000',
-      batches: null,
-      unitPrice: '1000.00',
-      rateExcludingTax: '833.33',
-      discount: {
-        discountType: 'PERCENTAGE',
-        discountValue: '20.00',
-        discountAmount: '1000.00',
-        discountAmountPerUnit: '200.00'
-      },
-      taxableValuePerUnitAfterDiscount: '633.33',
+      quantity: '1.000',
+      batches: [
+        {
+          batchNumber: 'BN-01',
+          quantity: '1.000',
+          expiryDate: '2026-04-03'
+        }
+      ],
+      unitPrice: '100.00',
+      rateExcludingTax: '90.91',
+      discount: null,
+      taxableValuePerUnitAfterDiscount: '90.91',
       taxes: [
         {
           code: 'CGST',
-          percent: '10.00',
-          taxValue: '83.33',
-          taxValuePerUnit: '83.33',
-          taxValuePerLineItemQuantity: '416.67'
+          percent: '5.00',
+          taxValue: '4.55',
+          taxValuePerUnit: '4.55',
+          taxValuePerLineItemQuantity: '4.55'
         },
         {
           code: 'SGST',
-          percent: '10.00',
-          taxValue: '83.33',
-          taxValuePerUnit: '83.33',
-          taxValuePerLineItemQuantity: '416.67'
+          percent: '5.00',
+          taxValue: '4.55',
+          taxValuePerUnit: '4.55',
+          taxValuePerLineItemQuantity: '4.55'
         }
       ],
-      lineItemTotalAmount: '4000.00'
+      lineItemTotalAmount: '100.00'
     }
   ],
   taxSummary: {
-    taxableValueExcludingGST: '3333.33',
+    taxableValueExcludingGST: '90.91',
     gstGroups: [
       {
-        totalTaxPercent: '20.00',
-        totalTaxAmount: '666.66',
-        taxableAmount: '3333.33',
+        totalTaxPercent: '10.00',
+        totalTaxAmount: '9.10',
+        taxableAmount: '90.91',
         components: [
           {
             code: 'SGST',
-            percent: '10.00',
-            taxAmount: '333.33'
+            percent: '5.00',
+            taxAmount: '4.55'
           },
           {
             code: 'CGST',
-            percent: '10.00',
-            taxAmount: '333.33'
+            percent: '5.00',
+            taxAmount: '4.55'
           }
         ]
       }
     ],
-    totalGST: '666.66',
-    totalInvoiceValueIncludingGST: '4000.00'
+    totalGST: '9.10',
+    totalInvoiceValueIncludingGST: '100.00'
   }
 };
+
 
 
 const treatmentSheetData = {
@@ -943,4 +951,70 @@ const invoiceV1Data = {
 };
 
 
-module.exports = { treatmentSheetData, invoiceData, prescriptionData };
+const endOfDayReportData = {
+  primaryColor: `rgba(39, 97, 196, 1)`,
+  currencySymbol: '₹',
+  organization: {
+    name: "Aster CMI Hospital",
+    address:
+      "#2234, 2nd Main Road, RMV 2nd Stage, Geddalahalii, R.M.V. 2nd Stage, Bengaluru, Karnataka, India, 560094",
+    email: "abc@gmail.com",
+    branchName: "Aster CMI Hospital - Bangalore",
+    logo: null,
+  },
+  generatedTime: "2026-05-11T21:26:18.622Z",
+  summary: {
+    totalVisits: {
+      count: 5,
+      newCustomer: 2,
+    },
+    averageCaseValue: 3270,
+    totalRevenue: 16350,
+    collected: 1500,
+    due: {
+      amount: 11850,
+      unpaidCount: 5,
+      partialPaidCount: 1,
+    },
+  },
+  paymentsBreakdown: {
+    cash: 500,
+    upi: 0,
+    card: 500,
+    netBanking: 500,
+    totalCollected: 1500,
+    outstanding: 11850,
+  },
+  visitsToday: {
+    totalVisits: 5,
+    newPatients: 2,
+  },
+  revenueByCategory: {
+    services: {
+      items: [
+        {
+          type: "Diagnostics",
+          quantityBilled: 1,
+          revenue: 5000,
+        },
+        {
+          type: "Procedures",
+          quantityBilled: 4,
+          revenue: 3100,
+        },
+      ],
+      totalRevenue: 8100,
+    },
+    products: {
+      items: [
+        {
+          type: "Drugs & Medication",
+          revenue: 8250,
+        },
+      ],
+      totalRevenue: 8250,
+    },
+  },
+};
+
+module.exports = { treatmentSheetData, invoiceData, prescriptionData, endOfDayReportData };
